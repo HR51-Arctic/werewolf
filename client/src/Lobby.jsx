@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Lobby = () => {
+const Lobby = ({ participants }) => {
 
   const [message, setMessage] = useState('');
 
@@ -11,7 +11,11 @@ const Lobby = () => {
           <span>Username and stats</span>
         </div>
         <div style={{height: '150px', width: '100px', border: '3px solid black'}}>
-          <span>Player1</span>
+          {participants.map((player) => {
+            return (
+              <div key={player}>{player}</div>
+            )
+          })}
         </div>
         <div>
           <div style={{height: '100px', width: '50%', border: '3px solid black'}}>

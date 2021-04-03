@@ -18,6 +18,7 @@ const GameView = () => {
     } else {
       return (
         <div>
+
           <span>Player <a>Votes {votes}</a></span>
           <button
           type='submit'
@@ -62,7 +63,7 @@ const GameView = () => {
       </div>
       {voting ? <Voting/> :
         <div>
-          <select>
+  s        <select>
             <option value='Lynch'>Lynch</option>
             <option value='Save'>Save</option>
             <option value='See'>See</option>
