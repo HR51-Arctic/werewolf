@@ -2,4 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.jsx';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+import Login from './Login.jsx';
+import Lobby from './Lobby.jsx';
+import Navigation from './Navigation.jsx';
+import GameView from './GameView.jsx';
+import Profile from './Profile.jsx';
+
+
+ReactDOM.render(<App/>, document.getElementById('app'));
