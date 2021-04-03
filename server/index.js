@@ -18,23 +18,33 @@ const io = socketIo(server);
 // app.get('/', (req, res) => {
 //   res.send('server route works')
 // })
+const clients = [];
 
 let interval;
 io.on('connection', (socket) => {
   console.log("New client connected");
-  if(interval) {
+  const clients2 = Object.keys(io.engine.clients);
+  // console.log(Object.keys(io.engine.clients));
+  clients.push(socket.id);
+  console.log(clients);
+  socket.emit('GetMessage', socket.id);
+  if (interval) {
     clearInterval(interval);
   }
   interval = setInterval(() => getAPIAndEmit(socket), 1000);
   socket.on('disconnect', () => {
     console.log('client disconnected');
-    clearInterval(interval);
+    const leaving = clients.pop()
+    socket.broadcast.to(clients[0]).emit('GetMessage', `${leaving} left!`)
+    // clearInterval(interval);
   })
 })
 
+
+
 const getAPIAndEmit = socket => {
   const response = new Date();
-  socket.emit("FromAPI", response);
+  io.sockets.emit("FromAPI", response);
 }
 
 
@@ -42,4 +52,4 @@ const getAPIAndEmit = socket => {
 
 server.listen(port, () => {
   console.log(`Server listening on ${port}`)
-} );
+});

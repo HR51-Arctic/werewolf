@@ -1,21 +1,31 @@
-import React, {useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
 const ENDPOINT = 'http://localhost:3000';
 
 function App() {
   const [response, setResponse] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
     socket.on('FromAPI', (data) => {
       setResponse(data);
     });
+
+    socket.on('GetMessage', (data) => {
+      setMessage(data);
+    });
+
   }, []);
 
   return (
-    <p>
-      It's <time dateTime={response}>{response}</time>
-    </p>
+    <div>
+      <p>
+        It's <time dateTime={response}>{response}</time>
+      </p>
+      <p>My client id is: {message}</p>
+    </div>
+
 
   );
 }
