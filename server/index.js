@@ -18,14 +18,13 @@ const io = socketIo(server);
 
 /////////////////////////
 class Game {
-  constructor(clients) {
-    this.players = clients;
+  constructor() {
+    this.players = []; // array of socket ids
     this.timer = 30;   // counts downs day night alternates 30 second intervals at first
-    this.cycle = 'day'; //can be false
-    this.running = false; //boolean true/false
+    this.cycle = true; // can be false for night
   }
 
-  // startGame() {
+  // startGame() {a
   //   assignRoles()
   // }
 
@@ -38,11 +37,11 @@ class Game {
 class Player {
   constructor (id, name, admin) {
     //name from user input, else if null value set name to ID from socket.id
-    this.name = name || id
-    this.id = id,
-    this.role = 'villager'
-    this.admin = admin || false
-    this.alive = true
+    this.name = name || id;
+    this.id = id;
+    this.role = 'villager';
+    this.admin = admin || false;
+    this.alive = true;
   }
 }
 
@@ -69,14 +68,15 @@ io.on('connection', (socket) => {
     io.sockets.emit('GetParticipants', clients);
     // clearInterval(interval);
   })
-  socket.on('startGame', () => {
+  socket.on('StartGame', () => {
     // this is only available if clients.length >= 7
-    var newGame = new Game(clients);
+    var newGame = new Game();
     // random role generator? so it can be added to newPlayer
     clients.forEach(client => {
       var newPlayer = new Player(client);
       newGame.players.push(newPlayer);
     })
+    io.sockets.emit('GameState', newGame);
   })
 })
 
