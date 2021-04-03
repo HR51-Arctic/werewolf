@@ -21,6 +21,7 @@ const Lobby = ({ participants }) => {
           <div style={{height: '100px', width: '50%', border: '3px solid black'}}>
             <textarea
             name='chat'
+            type='text'
             value={message}
             onChange={e => setMessage(e.target.value)}
             >Message</textarea>
