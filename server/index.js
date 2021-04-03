@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000;
 const index = require('./routes/index');
 
 app.use(express.static('public'));
+// app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(index);
 
@@ -31,7 +32,7 @@ io.on('connection', (socket) => {
   })
 })
 
-const getApiAndEmit = socket => {
+const getAPIAndEmit = socket => {
   const response = new Date();
   socket.emit("FromAPI", response);
 }
