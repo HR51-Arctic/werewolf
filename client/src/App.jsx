@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
+import Lobby from './Lobby.jsx';
 const ENDPOINT = 'http://localhost:3000';
 
 function App() {
   const [response, setResponse] = useState('');
   const [message, setMessage] = useState('');
+  const [gameState, setGameState] = useState('');
+  const [lobbyParticipants, setLobbyParticipants] = useState([]);
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
@@ -12,18 +15,20 @@ function App() {
       setResponse(data);
     });
 
-    socket.on('GetMessage', (data) => {
-      setMessage(data);
+    socket.on('GetParticipants', (data) => {
+      setLobbyParticipants(data);
     });
+
+    socket.on('updateGame', (data) => {
+      console.log(data)
+      setGameState(data);
+    })
 
   }, []);
 
   return (
     <div>
-      <p>
-        It's <time dateTime={response}>{response}</time>
-      </p>
-      <p>My client id is: {message}</p>
+      <Lobby participants={lobbyParticipants} />
     </div>
 
 
