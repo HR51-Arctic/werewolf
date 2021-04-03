@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
+import GameView from './GameView.jsx';
 
-const Lobby = ({ participants }) => {
+
+const Lobby = ({ participants, handleGameStart }) => {
 
   const [message, setMessage] = useState('');
+  const [play, setPlay] = useState(false);
 
+  if (play) {
+    return <GameView />;
+  } else {
   return (
     <>
       <div>
@@ -36,10 +42,11 @@ const Lobby = ({ participants }) => {
       <button
       type='submit'
       value='Submit'
-      onClick={() => console.log('Starting Game')}
+      onClick={() => handleGameStart()}
       >PLAY</button>
     </>
   )
+  }
 }
 
 export default Lobby;
