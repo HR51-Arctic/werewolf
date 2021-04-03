@@ -18,13 +18,23 @@ const io = socketIo(server);
 
 /////////////////////////
 class Game {
-  constructor() {
-    this.players = [];
+  constructor(clients) {
+    this.players = clients;
     this.timer = 30;   // counts downs day night alternates 30 second intervals at first
     this.cycle = 'day'; //can be false
     this.running = false; //boolean true/false
   }
+
+  // startGame() {
+  //   assignRoles()
+  // }
+
+  // assignRoles() {
+  //   if(this.players.length <  )
+  // }
+
 }
+
 class Player {
   constructor (id, name, admin) {
     //name from user input, else if null value set name to ID from socket.id
@@ -38,13 +48,11 @@ class Player {
 
 /////////////////////////
 const clients = [];
-let game = new Game();
+// let game = new Game();
 
 let interval;
 io.on('connection', (socket) => {
   console.log("New client connected");
-  // const clients2 = Object.keys(io.engine.clients);
-  // console.log(Object.keys(io.engine.clients));
   // let player = new Player();
   // game.players.push(player);
 
@@ -57,28 +65,29 @@ io.on('connection', (socket) => {
   interval = setInterval(() => getAPIAndEmit(socket), 1000);
   socket.on('disconnect', () => {
     console.log('client disconnected');
-    const leaving = clients.pop()
-    socket.broadcast.to(clients[0]).emit('GetMessage', `${leaving} left!`)
+    clients.splice(clients.indexOf(socket.id), 1);
+    io.sockets.emit('GetParticipants', clients);
     // clearInterval(interval);
   })
-  // socket.on('updateGame', () => {
-  //   socket.emit('updateGame', game);
-  // })
+  socket.on('startGame', () => {
+    // this is only available if clients.length >= 7
+    var newGame = new Game(clients);
+    // random role generator? so it can be added to newPlayer
+    clients.forEach(client => {
+      var newPlayer = new Player(client);
+      newGame.players.push(newPlayer);
+    })
+  })
 })
-
-
 
 const getAPIAndEmit = socket => {
   const response = new Date();
   io.sockets.emit("FromAPI", response);
 }
-const getGameStateAndEmit = socket => {
-  const response = game
-  io.sockets.emit("updateGame", response);
-}
-
-
-
+// const getGameStateAndEmit = socket => {
+//   const response = game
+//   io.sockets.emit("startGame", response);
+// }
 
 server.listen(port, () => {
   console.log(`Server listening on ${port}`)
