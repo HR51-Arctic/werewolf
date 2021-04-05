@@ -35,7 +35,7 @@ class Game {
 }
 
 class Player {
-  constructor (id, name, admin) {
+  constructor(id, name, admin) {
     //name from user input, else if null value set name to ID from socket.id
     this.name = name || id;
     this.id = id;
@@ -49,7 +49,6 @@ class Player {
 const clients = [];
 // let game = new Game();
 
-let interval;
 io.on('connection', (socket) => {
   console.log("New client connected");
   // let player = new Player();
@@ -57,11 +56,9 @@ io.on('connection', (socket) => {
 
   clients.push(socket.id);
   // console.log(game);
+  socket.emit('myId', socket.id);
   io.sockets.emit('GetParticipants', clients);
-  if (interval) {
-    clearInterval(interval);
-  }
-  interval = setInterval(() => getAPIAndEmit(socket), 1000);
+
   socket.on('disconnect', () => {
     console.log('client disconnected');
     clients.splice(clients.indexOf(socket.id), 1);
@@ -70,24 +67,21 @@ io.on('connection', (socket) => {
   })
   socket.on('StartGame', () => {
     // this is only available if clients.length >= 7
+    let werewolfCounter = 0;
     var newGame = new Game();
     // random role generator? so it can be added to newPlayer
     clients.forEach(client => {
       var newPlayer = new Player(client);
+      if (werewolfCounter === 0) {
+        newPlayer.role = 'werewolf';
+        werewolfCounter += 1;
+      }
       newGame.players.push(newPlayer);
     })
-    io.sockets.emit('GameState', newGame);
+    io.sockets.emit('PreGame', newGame);
   })
 })
 
-const getAPIAndEmit = socket => {
-  const response = new Date();
-  io.sockets.emit("FromAPI", response);
-}
-// const getGameStateAndEmit = socket => {
-//   const response = game
-//   io.sockets.emit("startGame", response);
-// }
 
 server.listen(port, () => {
   console.log(`Server listening on ${port}`)
