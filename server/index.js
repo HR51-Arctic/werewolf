@@ -56,6 +56,7 @@ io.on('connection', (socket) => {
 
     if (playerPool.length >= 7) {
       assignRoles(currentGame, playerPool)
+      currentGame.active = true //turning on the game --> game is in progress until win condition, run check win condition after every cycle :)
       io.sockets.emit('PreGame', currentGame);
     }
 
