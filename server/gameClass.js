@@ -5,13 +5,13 @@ class Game {
     this.players = []; // array of player objects // Possible object?
     this.timer = 30;   // counts downs day night alternates 30 second intervals at first
     this.day = true; // can be false for night
-    this.active = false; //boolean values indicates whether game is in progress
+    this.votes = {};
+
   }
 
   addPlayer(id, name = id, admin = false) {
     let player = new Player(id, name, admin)
     this.players.push(player)
-
   }
 
   removePlayer(id) {
@@ -19,7 +19,7 @@ class Game {
       let current = this.players[x]
       if (current.id === id) {
         this.players.splice(x, 1)
-        console.log(this.players)
+        // console.log(this.players)
         return
       }
     }
@@ -29,7 +29,7 @@ class Game {
   numberOfAliveVillagers() {
     var count = 0;
     this.players.forEach(player => {
-      if (player.role === 'villager' && player.alive) {
+      if (player.role !== 'werewolf' && player.alive) {
         count += 1;
       }
     })
