@@ -1,0 +1,58 @@
+/*---Logo---*/
+.werewolfLogo {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*---Lobby--*/
+#lobby {
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "header"
+    "lobby"
+    "players" "lobby-chat";
+  justify-content: center;
+  align-content: center;
+}
+
+#header {
+  grid-area: "header";
+  height: "250px";
+  width: "100%";
+}
+#players {
+  grid-area: "players";
+  background-color: grey;
+  border-radius: 10px;
+  width: 50vw;
+}
+#lobby-chat {
+  grid-area: "lobby-chat";
+}
+
+/*---------------- GameView ---------------------*/
+#voting {
+}
+
+#bacground {
+}
+
+#turn-info {
+}
+
+#role-container {
+}
+
+#remaining-wolves {
+}
+
+#game-chat {
+}
+
+#Selection {
+}
+
+/*-----------------------------------------*/
