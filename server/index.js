@@ -24,14 +24,6 @@ class Game {
     this.cycle = true; // can be false for night
   }
 
-  // startGame() {a
-  //   assignRoles()
-  // }
-
-  // assignRoles() {
-  //   if(this.players.length <  )
-  // }
-
 }
 
 class Player {
@@ -47,12 +39,10 @@ class Player {
 
 /////////////////////////
 const clients = [];
-// let game = new Game();
+
 
 io.on('connection', (socket) => {
   console.log("New client connected");
-  // let player = new Player();
-  // game.players.push(player);
 
   clients.push(socket.id);
   // console.log(game);
@@ -63,7 +53,7 @@ io.on('connection', (socket) => {
     console.log('client disconnected');
     clients.splice(clients.indexOf(socket.id), 1);
     io.sockets.emit('GetParticipants', clients);
-    // clearInterval(interval);
+
   })
   socket.on('StartGame', () => {
     // this is only available if clients.length >= 7
