@@ -6,6 +6,8 @@ class Player {
     this.role = 'villager';
     this.admin = admin || false;
     this.alive = true;
+    this.protected = false;
+    this.targeted = 0
   }
 
 }
