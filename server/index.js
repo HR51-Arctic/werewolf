@@ -19,6 +19,7 @@ const io = socketIo(server);
 
 const clients = [];
 
+let currentGame
 
 io.on('connection', (socket) => {
   console.log("New client connected");
@@ -31,6 +32,9 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('client disconnected');
     clients.splice(clients.indexOf(socket.id), 1);
+    if (currentGame) {
+      currentGame.removePlayer(socket.id)
+    }
     io.sockets.emit('GetParticipants', clients);
 
   })
@@ -38,6 +42,7 @@ io.on('connection', (socket) => {
     // this is only available if clients.length >= 7
     let werewolfCounter = 0;
     var newGame = new Game();
+    currentGame = newGame
     // random role generator? so it can be added to newPlayer
     clients.forEach(client => {
       var newPlayer = new Player(client);
