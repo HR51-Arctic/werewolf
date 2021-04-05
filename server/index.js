@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
 
     })
 
-    if (playerPool.length >= 7) {
+    if (playerPool.length >= 3) {
       assignRoles(currentGame, playerPool)
       io.sockets.emit('PreGame', currentGame);
     }
@@ -72,7 +72,7 @@ io.on('connection', (socket) => {
         io.sockets.emit('timer', preGameTimer);
         console.log(preGameTimer);
         if (preGameTimer == 0) {
-          nightPhase(newGame);
+          nightPhase(currentGame);
           clearInterval(preGameTimerLoop);
         }
       }, 1000);
@@ -81,7 +81,7 @@ io.on('connection', (socket) => {
 })
 
 //night function
-const nightPhase = (newGame) => {
+const nightPhase = (currentGame) => {
   //check win conditions
   //if win conditions met
   //call endGame
@@ -89,8 +89,8 @@ const nightPhase = (newGame) => {
   //check newGame for phase
   //start timer
   //send word to the client to change phase and timer
-  newGame.day = !newGame.day;
-  io.sockets.emit('changePhase', newGame);
+  currentGame.day = !currentGame.day;
+  io.sockets.emit('changePhase', currentGame);
   //send and receiving the game data
 }
 
