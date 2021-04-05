@@ -15,7 +15,7 @@ const assignRoles = (currentGame, playerPool) => {
   for (let x=0; x<wolvesCount; x++) {
     let wolfIndex = Math.floor(Math.random() * playerPool.length)
     let wolf = playerPool.splice(wolfIndex,1)[0]
-    wolf.role = 'wolf'
+    wolf.role = 'werewolf'
     currentGame.players.push(wolf)
   }
   console.log(currentGame)
