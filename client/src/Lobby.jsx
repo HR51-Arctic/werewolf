@@ -5,7 +5,7 @@ import GameView from './GameView.jsx';
 const Lobby = ({ participants, handleGameStart }) => {
 
   const [message, setMessage] = useState('');
-
+  console.log(participants)
   return (
     <>
       <div>

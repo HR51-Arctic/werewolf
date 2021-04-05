@@ -43,7 +43,7 @@ const SignUp = () => {
 };
 //-----------------------------------------------------------------------
 
-const Login = () => {
+const Login = (props) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -73,7 +73,10 @@ const Login = () => {
       <button
       type='submit'
       value='Submit'
-      onClick={() => console.log('Submit')}
+      onClick={() => {
+        console.log('Submit')
+        props.handleLogin(username)
+      }}
       >Login</button>
       <button
       type='submit'
@@ -83,7 +86,11 @@ const Login = () => {
       <button
       type='submit'
       value='Submit'
-      onClick={() => console.log('Playing anonomously')}
+      onClick={() => {
+        console.log('Playing anonomously')
+        props.checkMyName()
+      }
+      }
       >Play Anonomously</button>
     </div>
   )

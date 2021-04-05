@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
 import Lobby from './Lobby.jsx';
 import GameView from './GameView.jsx';
+import Login from './Login.jsx';
 const ENDPOINT = 'http://localhost:3000';
 
 function App() {
@@ -43,8 +44,21 @@ function App() {
     return <GameView myId={myId} gameState={gameState} />
   }
 
+  const handleLogin = (username) => {
+    console.log('handling login')
+    console.log(username)
+    // dirtySock.username = username;
+    dirtySock.emit('Login', username);
+
+  }
+
+  const checkMyName = () => {
+    console.log('my name is:')
+  }
+
   return (
     <div>
+      <Login handleLogin={handleLogin} checkMyName={checkMyName}/>
       <Lobby participants={lobbyParticipants} handleGameStart={handleGameStart.bind(this)} />
     </div>
 

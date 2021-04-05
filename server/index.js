@@ -40,11 +40,11 @@ class Player {
 /////////////////////////
 const clients = [];
 
-
+let interval;
 io.on('connection', (socket) => {
   console.log("New client connected");
 
-  clients.push(socket.id);
+  clients.push({socketid: socket.id});
   // console.log(game);
   socket.emit('myId', socket.id);
   io.sockets.emit('GetParticipants', clients);
@@ -68,10 +68,35 @@ io.on('connection', (socket) => {
       }
       newGame.players.push(newPlayer);
     })
-    io.sockets.emit('PreGame', newGame);
+
+    interval = setInterval(() => updateGameState(newGame), 1000)
+
+    // io.sockets.emit('PreGame', newGame);
+  })
+
+  socket.on('Login', (name) => {
+    console.log('someone is trying to login')
+    console.log(name)
+    console.log(socket.id)
+    // update clients
+    console.log(clients)
+    for (let i = 0; i < clients.length; i++) {
+      if(clients[i] === socket.id) {
+        clients[i] = name;
+      }
+    }
+    console.log(clients)
+    socket.name = name;
+    console.log('this is socket name! ', socket.name)
+    io.sockets.emit('GetParticipants', clients);
+    // console.log(socket.id)
   })
 })
 
+const updateGameState = (newGame) => {
+  console.log('updating')
+  io.sockets.emit('PreGame', newGame);
+}
 
 server.listen(port, () => {
   console.log(`Server listening on ${port}`)
