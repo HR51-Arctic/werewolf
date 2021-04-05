@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const GameView = ({ myId, gameState }) => {
+const GameView = ({ myId, gameState, timer }) => {
 
   const [message, setMessage] = useState('');
   // timer will start/end voting???
@@ -52,6 +52,7 @@ const GameView = ({ myId, gameState }) => {
         </div>
         <div style={{ height: '100px', width: '50%', border: '3px solid black' }}>
           <h1>You are a {role}</h1>
+          <div>Time left: {timer} </div>
         </div>
         <span>Remaining Werewolves {wolves}</span>
         <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>

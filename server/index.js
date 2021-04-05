@@ -56,13 +56,34 @@ io.on('connection', (socket) => {
       playerPool.push(newPlayer);
 
     })
+
     if (playerPool.length >= 7) {
       assignRoles(currentGame, playerPool)
       io.sockets.emit('PreGame', currentGame);
     }
+
+
+    io.sockets.emit('PreGame', currentGame);
+    //start timer
+    let preGameTimer = 5;
+    const preGameTimerLoop =
+      setInterval(() => {
+        preGameTimer -= 1;
+        io.sockets.emit('timer', preGameTimer);
+        console.log(preGameTimer);
+        if (preGameTimer == 0) {
+          clearInterval(preGameTimerLoop);
+        }
+      }, 1000);
+
+
+    //when it hits zero, emit to everyone to transition to night
+    //we start the nightfunction
+
   })
 })
 
+//night function
 
 server.listen(port, () => {
   console.log(`Server listening on ${port}`)
