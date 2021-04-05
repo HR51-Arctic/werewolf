@@ -72,7 +72,7 @@ class Game {
     let players = 0
     this.players.forEach((player) => {
        if (this.player.alive) {
-         if (this.player.role === 'wolf') {
+         if (this.player.role === 'werewolf') {
            wolves ++
          } else {
            players++
@@ -95,9 +95,10 @@ class Game {
   determineKill() {
     let targetCount = 0
     let targetedPlayers = []
-
+    //this.votes is an object with key of player(id) and value of Object.values iterate through incrememnte vote counts. after logic reset to empty object {}
+    // make sure that the protected person cant be killed
     this.players.forEach((player, index) => {
-      if (player.targeted && player.targeted > targetCount) {
+      if (player.targeted && player.targeted > targetCount) { //make sure target isnt protected
         targetedPlayers = [index]
       }
       if (player.targeted && player.targeted === targetCount) {
@@ -116,6 +117,8 @@ class Game {
       player.targeted = 0
     })
   }
+
+
 }
 
 
