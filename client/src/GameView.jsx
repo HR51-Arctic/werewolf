@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const GameView = ({ myId, gameState, timer, day }) => {
+const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
 
   const [message, setMessage] = useState('');
   // timer will start/end voting???
@@ -18,7 +18,8 @@ const GameView = ({ myId, gameState, timer, day }) => {
       role = player.role;
     }
   })
-
+  // ideally, we would want separate components for each type of vote (werewolf/villager/seer/doctor)
+  // find self in game state, if role is werewolf and it is night, then render werewolf vote component -> example
   const Voting = () => {
     if (!voting) {
       return null;
@@ -45,7 +46,7 @@ const GameView = ({ myId, gameState, timer, day }) => {
           onClick={() => setDay(day ? false : true)}
         >Change Phase</button>
         <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
-          <p>Username</p>
+          <button onClick={() => werewolfVote('Test!')}>Test Voting</button>
           <p>You are a {role}</p>
           <p>Current turn</p>
           <span>Discussion Timer</span>

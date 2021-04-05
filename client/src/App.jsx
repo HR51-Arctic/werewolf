@@ -5,7 +5,7 @@ import GameView from './GameView.jsx';
 const ENDPOINT = 'http://localhost:3000';
 
 function App() {
-  const [dirtySock, setDirtySock] = useState({});
+  const [connection, setConnection] = useState({});
   const [message, setMessage] = useState('');
   const [gameState, setGameState] = useState('');
   const [lobbyParticipants, setLobbyParticipants] = useState([]);
@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
-    setDirtySock(socket);
+    setConnection(socket);
     //  + console.log(dirtySock);
     // console.log(dirtySock)
     socket.on('myId', (id) => {
@@ -47,10 +47,19 @@ function App() {
   }, []);
 
   const handleGameStart = () => {
-    dirtySock.emit('StartGame');
+    connection.emit('StartGame');
   }
+
+  const werewolfVote = (data) => {
+    let wolfVote = {
+      me: myId,
+      vote: data
+    }
+    connection.emit('werewolfVote', wolfVote);
+  }
+
   if (play) {
-    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} />
+    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} werewolfVote={werewolfVote.bind(this)} />
   }
 
   return (

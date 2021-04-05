@@ -20,11 +20,10 @@ const io = socketIo(server);
 
 const clients = [];
 
-let currentGame
+let currentGame;
 
 io.on('connection', (socket) => {
   console.log("New client connected");
-
   clients.push(socket.id);
   // console.log(game);
   socket.emit('myId', socket.id);
@@ -37,27 +36,25 @@ io.on('connection', (socket) => {
       currentGame.removePlayer(socket.id)
     }
     io.sockets.emit('GetParticipants', clients);
-
   })
+  ///////////////////////////////////////////////////////////////
   socket.on('StartGame', () => {
     // this is only available if clients.length >= 7
     let werewolfCounter = 0;
     if (!currentGame) {
-      currentGame = new Game()
-
+      currentGame = new Game();
     }
 
     // var newGame = new Game(); ---> for futurue instancing for many game states. Right now single state for MVP
     // currentGame = newGame
 
-    let playerPool = []
+    let playerPool = [];
     clients.forEach((client) => {
       var newPlayer = new Player(client);
       playerPool.push(newPlayer);
-
     })
 
-    if (playerPool.length >= 3) {
+    if (playerPool.length >= 7) {
       assignRoles(currentGame, playerPool)
       io.sockets.emit('PreGame', currentGame);
     }
@@ -76,15 +73,29 @@ io.on('connection', (socket) => {
           clearInterval(preGameTimerLoop);
         }
       }, 1000);
-
   })
+  /////////////////////////////////////////////////////////////
+  socket.on('werewolfVote', (voteObject) => {
+    // console.log(voteObject.me, voteObject.vote);
+    currentGame.votes[voteObject.me] = voteObject.vote;
+  })
+
+
 })
 
 //night function
 const nightPhase = (currentGame) => {
+  console.log(currentGame.numberOfAliveVillagers());
+  console.log(currentGame.numberOfAliveWerewolves());
   //check win conditions
   //if win conditions met
-  //call endGame
+  if (currentGame.numberOfAliveWerewolves() >= currentGame.numberOfAliveVillagers()) {
+    alert('Werewolves win!');
+  }
+  if (currentGame.numberOfAliveWerewolves() === 0) {
+    alert('Villagers win!');
+  }
+
   //else
   //check newGame for phase
   //start timer
@@ -92,6 +103,21 @@ const nightPhase = (currentGame) => {
   currentGame.day = !currentGame.day;
   io.sockets.emit('changePhase', currentGame);
   //send and receiving the game data
+  let nightTimer = 10;
+  const nightTimerLoop =
+    setInterval(() => {
+      nightTimer -= 1;
+      io.sockets.emit('timer', nightTimer);
+      console.log(nightTimer);
+      if (nightTimer == 0) {
+        // collect votes from client
+        // calculate deaths
+        console.log(currentGame.votes);
+        // broadcast newGame
+        // call dayPhase
+        clearInterval(nightTimerLoop);
+      }
+    }, 1000);
 }
 
 server.listen(port, () => {
