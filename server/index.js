@@ -4,6 +4,7 @@ const socketIo = require('socket.io');
 const app = express();
 const Game = require('./gameClass.js')
 const Player = require('./playerClass.js')
+const assignRoles = require('./assignRoles.js')
 
 const port = process.env.PORT || 3000;
 const index = require('./routes/index');
@@ -41,15 +42,28 @@ io.on('connection', (socket) => {
   socket.on('StartGame', () => {
     // this is only available if clients.length >= 7
     let werewolfCounter = 0;
-    var newGame = new Game();
-    currentGame = newGame
-    // random role generator? so it can be added to newPlayer
-    clients.forEach(client => {
+    if (!currentGame) {
+      currentGame = new Game()
+
+    }
+
+    // var newGame = new Game(); ---> for futurue instancing for many game states. Right now single state for MVP
+    // currentGame = newGame
+
+    let playerPool = []
+    clients.forEach((client) => {
       var newPlayer = new Player(client);
-      newGame.players.push(newPlayer);
+      playerPool.push(newPlayer);
+
     })
 
-    io.sockets.emit('PreGame', newGame);
+    if (playerPool.length >= 7) {
+      assignRoles(currentGame, playerPool)
+      io.sockets.emit('PreGame', currentGame);
+    }
+
+
+    io.sockets.emit('PreGame', currentGame);
     //start timer
     let preGameTimer = 5;
     const preGameTimerLoop =
