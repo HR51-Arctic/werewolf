@@ -80,6 +80,10 @@ io.on('connection', (socket) => {
     currentGame.votes[voteObject.me] = voteObject.vote;
   })
 
+  socket.on('docChoice', (protectedId) => {
+
+  })
+
 
 })
 
