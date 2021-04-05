@@ -19,9 +19,6 @@ const GameView = ({ myId, gameState, timer }) => {
     }
   })
 
-
-
-
   const Voting = () => {
     if (!voting) {
       return null;
