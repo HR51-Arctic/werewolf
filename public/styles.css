@@ -1,36 +1,102 @@
-/*---Logo---*/
+/*---Logo/Header---*/
 .werewolfLogo {
   width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.appHeaderContainer {
+  background-color: grey;
+}
 
 /*---Lobby--*/
 #lobby {
-  grid-template-columns: auto;
+  display: grid;
   grid-template-rows: auto;
   grid-template-areas:
-    "header"
-    "lobby"
-    "players" "lobby-chat";
-  justify-content: center;
-  align-content: center;
+    "lobby lobby lobby"
+    ". players ."
+    ". playButton .";
+  background-color: grey;
 }
 
 #header {
-  grid-area: "header";
-  height: "250px";
-  width: "100%";
+  height: 250vh;
+  width: 100%;
 }
 #players {
-  grid-area: "players";
-  background-color: grey;
-  border-radius: 10px;
+  grid-area: players;
   width: 50vw;
+  justify-content: center;
+  align-content: center;
+  background-color: rgb(205, 201, 201);
+  border: solid 7px black;
+  transition: all 0.5s ease;
+  letter-spacing: 1px;
+  outline: none;
+  box-shadow: 20px 38px 34px;
+}
+
+#playerHeader {
+  font-family: Georgia;
+  align-items: center;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  font-size: 5vw;
+  margin-top: 2px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 0px;
+}
+
+#indivPlayer {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px black;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 #lobby-chat {
-  grid-area: "lobby-chat";
+  grid-area: lobby-chat;
+  border: solid 5px black;
+}
+
+#msg-input {
+  display: inline-block;
+  position: relative;
+  margin-top: 20%;
+}
+
+#send-msg {
+  display: inline-block;
+  position: relative;
+  margin-left: 50%;
+  margin-bottom: 90%;
+}
+
+.playButton {
+  grid-area: playButton;
+  text-decoration: none;
+  font-family: Georgia;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  font-size: 5vw;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgb(75, 3, 3);
+  padding: 15px 40px;
+  border-radius: 4px;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+  width: 50vw;
+  margin-top: 5vw;
+  margin-bottom: 2vw;
+}
+
+.playButton:hover {
+  color: rgba(255, 255, 255, 1);
+  box-shadow: 0 5px 15px rgba(96, 12, 12, 0.4);
 }
 
 /*---------------- GameView ---------------------*/

@@ -7,40 +7,28 @@ const Lobby = ({ participants, handleGameStart }) => {
 
   return (
     <>
-      <div id="lobby">
+      <div>
         <AppHeader id="header" />
-        <div>
-          <div>
-            <div>Username and stats</div>
-          </div>
+        <div id="lobby">
           <div id="players">
+            <h4 id="playerHeader">Players</h4>
             {participants.map((player) => {
-              return <div key={player}>{player}</div>;
+              return (
+                <div id="indivPlayer" key={player}>
+                  {player}
+                </div>
+              );
             })}
           </div>
-          <div>
-            <div id="lobby-chat">
-              <form>
-                <input
-                  name="chat"
-                  type="text"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                ></input>
-              </form>
-            </div>
-            <button
-              type="submit"
-              value="Submit"
-              onClick={() => console.log("Posted message")}
-            >
-              Post Message
-            </button>
-          </div>
+          <button
+            className="playButton"
+            type="submit"
+            value="Submit"
+            onClick={() => handleGameStart()}
+          >
+            Play
+          </button>
         </div>
-        <button type="submit" value="Submit" onClick={() => handleGameStart()}>
-          PLAY
-        </button>
       </div>
     </>
   );
