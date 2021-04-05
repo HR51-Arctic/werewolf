@@ -3,7 +3,7 @@ import React from 'react';
 const Navigation = () => {
 
   return (
-    <form>
+    <form id="navigation">
       <select >
         <option value='Navigation'>Navigation</option>
         <option value='How to Play'>How to play</option>

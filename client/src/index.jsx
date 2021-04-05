@@ -9,4 +9,4 @@ import GameView from './GameView.jsx';
 import Profile from './Profile.jsx';
 
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+ReactDOM.render(<Lobby/>, document.getElementById('app'));

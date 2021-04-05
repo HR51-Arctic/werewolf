@@ -27,7 +27,7 @@ const GameView = ({ myId, gameState }) => {
       return null;
     } else {
       return (
-        <div>
+        <div id="voting">
           <span>Player <a>Votes {votes}</a></span>
           <button
             type='submit'
@@ -41,27 +41,27 @@ const GameView = ({ myId, gameState }) => {
 
   return (
     <>
-      <div style={{ backgroundColor: day ? 'yellow' : 'grey' }}>
+      <div id="background" style={{ backgroundColor: day ? 'yellow' : 'grey' }}>
         <button
           type='submit'
           value='Submit'
           onClick={() => setDay(day ? false : true)}
         >Change Phase</button>
-        <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
+        <div id="turn-info" style={{ height: '250px', width: '50%', border: '3px solid black' }}>
           <p>Username</p>
           <p>You are a {role}</p>
           <p>Current turn</p>
           <span>Discussion Timer</span>
         </div>
-        <div style={{ height: '100px', width: '50%', border: '3px solid black' }}>
+        <div id="role-continaer" style={{ height: '100px', width: '50%', border: '3px solid black' }}>
           <h1>You are a {role}</h1>
         </div>
-        <span>Remaining Werewolves {wolves}</span>
-        <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
+        <span id="remaining-wolves">Remaining Werewolves {wolves}</span>
+        <div id="status-container" style={{ height: '250px', width: '50%', border: '3px solid black' }}>
           <span>Username, icon, message</span>
           <span>Username, icon, message</span>
           <br />
-          <textarea
+          <textarea id="game-chat"
             name='gameChat'
             value={message}
             onChange={e => setMessage(e.target.value)}
@@ -69,7 +69,7 @@ const GameView = ({ myId, gameState }) => {
           <button type='submit' value='Submit'>Post</button>
         </div>
         {voting ? <Voting /> :
-          <div>
+          <div id="selection">
             <select>
               <option value='Lynch'>Lynch</option>
               <option value='Save'>Save</option>

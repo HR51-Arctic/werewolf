@@ -3,16 +3,16 @@ import GameView from './GameView.jsx';
 
 
 const Lobby = ({ participants, handleGameStart }) => {
-
+console.log({participants})
   const [message, setMessage] = useState('');
 
   return (
     <>
       <div>
-        <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
+        <div id="leaderboard" style={{ height: '250px', width: '50%', border: '3px solid black' }}>
           <span>Username and stats</span>
         </div>
-        <div style={{ height: '150px', width: '100px', border: '3px solid black' }}>
+        <div id="players" style={{ height: '150px', width: '100px', border: '3px solid black' }}>
           {participants.map((player) => {
             return (
               <div key={player}>{player}</div>
@@ -20,7 +20,7 @@ const Lobby = ({ participants, handleGameStart }) => {
           })}
         </div>
         <div>
-          <div style={{ height: '100px', width: '50%', border: '3px solid black' }}>
+          <div className="chat" style={{ height: '100px', width: '50%', border: '3px solid black' }}>
             <textarea
               name='chat'
               type='text'
@@ -36,6 +36,7 @@ const Lobby = ({ participants, handleGameStart }) => {
         </div>
       </div>
       <button
+      className="play"
         type='submit'
         value='Submit'
         onClick={() => handleGameStart()}
