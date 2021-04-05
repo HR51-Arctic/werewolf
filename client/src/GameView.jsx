@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const GameView = ({ myId, gameState }) => {
+const GameView = ({ myId, gameState, timer, day }) => {
 
   const [message, setMessage] = useState('');
   // timer will start/end voting???
@@ -9,7 +9,7 @@ const GameView = ({ myId, gameState }) => {
   // # of werewolves dependant on # players???
   const [wolves, setWolves] = useState(2);
   // Just for testings sake
-  const [day, setDay] = useState(true);
+  // const [day, setDay] = useState(true);
 
 
   let role;
@@ -18,9 +18,6 @@ const GameView = ({ myId, gameState }) => {
       role = player.role;
     }
   })
-
-
-
 
   const Voting = () => {
     if (!voting) {
@@ -55,6 +52,7 @@ const GameView = ({ myId, gameState }) => {
         </div>
         <div id="role-continaer" style={{ height: '100px', width: '50%', border: '3px solid black' }}>
           <h1>You are a {role}</h1>
+          <div>Time left: {timer} </div>
         </div>
         <span id="remaining-wolves">Remaining Werewolves {wolves}</span>
         <div id="status-container" style={{ height: '250px', width: '50%', border: '3px solid black' }}>

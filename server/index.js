@@ -2,6 +2,9 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const app = express();
+const Game = require('./gameClass.js')
+const Player = require('./playerClass.js')
+const assignRoles = require('./assignRoles.js')
 
 const port = process.env.PORT || 3000;
 const index = require('./routes/index');
@@ -15,31 +18,9 @@ const server = http.createServer(app);
 
 const io = socketIo(server);
 
-
-/////////////////////////
-class Game {
-  constructor() {
-    this.players = []; // array of socket ids
-    this.timer = 30;   // counts downs day night alternates 30 second intervals at first
-    this.cycle = true; // can be false for night
-  }
-
-}
-
-class Player {
-  constructor(id, name, admin) {
-    //name from user input, else if null value set name to ID from socket.id
-    this.name = name || id;
-    this.id = id;
-    this.role = 'villager';
-    this.admin = admin || false;
-    this.alive = true;
-  }
-}
-
-/////////////////////////
 const clients = [];
 
+let currentGame
 
 io.on('connection', (socket) => {
   console.log("New client connected");
@@ -52,26 +33,66 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('client disconnected');
     clients.splice(clients.indexOf(socket.id), 1);
+    if (currentGame) {
+      currentGame.removePlayer(socket.id)
+    }
     io.sockets.emit('GetParticipants', clients);
 
   })
   socket.on('StartGame', () => {
     // this is only available if clients.length >= 7
     let werewolfCounter = 0;
-    var newGame = new Game();
-    // random role generator? so it can be added to newPlayer
-    clients.forEach(client => {
+    if (!currentGame) {
+      currentGame = new Game()
+
+    }
+
+    // var newGame = new Game(); ---> for futurue instancing for many game states. Right now single state for MVP
+    // currentGame = newGame
+
+    let playerPool = []
+    clients.forEach((client) => {
       var newPlayer = new Player(client);
-      if (werewolfCounter === 0) {
-        newPlayer.role = 'werewolf';
-        werewolfCounter += 1;
-      }
-      newGame.players.push(newPlayer);
+      playerPool.push(newPlayer);
+
     })
-    io.sockets.emit('PreGame', newGame);
+
+    if (playerPool.length >= 3) {
+      assignRoles(currentGame, playerPool)
+      io.sockets.emit('PreGame', currentGame);
+    }
+
+
+    io.sockets.emit('PreGame', currentGame);
+    //start timer
+    let preGameTimer = 5;
+    const preGameTimerLoop =
+      setInterval(() => {
+        preGameTimer -= 1;
+        io.sockets.emit('timer', preGameTimer);
+        console.log(preGameTimer);
+        if (preGameTimer == 0) {
+          nightPhase(currentGame);
+          clearInterval(preGameTimerLoop);
+        }
+      }, 1000);
+
   })
 })
 
+//night function
+const nightPhase = (currentGame) => {
+  //check win conditions
+  //if win conditions met
+  //call endGame
+  //else
+  //check newGame for phase
+  //start timer
+  //send word to the client to change phase and timer
+  currentGame.day = !currentGame.day;
+  io.sockets.emit('changePhase', currentGame);
+  //send and receiving the game data
+}
 
 server.listen(port, () => {
   console.log(`Server listening on ${port}`)
