@@ -12,6 +12,7 @@ function App() {
   const [play, setPlay] = useState(false);
   const [myId, setMyId] = useState('');
   const [timer, setTimer] = useState('');
+  const [day, setDay] = useState(true);
 
 
   useEffect(() => {
@@ -39,13 +40,17 @@ function App() {
       setTimer(timer);
     })
 
+    socket.on('changePhase', (gamePhase) => {
+      setDay(gamePhase.day)
+    })
+
   }, []);
 
   const handleGameStart = () => {
     dirtySock.emit('StartGame');
   }
   if (play) {
-    return <GameView myId={myId} gameState={gameState} timer={timer} />
+    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} />
   }
 
   return (

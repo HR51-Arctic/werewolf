@@ -58,18 +58,27 @@ io.on('connection', (socket) => {
         io.sockets.emit('timer', preGameTimer);
         console.log(preGameTimer);
         if (preGameTimer == 0) {
+          nightPhase(newGame);
           clearInterval(preGameTimerLoop);
         }
       }, 1000);
-
-
-    //when it hits zero, emit to everyone to transition to night
-    //we start the nightfunction
 
   })
 })
 
 //night function
+const nightPhase = (newGame) => {
+  //check win conditions
+  //if win conditions met
+  //call endGame
+  //else
+  //check newGame for phase
+  //start timer
+  //send word to the client to change phase and timer
+  newGame.day = !newGame.day;
+  io.sockets.emit('changePhase', newGame);
+  //send and receiving the game data
+}
 
 server.listen(port, () => {
   console.log(`Server listening on ${port}`)

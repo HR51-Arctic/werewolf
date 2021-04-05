@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const GameView = ({ myId, gameState, timer }) => {
+const GameView = ({ myId, gameState, timer, day }) => {
 
   const [message, setMessage] = useState('');
   // timer will start/end voting???
@@ -9,7 +9,7 @@ const GameView = ({ myId, gameState, timer }) => {
   // # of werewolves dependant on # players???
   const [wolves, setWolves] = useState(2);
   // Just for testings sake
-  const [day, setDay] = useState(true);
+  // const [day, setDay] = useState(true);
 
 
   let role;
