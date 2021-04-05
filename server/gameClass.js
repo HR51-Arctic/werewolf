@@ -6,6 +6,7 @@ class Game {
     this.timer = 30;   // counts downs day night alternates 30 second intervals at first
     this.day = true; // can be false for night
     this.votes = {};
+
   }
 
   addPlayer(id, name = id, admin = false) {
@@ -44,6 +45,80 @@ class Game {
     })
     return count;
   }
+
+  // method to toggle heal
+  toggleProtectedPlayer(id) {
+    for (player of this.players) {
+      if (player.id === id) {
+        player.protected = true;
+        return
+      }
+    }
+  }
+
+  // method to toggle protected
+  toggleTargetVoteCount(id) {
+    for (var x = 0; x < this.players.length; x++) {
+      let currentPlayer = this.players[x]
+      if (currentPlayer.id === id) {
+        currentPlayer.targeted += 1
+      }
+    }
+  }
+
+  // method to check win condition
+  checkWinCondition() {
+    let wolves = 0
+    let players = 0
+    this.players.forEach((player) => {
+       if (this.player.alive) {
+         if (this.player.role === 'werewolf') {
+           wolves ++
+         } else {
+           players++
+         }
+       }
+    })
+    if (wolves >= players) {
+      //wolf win condition
+      this.active = false
+      return true
+    }
+    if (!wolves) {
+      //villager win condition
+      this.active = false
+      return true
+    }
+    return false
+  }
+
+  determineKill() {
+    let targetCount = 0
+    let targetedPlayers = []
+    //this.votes is an object with key of player(id) and value of Object.values iterate through incrememnte vote counts. after logic reset to empty object {}
+    // make sure that the protected person cant be killed
+    this.players.forEach((player, index) => {
+      if (player.targeted && player.targeted > targetCount) { //make sure target isnt protected
+        targetedPlayers = [index]
+      }
+      if (player.targeted && player.targeted === targetCount) {
+        targetedPlayers.push(index)
+      }
+    });
+    // this sets alive status to false, don't need to set it manually
+    // if tie, pick random player to kill
+    if (targetedPlayers.length) {
+      let indexIndex = Math.floor(Math.random() * targetedPlayers.length)
+      targetIndex = targetedPlayers[indexIndex]
+      this.players[targetIndex].alive = false
+    }
+    // reset player votes to 0
+    this.players.forEach((player) => {
+      player.targeted = 0
+    })
+  }
+
+
 }
 
 

@@ -12,19 +12,19 @@ const assignRoles = (currentGame, playerPool) => {
     wolvesCount = 3 + additionalWolves;
   }
 
-  for (let x = 0; x < wolvesCount; x++) {
-    let wolfIndex = Math.floor(Math.random() * playerPool.length);
-    let wolf = playerPool.splice(wolfIndex, 1)[0];
-    wolf.role = 'werewolf';
-    currentGame.players.push(wolf);
+  for (let x=0; x<wolvesCount; x++) {
+    let wolfIndex = Math.floor(Math.random() * playerPool.length)
+    let wolf = playerPool.splice(wolfIndex,1)[0]
+    wolf.role = 'werewolf'
+    currentGame.players.push(wolf)
   }
   // console.log(currentGame)
   // const randomElement = array[Math.floor(Math.random() * array.length)];
-  let seirIndex = Math.floor(Math.random() * playerPool.length);
-  let seir = playerPool.splice(seirIndex, 1)[0];
-  // console.log("seri", seir)
-  seir.role = 'seir';
-  currentGame.players.push(seir);
+  let seerIndex = Math.floor(Math.random() * playerPool.length);
+  let seer = playerPool.splice(seerIndex, 1)[0];
+  // console.log("seri", seer)
+  seer.role = 'seer';
+  currentGame.players.push(seer);
   // console.log(currentGame)
 
   //get doctor
