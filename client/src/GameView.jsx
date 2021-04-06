@@ -15,11 +15,11 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote, endGame }) => {
   gameState.players.forEach((player) => {
     if (player.id === myId) {
       role = player.role;
-      if (day && player.alive) {
-        setVoting(true);
-      } else if (player.role === "werewolf" && player.alive) {
-        setVoting(true);
-      }
+      // if (day && player.alive) {
+      //   setVoting(true);
+      // } else if (player.role === "werewolf" && player.alive) {
+      //   setVoting(true);
+      // }
     }
   });
   // ideally, we would want separate components for each type of vote (werewolf/villager/seer/doctor)
@@ -75,7 +75,7 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote, endGame }) => {
             Post
           </button>
         </div>
-        {voting ? (
+        {/* {voting ? (
           <Voting />
         ) : (
           <div>
@@ -88,7 +88,7 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote, endGame }) => {
               Submit
             </button>
           </div>
-        )}
+        )} */}
         <button type="submit" value="Submit" onClick={() => setVoting(true)}>
           Pretend Timer
         </button>
