@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
-  //day = boolean referring to  day cycle --> false = night
+const GameView = ({ myId, gameState, timer, day, werewolfVote, endGame }) => {
 
   const [message, setMessage] = useState("");
   // timer will start/end voting???
@@ -16,11 +15,11 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
   gameState.players.forEach((player) => {
     if (player.id === myId) {
       role = player.role;
-      if (day && player.alive) {
-        setVoting(true);
-      } else if (player.role === "werewolf" && player.alive) {
-        setVoting(true);
-      }
+      // if (day && player.alive) {
+      //   setVoting(true);
+      // } else if (player.role === "werewolf" && player.alive) {
+      //   setVoting(true);
+      // }
     }
   });
   // ideally, we would want separate components for each type of vote (werewolf/villager/seer/doctor)
@@ -48,25 +47,15 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
 
   return (
     <>
-      <div style={{ backgroundColor: day ? "yellow" : "grey" }}>
-        <button
-          type="submit"
-          value="Submit"
-          onClick={() => setDay(day ? false : true)}
-        >
-          Change Phase
-        </button>
-        <div
-          style={{ height: "250px", width: "50%", border: "3px solid black" }}
-        >
-          <button onClick={() => werewolfVote("Test!")}>Test Voting</button>
+      <div style={{ backgroundColor: day ? 'yellow' : 'grey' }}>
+        <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
+          <button onClick={() => werewolfVote(myId)}>Test Voting</button>
           <p>You are a {role}</p>
           <p>Current turn</p>
           <span>Discussion Timer</span>
         </div>
-        <div
-          style={{ height: "100px", width: "50%", border: "3px solid black" }}
-        >
+        <div style={{ height: '100px', width: '50%', border: '3px solid black' }}>
+          {endGame ? <h1>{endGame}</h1> : null}
           <h1>You are a {role}</h1>
           <div>Time left: {timer} </div>
         </div>
@@ -86,7 +75,7 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
             Post
           </button>
         </div>
-        {voting ? (
+        {/* {voting ? (
           <Voting />
         ) : (
           <div>
@@ -99,7 +88,7 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
               Submit
             </button>
           </div>
-        )}
+        )} */}
         <button type="submit" value="Submit" onClick={() => setVoting(true)}>
           Pretend Timer
         </button>

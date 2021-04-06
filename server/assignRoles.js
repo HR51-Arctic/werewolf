@@ -4,7 +4,7 @@
 const assignRoles = (currentGame, playerPool) => {
   //get wolves
 
-  let wolvesCount
+  let wolvesCount;
   //determine how many wolves desired
   if (playerPool.length <= 15) wolvesCount = 2;
   if (playerPool.length > 15) {
@@ -12,11 +12,11 @@ const assignRoles = (currentGame, playerPool) => {
     wolvesCount = 3 + additionalWolves;
   }
 
-  for (let x=0; x<wolvesCount; x++) {
-    let wolfIndex = Math.floor(Math.random() * playerPool.length)
-    let wolf = playerPool.splice(wolfIndex,1)[0]
-    wolf.role = 'werewolf'
-    currentGame.players.push(wolf)
+  for (let x = 0; x < wolvesCount; x++) {
+    let wolfIndex = Math.floor(Math.random() * playerPool.length);
+    let wolf = playerPool.splice(wolfIndex, 1)[0];
+    wolf.role = 'werewolf';
+    currentGame.players.push(wolf);
   }
   // console.log(currentGame)
   // const randomElement = array[Math.floor(Math.random() * array.length)];
