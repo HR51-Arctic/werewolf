@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Voting from './Voting.jsx';
 
-const GameView = ({ myId, gameState, timer, day, werewolfVote, endGame }) => {
+const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame }) => {
 
   const [message, setMessage] = useState('');
   // timer will start/end voting???
@@ -10,30 +11,30 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote, endGame }) => {
   const [wolves, setWolves] = useState(2);
   // Just for testings sake
   // const [day, setDay] = useState(true);
+
   let role;
   gameState.players.forEach((player) => {
     if (player.id === myId) {
       role = player.role;
-    }
-  })
+    }});
   // ideally, we would want separate components for each type of vote (werewolf/villager/seer/doctor)
   // find self in game state, if role is werewolf and it is night, then render werewolf vote component -> example
-  const Voting = () => {
-    if (!voting) {
-      return null;
-    } else {
-      return (
-        <div>
-          <span>Player <a>Votes {votes}</a></span>
-          <button
-            type='submit'
-            value='Submit'
-            onClick={() => setVote(votes + 1) + setVoting(false)}
-          >Vote</button>
-        </div>
-      )
-    }
-  };
+  // const Voting = () => {
+  //   if (!voting) {
+  //     return null;
+  //   } else {
+  //     return (
+  //       <div>
+  //         <span>Player <a>Votes {votes}</a></span>
+  //         <button
+  //           type='submit'
+  //           value='Submit'
+  //           onClick={() => setVote(votes + 1) + setVoting(false)}
+  //         >Vote</button>
+  //       </div>
+  //     )
+  //   }
+  // };
 
   return (
     <>
@@ -44,7 +45,7 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote, endGame }) => {
           onClick={() => setDay(day ? false : true)}
         >Change Phase</button>
         <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
-          <button onClick={() => werewolfVote(myId)}>Test Voting</button>
+          <button onClick={() => vote(myId)}>Test Voting</button>
           {endGame ? <h1>{endGame}</h1> : null}
           <p>You are a {role}</p>
           <p>Current turn</p>
@@ -66,20 +67,7 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote, endGame }) => {
           ></textarea>
           <button type='submit' value='Submit'>Post</button>
         </div>
-        {voting ? <Voting day={day} myId={myId} werewolfVote={werewolfVote}/> :
-          <div>
-            <select>
-              <option value='Lynch'>Lynch</option>
-              <option value='Save'>Save</option>
-              <option value='See'>See</option>
-            </select>
-            <button type='submit' value='Submit'>Submit</button>
-          </div>}
-        <button
-          type='submit'
-          value='Submit'
-          onClick={() => setVoting(true)}
-        >Pretend Timer</button>
+        <Voting gameState={gameState} day={day} myId={myId} vote={vote} docChoice={docChoice}/>
       </div>
     </>
   )
