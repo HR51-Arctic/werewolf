@@ -46,6 +46,7 @@ function App() {
 
     socket.on("changePhase", (gamePhase) => {
       setDay(gamePhase.day);
+      setGameState(gamePhase)
     });
   }, []);
 
