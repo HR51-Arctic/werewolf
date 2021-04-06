@@ -13,8 +13,8 @@ const Lobby = ({ participants, handleGameStart }) => {
             <h4 id="playerHeader">Players</h4>
             {participants.map((player) => {
               return (
-                <div id="indivPlayer" key={player}>
-                  {player}
+                <div id="indivPlayer" key={player.id}>
+                  {player.name}
                 </div>
               );
             })}
