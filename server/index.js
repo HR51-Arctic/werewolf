@@ -99,11 +99,11 @@ const nightPhase = (currentGame) => {
   //check win conditions
 
   if (currentGame.numberOfAliveWerewolves() >= currentGame.numberOfAliveVillagers()) {
-    io.sockets.emit('endGame', 'werewolves win');
+    io.sockets.emit('endGame', 'Werewolves win');
     return;
   }
   if (currentGame.numberOfAliveWerewolves() === 0) {
-    io.sockets.emit('endGame', 'villagers win');
+    io.sockets.emit('endGame', 'Villagers win');
     return;
   }
 
