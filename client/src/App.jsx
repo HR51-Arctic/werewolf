@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
+import Login from './Login.jsx';
 import Lobby from "./Lobby.jsx";
 import GameView from "./GameView.jsx";
 const ENDPOINT = "http://localhost:3000";
@@ -26,6 +27,7 @@ function App() {
 
     socket.on("GetParticipants", (data) => {
       setLobbyParticipants(data);
+      console.log(lobbyParticipants)
     });
 
     socket.on("PreGame", (gameState) => {
@@ -47,7 +49,15 @@ function App() {
   const handleGameStart = () => {
     connection.emit('StartGame');
   }
-
+  const handleLogin = (username, password) => {
+    connection.emit('Login', username, password);
+  }
+  const handleSignup = (username, password, email) => {
+    connection.emit('Signup', username, password, email);
+  };
+  // const handleAnonymous = (name) => {
+  //   connection.emit('AnonymousLogin', name);
+  // };
   const werewolfVote = (data) => {
     let wolfVote = {
       me: myId,
@@ -62,6 +72,10 @@ function App() {
 
   return (
     <div>
+      <Login
+        handleLogin={handleLogin.bind(this)}
+        handleSignup={handleSignup.bind(this)}
+      />
       <Lobby
         participants={lobbyParticipants}
         handleGameStart={handleGameStart.bind(this)}
