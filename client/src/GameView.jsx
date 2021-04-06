@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
+const GameView = ({ myId, gameState, timer, day, werewolfVote, endGame }) => {
 
   const [message, setMessage] = useState('');
   // timer will start/end voting???
@@ -10,8 +10,6 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
   const [wolves, setWolves] = useState(2);
   // Just for testings sake
   // const [day, setDay] = useState(true);
-
-
   let role;
   gameState.players.forEach((player) => {
     if (player.id === myId) {
@@ -46,7 +44,8 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
           onClick={() => setDay(day ? false : true)}
         >Change Phase</button>
         <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
-          <button onClick={() => werewolfVote('Test!')}>Test Voting</button>
+          <button onClick={() => werewolfVote(myId)}>Test Voting</button>
+          {endGame ? <h1>{endGame}</h1> : null}
           <p>You are a {role}</p>
           <p>Current turn</p>
           <span>Discussion Timer</span>
@@ -67,7 +66,7 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
           ></textarea>
           <button type='submit' value='Submit'>Post</button>
         </div>
-        {voting ? <Voting /> :
+        {voting ? <Voting day={day} myId={myId} werewolfVote={werewolfVote}/> :
           <div>
             <select>
               <option value='Lynch'>Lynch</option>

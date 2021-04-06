@@ -4,7 +4,6 @@ import AppHeader from "./AppHeader.jsx";
 
 const Lobby = ({ participants, handleGameStart }) => {
   const [message, setMessage] = useState("");
-
   return (
     <>
       <div>
@@ -20,14 +19,16 @@ const Lobby = ({ participants, handleGameStart }) => {
               );
             })}
           </div>
-          <button
-            className="playButton"
-            type="submit"
-            value="Submit"
-            onClick={() => handleGameStart()}
-          >
-            Play
-          </button>
+          {participants.length >= 7 && (
+            <button
+              className="playButton"
+              type="submit"
+              value="Submit"
+              onClick={() => handleGameStart()}
+            >
+              Play
+            </button>
+          )}
         </div>
       </div>
     </>
