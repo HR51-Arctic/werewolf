@@ -64,7 +64,6 @@ function App() {
   //   connection.emit('AnonymousLogin', name);
   // };
   const vote = (data) => {
-    debugger;
     let vote = {
       me: myId,
       vote: data
