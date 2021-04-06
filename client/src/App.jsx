@@ -13,6 +13,7 @@ function App() {
   const [myId, setMyId] = useState('');
   const [timer, setTimer] = useState('');
   const [day, setDay] = useState(true);
+  const [endGame, setEndGame] = useState(null);
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
@@ -42,22 +43,34 @@ function App() {
       setDay(gamePhase.day)
     })
 
+    socket.on('endGame', (whoWon) => {
+      setEndGame(whoWon);
+    })
+
   }, []);
 
   const handleGameStart = () => {
     connection.emit('StartGame');
   }
 
-  const werewolfVote = (data) => {
-    let wolfVote = {
+  const vote = (data) => {
+    let vote = {
       me: myId,
       vote: data
     }
-    connection.emit('werewolfVote', wolfVote);
+    connection.emit('vote', vote);
+  }
+
+  const docChoice = (data) => {
+    let docChoice = {
+      me: myId,
+      vote: data
+    }
+    connection.emit('docChoice', docChoice);
   }
 
   if (play) {
-    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} werewolfVote={werewolfVote.bind(this)} />
+    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} werewolfVote={vote.bind(this)} endGame={endGame} />
   }
 
   return (

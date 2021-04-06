@@ -40,7 +40,6 @@ io.on('connection', (socket) => {
   ///////////////////////////////////////////////////////////////
   socket.on('StartGame', () => {
     // this is only available if clients.length >= 7
-    let werewolfCounter = 0;
     if (!currentGame) {
       currentGame = new Game();
     }
@@ -77,7 +76,7 @@ io.on('connection', (socket) => {
       }, 1000);
   })
   /////////////////////////////////////////////////////////////
-  socket.on('werewolfVote', (voteObject) => {
+  socket.on('vote', (voteObject) => {
     // console.log(voteObject.me, voteObject.vote);
     currentGame.votes[voteObject.me] = voteObject.vote;
   })
@@ -95,10 +94,12 @@ io.on('connection', (socket) => {
 const nightPhase = (currentGame) => {
   //check win conditions
   if (currentGame.numberOfAliveWerewolves() >= currentGame.numberOfAliveVillagers()) {
-    alert('Werewolves win!');
+    io.sockets.emit('endGame', 'werewolves win');
+    return;
   }
   if (currentGame.numberOfAliveWerewolves() === 0) {
-    alert('Villagers win!');
+    io.sockets.emit('endGame', 'villagers win');
+    return;
   }
 
   io.sockets.emit('changePhase', currentGame);
@@ -114,7 +115,6 @@ const nightPhase = (currentGame) => {
         // collect votes from client
         currentGame.determineKill();
         // calculate deaths
-        console.log(currentGame.players);
         // broadcast newGame
         currentGame.day = true;
         io.sockets.emit('changePhase', currentGame);
@@ -130,10 +130,12 @@ const nightPhase = (currentGame) => {
 /////////////////////////////////////////////////////////////////////////
 const dayPhase = (currentGame) => {
   if (currentGame.numberOfAliveWerewolves() >= currentGame.numberOfAliveVillagers()) {
-    alert('Werewolves win!');
+    io.sockets.emit('endGame', 'werewolves win');
+    return;
   }
   if (currentGame.numberOfAliveWerewolves() === 0) {
-    alert('Villagers win!');
+    io.sockets.emit('endGame', 'villagers win');
+    return;
   }
   let dayTimer = 10;
   const dayTimerLoop =
@@ -146,7 +148,6 @@ const dayPhase = (currentGame) => {
         // collect votes from client
         currentGame.determineKill();
         // calculate deaths
-        console.log(currentGame.players);
         // broadcast newGame
         currentGame.day = false;
         io.sockets.emit('changePhase', currentGame);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
+const GameView = ({ myId, gameState, timer, day, werewolfVote, endGame }) => {
 
   const [message, setMessage] = useState('');
   // timer will start/end voting???
@@ -40,11 +40,6 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
   return (
     <>
       <div style={{ backgroundColor: day ? 'yellow' : 'grey' }}>
-        <button
-          type='submit'
-          value='Submit'
-          onClick={() => setDay(day ? false : true)}
-        >Change Phase</button>
         <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
           <button onClick={() => werewolfVote(myId)}>Test Voting</button>
           <p>You are a {role}</p>
@@ -52,6 +47,7 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
           <span>Discussion Timer</span>
         </div>
         <div style={{ height: '100px', width: '50%', border: '3px solid black' }}>
+          {endGame ? <h1>{endGame}</h1> : null}
           <h1>You are a {role}</h1>
           <div>Time left: {timer} </div>
         </div>
