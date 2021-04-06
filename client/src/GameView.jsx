@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 
-<<<<<<< HEAD
 const GameView = ({ myId, gameState, timer, day, werewolfVote, endGame }) => {
-=======
-const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
-  //day = boolean referring to  day cycle --> false = night
->>>>>>> e4590317694343ea7bcd1385af6c60063c335587
 
   const [message, setMessage] = useState("");
   // timer will start/end voting???
