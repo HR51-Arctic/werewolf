@@ -1,9 +1,5 @@
-import React from "react";
+import React from 'react'
 
-const voting = ({ vote, participants, myId }) => {
-  return (
-    <div>
-      <button value={participant}>Vote</button>
-    </div>
-  );
-};
+const Voting = ({day, myId, werewolfvote  }) => {
+  // if day
+}

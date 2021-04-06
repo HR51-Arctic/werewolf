@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 
 // Here just in case we don't get to third party auth ------------------
-const SignUp = () => {
+const SignUp = (props) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -36,21 +36,26 @@ const SignUp = () => {
       <button
       type='submit'
       value='Submit'
-      onClick={() => console.log(`Welcome ${username}`)}
+      onClick={() => {
+        console.log(`Welcome ${username}`);
+        props.handleSignup(username, password, email);
+      }}
       >Sign Up</button>
     </div>
   )
 };
 //-----------------------------------------------------------------------
 
-const Login = () => {
+const Login = (props) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [newUser, signUp] = useState(false);
 
   if (newUser) {
-    return <SignUp />
+    return <SignUp
+      handleSignup={props.handleSignup}
+    />
   } else {
   return (
     <div>
@@ -73,7 +78,10 @@ const Login = () => {
       <button
       type='submit'
       value='Submit'
-      onClick={() => console.log('Submit')}
+      onClick={() => {
+        console.log('Submit')
+        props.handleLogin(username, password)
+      }}
       >Login</button>
       <button
       type='submit'
@@ -83,7 +91,10 @@ const Login = () => {
       <button
       type='submit'
       value='Submit'
-      onClick={() => console.log('Playing anonomously')}
+      onClick={() => {
+        console.log('Playing anonomously')
+      }
+      }
       >Play Anonomously</button>
     </div>
   )

@@ -63,4 +63,6 @@ SELECT userpassword FROM users WHERE username = 'willy';
 su postgres psql < database/schema.sql
 
 //or
+//if werewolf db isn't made yet
+createdb werewolf
 psql -h localhost -d werewolf -U yourcompuerusername < database/schema.sql

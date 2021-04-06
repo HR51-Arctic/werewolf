@@ -19,26 +19,62 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 const clients = [];
-
+const players = [];
 let currentGame;
 
 io.on("connection", (socket) => {
   console.log("New client connected");
   clients.push(socket.id);
-  // console.log(game);
-  socket.emit("myId", socket.id);
-  io.sockets.emit("GetParticipants", clients);
+  console.log(clients);
+  socket.emit('myId', socket.id);
+  io.sockets.emit('GetParticipants', players);
 
-  socket.on("disconnect", () => {
-    console.log("client disconnected");
+  socket.on('disconnect', () => {
+    if(socket.username) {
+      console.log(socket.username, 'disconnected');
+      // players.splice(players.indexOf())
+      // write a way to get depopulate players
+    } else {
+      console.log('client disconnected')
+    }
     clients.splice(clients.indexOf(socket.id), 1);
+    for (let i = 0; i < players.length; i++) {
+      if(players[i].id === socket.id) {
+        players.splice(i, 1);
+      }
+    }
     if (currentGame) {
       currentGame.removePlayer(socket.id);
     }
-    io.sockets.emit("GetParticipants", clients);
+    io.sockets.emit('GetParticipants', players);
+  })
+  /////////////////////////////login and signup//////////////////////////////////
+  socket.on('Login', (username, password) => {
+    socket.username = username;
+    console.log(username,'logged in');
+    players.push(new Player(socket.id, socket.username));
+    io.sockets.emit('GetParticipants', players);
+    //check login info via database - later
+    //create Player using info
+    //push into players list
+    //remove from clients list
   });
-  ///////////////////////////////////////////////////////////////
-  socket.on("StartGame", () => {
+
+  socket.on('Signup', (username, password, email) => {
+    console.log(username, password, email, 'is signing up');
+
+    //send to database
+    //if no errors,
+    socket.username = username;
+    players.push(new Player(socket.id, socket.username));
+    io.sockets.emit('GetParticipants', players);
+      //create Player using info
+      //push into players list
+      //remove from clients list
+  });
+
+  //////////////////////////////////////////////////////////////
+  socket.on('StartGame', () => {
     // this is only available if clients.length >= 7
     if (!currentGame) {
       currentGame = new Game();
@@ -46,17 +82,19 @@ io.on("connection", (socket) => {
 
     // var newGame = new Game(); ---> for futurue instancing for many game states. Right now single state for MVP
     // currentGame = newGame
+    let playerPool = players;
+    // let playerPool = [];
+    // clients.forEach((client) => {
+    //   var newPlayer = new Player(client);
+    //   playerPool.push(newPlayer);
+    // })
 
-    let playerPool = [];
-    clients.forEach((client) => {
-      var newPlayer = new Player(client);
-      playerPool.push(newPlayer);
-    });
+    /////////instead of looping through clients, loop through players -johnathan
 
     if (playerPool.length >= 7) {
-      assignRoles(currentGame, playerPool);
-      currentGame.active = true; //turning on the game --> game is in progress until win condition, run check win condition after every cycle :)
-      io.sockets.emit("PreGame", currentGame);
+      assignRoles(currentGame, playerPool)
+      currentGame.active = true //turning on the game --> game is in progress until win condition, run check win condition after every cycle :)
+      io.sockets.emit('PreGame', currentGame);
     }
 
 
