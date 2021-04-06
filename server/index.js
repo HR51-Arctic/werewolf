@@ -6,7 +6,7 @@ const Game = require('./gameClass.js')
 const Player = require('./playerClass.js')
 const assignRoles = require('./assignRoles.js')
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const index = require('./routes/index');
 
 app.use(express.static('public'));
@@ -19,7 +19,7 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 const clients = [];
-
+const readyPlayers = [];
 let currentGame;
 
 io.on('connection', (socket) => {
@@ -35,9 +35,27 @@ io.on('connection', (socket) => {
     if (currentGame) {
       currentGame.removePlayer(socket.id)
     }
-    io.sockets.emit('GetParticipants', clients);
+    io.sockets.emit('GetParticipants', readyPlayers);
   })
-  ///////////////////////////////////////////////////////////////
+  /////////////////////////////login and signup//////////////////////////////////
+  socket.on('login', (logininfo) => {
+    const { username, password } = logininfo;
+    //check login info via database
+    //create Player using info
+    //push into readyPlayers list
+    //remove from clients list
+  });
+
+  socket.on('signup', (accountinfo) => {
+    const { username, password, email } = accountinfo;
+    //send to database
+    //if no errors,
+      //create Player using info
+      //push into readyPlayers list
+      //remove from clients list
+  });
+
+  //////////////////////////////////////////////////////////////
   socket.on('StartGame', () => {
     // this is only available if clients.length >= 7
     let werewolfCounter = 0;
@@ -54,7 +72,9 @@ io.on('connection', (socket) => {
       playerPool.push(newPlayer);
     })
 
-    if (playerPool.length >= 7) {
+    /////////instead of looping through clients, loop through readyPlayers -johnathan
+
+    if (playerPool.length >= 3) {
       assignRoles(currentGame, playerPool)
       currentGame.active = true //turning on the game --> game is in progress until win condition, run check win condition after every cycle :)
       io.sockets.emit('PreGame', currentGame);

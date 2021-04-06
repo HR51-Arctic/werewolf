@@ -4,6 +4,7 @@ import AppHeader from "./AppHeader.jsx";
 
 const Lobby = ({ participants, handleGameStart }) => {
   const [message, setMessage] = useState("");
+  console.log(participants)
 
   return (
     <>
