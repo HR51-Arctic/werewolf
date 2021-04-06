@@ -46,6 +46,7 @@ function App() {
 
     socket.on("changePhase", (gamePhase) => {
       setDay(gamePhase.day);
+      setGameState(gamePhase)
     });
   }, []);
 
@@ -63,6 +64,7 @@ function App() {
   //   connection.emit('AnonymousLogin', name);
   // };
   const vote = (data) => {
+    debugger;
     let vote = {
       me: myId,
       vote: data

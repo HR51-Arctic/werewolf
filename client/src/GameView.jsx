@@ -1,6 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Voting from './Voting.jsx';
 
+
+const handleVote = (gameState, day, id) => {
+  if (gameState.players[id].role === 'werewolf' && !day) {
+    return (
+      <Werewolf />
+    )
+  } else if (gameState.players[id].role === 'doctor' ) {
+    return (
+      <Doctor />
+    )
+  } else if (gameState.players[id].role === 'seer') {
+    return <Seer />
+  } else {
+    return <Villager />
+  }
+}
+
 const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame }) => {
 
   const [message, setMessage] = useState('');
@@ -17,6 +34,7 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame }) => 
     if (player.id === myId) {
       role = player.role;
     }});
+
   // ideally, we would want separate components for each type of vote (werewolf/villager/seer/doctor)
   // find self in game state, if role is werewolf and it is night, then render werewolf vote component -> example
   // const Voting = () => {
@@ -67,6 +85,7 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame }) => 
           ></textarea>
           <button type='submit' value='Submit'>Post</button>
         </div>
+        {handleVote(gameState, day, myId)}
         <Voting gameState={gameState} day={day} myId={myId} vote={vote} docChoice={docChoice}/>
       </div>
     </>
