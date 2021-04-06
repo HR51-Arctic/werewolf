@@ -79,7 +79,7 @@ function App() {
   }
 
   if (play) {
-    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} werewolfVote={vote.bind(this)} endGame={endGame} />
+    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} vote={vote.bind(this)} docChoice={docChoice.bind(this)} endGame={endGame} />
   }
 
   return (

@@ -15,6 +15,7 @@ const Lobby = ({ participants, handleGameStart }) => {
               return (
                 <div id="indivPlayer" key={player.id}>
                   {player.name}
+
                 </div>
               );
             })}
