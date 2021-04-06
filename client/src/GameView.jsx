@@ -46,7 +46,7 @@ const GameView = ({ myId, gameState, timer, day, werewolfVote }) => {
           onClick={() => setDay(day ? false : true)}
         >Change Phase</button>
         <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
-          <button onClick={() => werewolfVote('Test!')}>Test Voting</button>
+          <button onClick={() => werewolfVote(myId)}>Test Voting</button>
           <p>You are a {role}</p>
           <p>Current turn</p>
           <span>Discussion Timer</span>

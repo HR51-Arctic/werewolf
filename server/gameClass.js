@@ -71,13 +71,13 @@ class Game {
     let wolves = 0
     let players = 0
     this.players.forEach((player) => {
-       if (this.player.alive) {
-         if (this.player.role === 'werewolf') {
-           wolves ++
-         } else {
-           players++
-         }
-       }
+      if (this.player.alive) {
+        if (this.player.role === 'werewolf') {
+          wolves++
+        } else {
+          players++
+        }
+      }
     })
     if (wolves >= players) {
       //wolf win condition
@@ -93,29 +93,55 @@ class Game {
   }
 
   determineKill() {
-    let targetCount = 0
-    let targetedPlayers = []
+    // let targetCount = 0
+    // let targetedPlayers = []
     //this.votes is an object with key of player(id) and value of Object.values iterate through incrememnte vote counts. after logic reset to empty object {}
     // make sure that the protected person cant be killed
-    this.players.forEach((player, index) => {
-      if (player.targeted && player.targeted > targetCount) { //make sure target isnt protected
-        targetedPlayers = [index]
+    let voteCount = {};
+    for (let key in this.votes) {
+      if (voteCount[this.votes[key]] === undefined) {
+        voteCount[this.votes[key]] = 1;
+      } else {
+        voteCount[this.votes[key]] += 1;
       }
-      if (player.targeted && player.targeted === targetCount) {
-        targetedPlayers.push(index)
+    };
+    this.votes = {};
+    let maxVotes = 0;
+    let targeted = '';
+    for (let key in voteCount) {
+      if (voteCount[key] > maxVotes) {
+        maxVotes = voteCount[key];
+        targeted = key;
       }
-    });
-    // this sets alive status to false, don't need to set it manually
-    // if tie, pick random player to kill
-    if (targetedPlayers.length) {
-      let indexIndex = Math.floor(Math.random() * targetedPlayers.length)
-      targetIndex = targetedPlayers[indexIndex]
-      this.players[targetIndex].alive = false
-    }
-    // reset player votes to 0
-    this.players.forEach((player) => {
-      player.targeted = 0
+    };
+    this.players.forEach(player => {
+      if (player.id === targeted) {
+        if (player.protected) {
+          return;
+        } else {
+          player.alive = false;
+        }
+      }
     })
+    // this.players.forEach((player, index) => {
+    //   if (player.targeted && player.targeted > targetCount) { //make sure target isnt protected
+    //     targetedPlayers = [index]
+    //   }
+    //   if (player.targeted && player.targeted === targetCount) {
+    //     targetedPlayers.push(index)
+    //   }
+    // });
+    // // this sets alive status to false, don't need to set it manually
+    // // if tie, pick random player to kill
+    // if (targetedPlayers.length) {
+    //   let indexIndex = Math.floor(Math.random() * targetedPlayers.length)
+    //   targetIndex = targetedPlayers[indexIndex];
+    //   this.players[targetIndex].alive = false;
+    // }
+    // // reset player votes to 0
+    // this.players.forEach((player) => {
+    //   player.targeted = 0
+    // })
   }
 
 

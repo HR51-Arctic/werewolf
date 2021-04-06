@@ -60,7 +60,7 @@ io.on('connection', (socket) => {
       io.sockets.emit('PreGame', currentGame);
     }
 
-
+    //change phase to "pregame" so there is no voting, perhaps no timer?
     io.sockets.emit('PreGame', currentGame);
     //start timer
     let preGameTimer = 5;
@@ -70,6 +70,7 @@ io.on('connection', (socket) => {
         io.sockets.emit('timer', preGameTimer);
         console.log(preGameTimer);
         if (preGameTimer == 0) {
+          currentGame.day = false;
           nightPhase(currentGame);
           clearInterval(preGameTimerLoop);
         }
@@ -82,18 +83,17 @@ io.on('connection', (socket) => {
   })
 
   socket.on('docChoice', (protectedId) => {
-
+    currentGame.players.forEach((player) => {
+      if (player.id === protectedId) {
+        player.protected = true;
+      }
+    })
   })
-
-
 })
 
-//night function
+/////////////////////////////////////////////////////////////////////////////////////////
 const nightPhase = (currentGame) => {
-  console.log(currentGame.numberOfAliveVillagers());
-  console.log(currentGame.numberOfAliveWerewolves());
   //check win conditions
-  //if win conditions met
   if (currentGame.numberOfAliveWerewolves() >= currentGame.numberOfAliveVillagers()) {
     alert('Werewolves win!');
   }
@@ -101,11 +101,6 @@ const nightPhase = (currentGame) => {
     alert('Villagers win!');
   }
 
-  //else
-  //check newGame for phase
-  //start timer
-  //send word to the client to change phase and timer
-  currentGame.day = !currentGame.day;
   io.sockets.emit('changePhase', currentGame);
   //send and receiving the game data
   let nightTimer = 10;
@@ -115,16 +110,54 @@ const nightPhase = (currentGame) => {
       io.sockets.emit('timer', nightTimer);
       console.log(nightTimer);
       if (nightTimer == 0) {
-        // collect votes from client
-        // calculate deaths
-        console.log(currentGame.votes);
-        // broadcast newGame
-        // call dayPhase
         clearInterval(nightTimerLoop);
+        // collect votes from client
+        currentGame.determineKill();
+        // calculate deaths
+        console.log(currentGame.players);
+        // broadcast newGame
+        currentGame.day = true;
+        io.sockets.emit('changePhase', currentGame);
+        //reset protected status
+        currentGame.players.forEach((player) => {
+          player.protected = false;
+        })
+        // call dayPhase
+        dayPhase(currentGame);
       }
     }, 1000);
 }
+/////////////////////////////////////////////////////////////////////////
+const dayPhase = (currentGame) => {
+  if (currentGame.numberOfAliveWerewolves() >= currentGame.numberOfAliveVillagers()) {
+    alert('Werewolves win!');
+  }
+  if (currentGame.numberOfAliveWerewolves() === 0) {
+    alert('Villagers win!');
+  }
+  let dayTimer = 10;
+  const dayTimerLoop =
+    setInterval(() => {
+      dayTimer -= 1;
+      io.sockets.emit('timer', dayTimer);
+      console.log(dayTimer);
+      if (dayTimer == 0) {
+        clearInterval(dayTimerLoop);
+        // collect votes from client
+        currentGame.determineKill();
+        // calculate deaths
+        console.log(currentGame.players);
+        // broadcast newGame
+        currentGame.day = false;
+        io.sockets.emit('changePhase', currentGame);
+        // call dayPhase
+        nightPhase(currentGame);
+      }
+    }, 1000);
 
+}
+
+////////////////////////////////////////////////////////////////////////
 server.listen(port, () => {
   console.log(`Server listening on ${port}`)
 });
