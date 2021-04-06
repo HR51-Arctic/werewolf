@@ -40,7 +40,7 @@ io.on('connection', (socket) => {
   /////////////////////////////login and signup//////////////////////////////////
   socket.on('login', (logininfo) => {
     const { username, password } = logininfo;
-    //check login info via database
+    //check login info via database - later
     //create Player using info
     //push into readyPlayers list
     //remove from clients list
