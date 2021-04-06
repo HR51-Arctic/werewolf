@@ -1,48 +1,37 @@
-import React, { useState } from 'react'
-import GameView from './GameView.jsx';
-
+import React, { useState } from "react";
+import GameView from "./GameView.jsx";
+import AppHeader from "./AppHeader.jsx";
 
 const Lobby = ({ participants, handleGameStart }) => {
-
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   return (
     <>
       <div>
-        <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
-          <span>Username and stats</span>
-        </div>
-        <div style={{ height: '150px', width: '100px', border: '3px solid black' }}>
-          {participants.map((player) => {
-            return (
-              <div key={player}>{player}</div>
-            )
-          })}
-        </div>
-        <div>
-          <div style={{ height: '100px', width: '50%', border: '3px solid black' }}>
-            <textarea
-              name='chat'
-              type='text'
-              value={message}
-              onChange={e => setMessage(e.target.value)}
-            >Message</textarea>
+        <AppHeader id="header" />
+        <div id="lobby">
+          <div id="players">
+            <h4 id="playerHeader">Players</h4>
+            {participants.map((player) => {
+              return (
+                <div id="indivPlayer" key={player}>
+                  {player}
+                </div>
+              );
+            })}
           </div>
           <button
-            type='submit'
-            value='Submit'
-            onClick={() => console.log('Posted message')}
-          >Post Message</button>
+            className="playButton"
+            type="submit"
+            value="Submit"
+            onClick={() => handleGameStart()}
+          >
+            Play
+          </button>
         </div>
       </div>
-      <button
-        type='submit'
-        value='Submit'
-        onClick={() => handleGameStart()}
-      >PLAY</button>
     </>
-  )
-}
-
+  );
+};
 
 export default Lobby;

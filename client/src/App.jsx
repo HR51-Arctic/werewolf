@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import socketIOClient from 'socket.io-client';
-import Lobby from './Lobby.jsx';
-import GameView from './GameView.jsx';
-const ENDPOINT = 'http://localhost:3000';
+import React, { useState, useEffect } from "react";
+import socketIOClient from "socket.io-client";
+import Lobby from "./Lobby.jsx";
+import GameView from "./GameView.jsx";
+const ENDPOINT = "http://localhost:3000";
 
 function App() {
   const [connection, setConnection] = useState({});
@@ -14,23 +14,21 @@ function App() {
   const [timer, setTimer] = useState('');
   const [day, setDay] = useState(true);
 
-
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
     setConnection(socket);
     //  + console.log(dirtySock);
     // console.log(dirtySock)
-    socket.on('myId', (id) => {
+    socket.on("myId", (id) => {
       setMyId(id);
     });
 
-    socket.on('GetParticipants', (data) => {
+    socket.on("GetParticipants", (data) => {
       setLobbyParticipants(data);
     });
 
-
-    socket.on('PreGame', (gameState) => {
+    socket.on("PreGame", (gameState) => {
       setGameState(gameState);
       setPlay(true);
 
@@ -64,10 +62,11 @@ function App() {
 
   return (
     <div>
-      <Lobby participants={lobbyParticipants} handleGameStart={handleGameStart.bind(this)} />
+      <Lobby
+        participants={lobbyParticipants}
+        handleGameStart={handleGameStart.bind(this)}
+      />
     </div>
-
-
   );
 }
 
