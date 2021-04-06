@@ -1,64 +1,98 @@
-import React, { useState, useEffect } from 'react';
-import socketIOClient from 'socket.io-client';
-import Lobby from './Lobby.jsx';
-import GameView from './GameView.jsx';
-const ENDPOINT = 'http://localhost:3000';
+import React, { useState, useEffect } from "react";
+import socketIOClient from "socket.io-client";
+import Login from './Login.jsx';
+import Lobby from "./Lobby.jsx";
+import GameView from "./GameView.jsx";
+const ENDPOINT = "http://localhost:3000";
 
 function App() {
-  const [dirtySock, setDirtySock] = useState({});
-  const [message, setMessage] = useState('');
-  const [gameState, setGameState] = useState('');
+  const [connection, setConnection] = useState({});
+  const [message, setMessage] = useState("");
+  const [gameState, setGameState] = useState("");
   const [lobbyParticipants, setLobbyParticipants] = useState([]);
   const [play, setPlay] = useState(false);
-  const [myId, setMyId] = useState('');
-  const [timer, setTimer] = useState('');
+  const [myId, setMyId] = useState("");
+  const [timer, setTimer] = useState("");
   const [day, setDay] = useState(true);
-
+  const [endGame, setEndGame] = useState(null);
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
-    setDirtySock(socket);
+    setConnection(socket);
     //  + console.log(dirtySock);
     // console.log(dirtySock)
-    socket.on('myId', (id) => {
+    socket.on("myId", (id) => {
       setMyId(id);
     });
 
-    socket.on('GetParticipants', (data) => {
+    socket.on("GetParticipants", (data) => {
       setLobbyParticipants(data);
+      console.log(lobbyParticipants)
     });
 
-
-    socket.on('PreGame', (gameState) => {
+    socket.on("PreGame", (gameState) => {
       setGameState(gameState);
       setPlay(true);
+    });
 
-    })
-
-    socket.on('timer', (timer) => {
+    socket.on("timer", (timer) => {
       setTimer(timer);
+    });
+
+    socket.on('endGame', (whoWon) => {
+      setEndGame(whoWon);
     })
 
-    socket.on('changePhase', (gamePhase) => {
-      setDay(gamePhase.day)
-    })
-
+    socket.on("changePhase", (gamePhase) => {
+      setDay(gamePhase.day);
+    });
   }, []);
 
   const handleGameStart = () => {
-    dirtySock.emit('StartGame');
+    connection.emit("StartGame");
+  };
+
+  const handleLogin = (username, password) => {
+    connection.emit('Login', username, password);
   }
+  const handleSignup = (username, password, email) => {
+    connection.emit('Signup', username, password, email);
+  };
+  // const handleAnonymous = (name) => {
+  //   connection.emit('AnonymousLogin', name);
+  // };
+  const vote = (data) => {
+    let vote = {
+      me: myId,
+      vote: data
+    }
+    connection.emit('vote', vote);
+  }
+
+  const docChoice = (data) => {
+    let docChoice = {
+      me: myId,
+      vote: data
+    }
+    connection.emit('docChoice', docChoice);
+  }
+
   if (play) {
-    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} />
+    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} werewolfVote={vote.bind(this)} endGame={endGame} />
   }
 
   return (
     <div>
-      <Lobby participants={lobbyParticipants} handleGameStart={handleGameStart.bind(this)} />
+      <Login
+        handleLogin={handleLogin.bind(this)}
+        handleSignup={handleSignup.bind(this)}
+      />
+      <Lobby
+        participants={lobbyParticipants}
+        handleGameStart={handleGameStart.bind(this)}
+      />
     </div>
-
-
   );
 }
 

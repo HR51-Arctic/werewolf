@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const GameView = ({ myId, gameState, timer, day }) => {
+const GameView = ({ myId, gameState, timer, day, werewolfVote, endGame }) => {
 
   const [message, setMessage] = useState('');
   // timer will start/end voting???
@@ -10,15 +10,14 @@ const GameView = ({ myId, gameState, timer, day }) => {
   const [wolves, setWolves] = useState(2);
   // Just for testings sake
   // const [day, setDay] = useState(true);
-
-
   let role;
   gameState.players.forEach((player) => {
     if (player.id === myId) {
       role = player.role;
     }
   })
-
+  // ideally, we would want separate components for each type of vote (werewolf/villager/seer/doctor)
+  // find self in game state, if role is werewolf and it is night, then render werewolf vote component -> example
   const Voting = () => {
     if (!voting) {
       return null;
@@ -44,8 +43,9 @@ const GameView = ({ myId, gameState, timer, day }) => {
           value='Submit'
           onClick={() => setDay(day ? false : true)}
         >Change Phase</button>
-        <div id="turn-info" style={{ height: '250px', width: '50%', border: '3px solid black' }}>
-          <p>Username</p>
+        <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
+          <button onClick={() => werewolfVote(myId)}>Test Voting</button>
+          {endGame ? <h1>{endGame}</h1> : null}
           <p>You are a {role}</p>
           <p>Current turn</p>
           <span>Discussion Timer</span>
@@ -66,8 +66,8 @@ const GameView = ({ myId, gameState, timer, day }) => {
           ></textarea>
           <button type='submit' value='Submit'>Post</button>
         </div>
-        {voting ? <Voting /> :
-          <div id="selection">
+        {voting ? <Voting day={day} myId={myId} werewolfVote={werewolfVote}/> :
+          <div>
             <select>
               <option value='Lynch'>Lynch</option>
               <option value='Save'>Save</option>
