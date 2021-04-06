@@ -92,7 +92,6 @@ class Game {
   }
 
   determineKill() {
-    debugger;
     // let targetCount = 0
     // let targetedPlayers = []
     //this.votes is an object with key of player(id) and value of Object.values iterate through incrememnte vote counts. after logic reset to empty object {}
@@ -123,7 +122,6 @@ class Game {
         }
       }
     })
-    console.log(this.players)
     // this.players.forEach((player, index) => {
     //   if (player.targeted && player.targeted > targetCount) { //make sure target isnt protected
     //     targetedPlayers = [index]
