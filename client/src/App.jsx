@@ -6,12 +6,12 @@ const ENDPOINT = "http://localhost:3000";
 
 function App() {
   const [connection, setConnection] = useState({});
-  const [message, setMessage] = useState('');
-  const [gameState, setGameState] = useState('');
+  const [message, setMessage] = useState("");
+  const [gameState, setGameState] = useState("");
   const [lobbyParticipants, setLobbyParticipants] = useState([]);
   const [play, setPlay] = useState(false);
-  const [myId, setMyId] = useState('');
-  const [timer, setTimer] = useState('');
+  const [myId, setMyId] = useState("");
+  const [timer, setTimer] = useState("");
   const [day, setDay] = useState(true);
   const [endGame, setEndGame] = useState(null);
 
@@ -32,26 +32,24 @@ function App() {
     socket.on("PreGame", (gameState) => {
       setGameState(gameState);
       setPlay(true);
+    });
 
-    })
-
-    socket.on('timer', (timer) => {
+    socket.on("timer", (timer) => {
       setTimer(timer);
-    })
-
-    socket.on('changePhase', (gamePhase) => {
-      setDay(gamePhase.day)
-    })
+    });
 
     socket.on('endGame', (whoWon) => {
       setEndGame(whoWon);
     })
 
+    socket.on("changePhase", (gamePhase) => {
+      setDay(gamePhase.day);
+    });
   }, []);
 
   const handleGameStart = () => {
-    connection.emit('StartGame');
-  }
+    connection.emit("StartGame");
+  };
 
   const vote = (data) => {
     let vote = {
