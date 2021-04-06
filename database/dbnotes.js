@@ -58,3 +58,9 @@ UPDATE users SET numofgames = numofgames + 1, humanwins = humanwins + 1 WHERE us
 
 //check email address of user
 SELECT userpassword FROM users WHERE username = 'willy';
+
+//run schema file
+su postgres psql < database/schema.sql
+
+//or
+psql -h localhost -d werewolf -U yourcompuerusername < database/schema.sql
