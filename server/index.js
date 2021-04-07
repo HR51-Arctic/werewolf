@@ -101,7 +101,7 @@ io.on("connection", (socket) => {
     //change phase to "pregame" so there is no voting, perhaps no timer?
     io.sockets.emit('PreGame', currentGame);
     //start timer
-    let preGameTimer = 5;
+    let preGameTimer = 30;
     const preGameTimerLoop =
       setInterval(() => {
         preGameTimer -= 1;
@@ -148,7 +148,7 @@ const nightPhase = (currentGame) => {
 
   io.sockets.emit('changePhase', currentGame);
   //send and receiving the game data
-  let nightTimer = 30;
+  let nightTimer = 20;
   const nightTimerLoop =
     setInterval(() => {
       nightTimer -= 1;
@@ -181,7 +181,7 @@ const dayPhase = (currentGame) => {
     io.sockets.emit('endGame', 'villagers win');
     return;
   }
-  let dayTimer = 10;
+  let dayTimer = 60;
   const dayTimerLoop =
     setInterval(() => {
       dayTimer -= 1;

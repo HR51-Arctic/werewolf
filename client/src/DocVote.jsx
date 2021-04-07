@@ -20,7 +20,7 @@ class DocVote extends React.Component {
     if (!this.state.protect) {
       return (
         <div>
-          <h3>Choose Who to protect</h3>
+          <h3>Choose who to protect</h3>
           <div>
             {gameState.players.map((player) => {
               if (player.alive && player.id !== myId) {
