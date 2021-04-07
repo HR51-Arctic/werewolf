@@ -25,7 +25,7 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGa
           {day && !preGame ? <div>Talk amongst yourselves and try to figure out who is really a werewolf! Vote below and at the end of the day the one with the most votes will be killed.</div> : null}
           {!day ? <div>It is dangerous to walk these streets alone at night. Pray the werewolves don't find you!</div> : null}
         </div>
-        <div id="role-continaer" style={{ height: '100px', width: '50%', border: '3px solid black' }}>
+        <div id="role-container" style={{ height: '100px', width: '50%', border: '3px solid black' }}>
           <h1>You are a {role}</h1>
           <div>Time left: {timer} </div>
         </div>

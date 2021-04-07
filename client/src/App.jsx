@@ -6,7 +6,6 @@ import GameView from "./GameView.jsx";
 const ENDPOINT = "http://localhost:3000";
 
 function App() {
-
   const [connection, setConnection] = useState({});
   const [message, setMessage] = useState("");
   const [gameState, setGameState] = useState("");
@@ -53,7 +52,7 @@ function App() {
         if (player.role !== 'werewolf' && player.alive) {
           villagers += 1;
         }
-      })
+      });
 
       setWerewolves(werewolves);
       setVillagers(villagers);
@@ -61,9 +60,6 @@ function App() {
       setPlay(true);
     });
     socket.on('updateVotes', (newGameState) => {
-      console.log(`update triggered: ${newGameState.votes}`)
-      console.log(`keys: ${Object.values(newGameState.votes)}`)
-
       let votes = Object.values(newGameState.votes)
       votes.forEach((vote) => {
         for (let x=0; x<newGameState.players.length; x++) {
@@ -89,8 +85,8 @@ function App() {
       console.log('reset game was clicked')
       setPlay(false);
       setGameState(data);
-      setDay(true)
-      setPreGame(true)
+      setDay(true)      //recent added causing client disconnect
+      setPreGame(true) //recentlyAdded client Disconnect
       setEndGame(null);
       setTimer('');
       setMessage('');
@@ -138,7 +134,6 @@ function App() {
   //socket listener for returning to lobby
  //////////////////////////////////////
   const vote = (data) => {
-    debugger;
     let vote = {
       me: myId,
       vote: data
