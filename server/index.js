@@ -101,7 +101,7 @@ io.on("connection", (socket) => {
     //change phase to "pregame" so there is no voting, perhaps no timer?
     io.sockets.emit('PreGame', currentGame);
     //start timer
-    let preGameTimer = 5; //changed for debugging purposes ==> revert to 30 seconds
+    let preGameTimer = 30;
     const preGameTimerLoop =
       setInterval(() => {
         preGameTimer -= 1;
