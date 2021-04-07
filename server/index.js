@@ -120,7 +120,8 @@ io.on("connection", (socket) => {
   socket.on('vote', (voteObject) => {
     // console.log(voteObject.me, voteObject.vote);
     currentGame.votes[voteObject.me] = voteObject.vote;
-
+    //when user votes and updates votes in game object, send back to client immediately after to update counts client side
+    io.sockets.emit('updateVotes', currentGame)
   })
 
   socket.on('docChoice', (protectedId) => {

@@ -55,6 +55,25 @@ function App() {
       setPlay(true);
     });
 
+    socket.on('updateVotes', (newGameState) => {
+      console.log(`update triggered: ${newGameState.votes}`)
+      console.log(`keys: ${Object.values(newGameState.votes)}`)
+
+      debugger;
+      let votes = Object.values(newGameState.votes)
+      votes.forEach((vote) => {
+        debugger;
+        for (let x=0; x<newGameState.players.length; x++) {
+          let player = newGameState.players[x]
+          if (vote === player.id) {
+            player.targeted += 1
+            return
+          }
+        }
+      });
+      setGameState(newGameState)
+    });
+
     socket.on("timer", (timer) => {
       setTimer(timer);
     });
