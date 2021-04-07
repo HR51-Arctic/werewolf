@@ -3,7 +3,6 @@ import socketIOClient from "socket.io-client";
 import Login from './Login.jsx';
 import Lobby from "./Lobby.jsx";
 import GameView from "./GameView.jsx";
-
 const ENDPOINT = "http://localhost:3000";
 
 function App() {
@@ -20,18 +19,24 @@ function App() {
   const [wereWolves, setWerewolves] = useState(0);
   const [villagers, setVillagers] = useState(0);
   const [werewolfMessages, setWereWolfMessages] = useState([]);
-
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
     setConnection(socket);
+
     socket.on("myId", (id) => {
       setMyId(id);
     });
-
+    socket.on("checkGameInProgress", (currentGame) => {
+      if (progress) {
+        // set up a check for player within gamestate before rendering
+        // setGameState(currentGame)
+      }
+    });
     socket.on("GetWerewolfChat", (data) => {
       setWereWolfMessages(data);
     })
+
 
     socket.on("GetParticipants", (data) => {
       setLobbyParticipants(data);
@@ -54,15 +59,12 @@ function App() {
       setGameState(gameState);
       setPlay(true);
     });
-
     socket.on('updateVotes', (newGameState) => {
       console.log(`update triggered: ${newGameState.votes}`)
       console.log(`keys: ${Object.values(newGameState.votes)}`)
 
-      debugger;
       let votes = Object.values(newGameState.votes)
       votes.forEach((vote) => {
-        debugger;
         for (let x=0; x<newGameState.players.length; x++) {
           let player = newGameState.players[x]
           if (vote === player.id) {
@@ -73,7 +75,6 @@ function App() {
       });
       setGameState(newGameState)
     });
-
     socket.on("timer", (timer) => {
       setTimer(timer);
     });
@@ -81,6 +82,18 @@ function App() {
     socket.on('endGame', (whoWon) => {
       setEndGame(whoWon);
     })
+
+    //////reset game listener
+    socket.on('resetGame', (data) => {
+      console.log('reset game was clicked')
+      setPlay(false);
+      setGameState(data);
+      setDay(true)
+      setPreGame(true)
+      setEndGame(null);
+      setTimer('');
+      setMessage('');
+    });
 
     socket.on("changePhase", (gameState) => {
       let werewolves = 0;
@@ -102,6 +115,7 @@ function App() {
   }, []);
 
   const handleGameStart = () => {
+    //set state of currentGame = gameState
     connection.emit("StartGame");
   };
 
@@ -112,6 +126,16 @@ function App() {
     connection.emit('Signup', username, password, email);
   };
 
+  //////////reset game logic ////////////
+  const handleResetGame = () => {
+    // emit to server to end => server handles the reset stuff => server emits to all clients to reset states
+    connection.emit('initializeReset');
+  };
+  // socket.on('resetGame', () => {
+  //   setPlay(false);
+  // });
+  //socket listener for returning to lobby
+ //////////////////////////////////////
   const vote = (data) => {
     let vote = {
       me: myId,
@@ -127,13 +151,11 @@ function App() {
     }
     connection.emit('docChoice', docChoice);
   }
-
   const handleWerewolfChat = (message) => {
     connection.emit("werewolfMessages", message);
   }
-
   if (play) {
-    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} vote={vote.bind(this)} docChoice={docChoice.bind(this)} endGame={endGame} preGame={preGame} werewolves={wereWolves} villagers={villagers} werewolfMessages={werewolfMessages} handleWerewolfChat={handleWerewolfChat.bind(this)} />
+    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} vote={vote.bind(this)} docChoice={docChoice.bind(this)} endGame={endGame} preGame={preGame} werewolves={wereWolves} villagers={villagers} werewolfMessages={werewolfMessages} handleWerewolfChat={handleWerewolfChat.bind(this)} handleResetGame={handleResetGame.bind(this)}/>
   }
 
   return (
