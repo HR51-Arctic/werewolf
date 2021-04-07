@@ -7,6 +7,7 @@ import GameView from "./GameView.jsx";
 const ENDPOINT = "http://localhost:3000";
 
 function App() {
+
   const [connection, setConnection] = useState({});
   const [message, setMessage] = useState("");
   const [gameState, setGameState] = useState("");
@@ -113,6 +114,7 @@ function App() {
   };
 
   const vote = (data) => {
+    debugger;
     let vote = {
       me: myId,
       vote: data
