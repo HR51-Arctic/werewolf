@@ -1,23 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Voting from './Voting.jsx';
 
-
-// const handleVote = (gameState, day, id) => {
-//   if (gameState.players[id].role === 'werewolf' && !day) {
-//     return (
-//       <Werewolf />
-//     )
-//   } else if (gameState.players[id].role === 'doctor' ) {
-//     return (
-//       <Doctor />
-//     )
-//   } else if (gameState.players[id].role === 'seer') {
-//     return <Seer />
-//   } else {
-//     return <Villager />
-//   }
-// }
-
 const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGame, werewolves, villagers }) => {
 
   const [message, setMessage] = useState('');
@@ -33,16 +16,7 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGa
 
   return (
     <>
-<<<<<<< HEAD
-      <div id="background" style={{ backgroundColor: day ? 'yellow' : 'grey' }}>
-        <button
-          type='submit'
-          value='Submit'
-          onClick={() => setDay(day ? false : true)}
-        >Change Phase</button>
-=======
       <div style={{ backgroundColor: day ? 'yellow' : 'grey' }}>
->>>>>>> e9813d13d48495a3d2adf80d5c2a079d1458d7ba
         <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
           {endGame ? <h1>{endGame}</h1> : null}
           {preGame ? <div>Welcome to werewolf! This is a small and tight-knit town, so introduce yourselves and get to know each other! But be careful, some may not be what they seem...</div> : null}
@@ -53,8 +27,14 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGa
           <h1>You are a {role}</h1>
           <div>Time left: {timer} </div>
         </div>
+        <div>
+          {gameState.players.map((player) => {
+            return (
+              <div>{player.name} {player.alive ? 'Alive' : 'Dead'}</div>
+            )
+          })}
+        </div>
         <div>Remaining Werewolves: {werewolves}</div>
-        <div></div>
         <div>Remaining Villagers: {villagers}</div>
         <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
           <Voting gameState={gameState} day={day} myId={myId} vote={vote} docChoice={docChoice} preGame={preGame} role={role} />
