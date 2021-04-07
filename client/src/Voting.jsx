@@ -1,24 +1,6 @@
 import React, {useState} from 'react';
-import Werewolf from './Characters/Werewolf.jsx';
-import Seer from './Characters/Seer.jsx';
-import Villager from './Characters/Villager.jsx';
-import Doctor from './Characters/Doctor.jsx';
-
-const handleVote = (gameState, day, id) => {
-  if (gameState.players[id].role === 'werewolf' && !day) {
-    return (
-      <Werewolf />
-    )
-  } else if (gameState.players[id].role === 'doctor' ) {
-    return (
-      <Doctor />
-    )
-  } else if (gameState.players[id].role === 'seer') {
-    return <Seer />
-  } else {
-    return <Villager />
-  }
-}
+import SeerVote from './SeerVote.jsx';
+import DocVote from './DocVote.jsx';
 
 const Voting = ({ gameState, day, myId, vote, docChoice, role }) => {
   // const [voting, setVoting] = useState(false);
@@ -58,6 +40,12 @@ const Voting = ({ gameState, day, myId, vote, docChoice, role }) => {
   }
   if (!myPlayer.alive) {
     return <div>You are dead</div>
+  }
+  if (myPlayer.role === 'doctor') {
+    return <DocVote docChoice={docChoice} gameState={gameState}/>
+  }
+  if (myPlayer.role === 'seer') {
+    return <SeerVote gameState={gameState}/>
   }
   return <div>You cannot vote during the night</div>
 }

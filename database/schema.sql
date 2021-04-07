@@ -3,10 +3,11 @@ CREATE DATABASE werewolf;
 \c werewolf;
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    userName VARCHAR(20) UNIQUE,
+    username VARCHAR(20) UNIQUE,
     userPassword VARCHAR(20),
     email VARCHAR(320) UNIQUE,
     numOfGames INTEGER NOT NULL DEFAULT 0,
+    wins INTEGER NOT NULL DEFAULT 0,
     humanWins INTEGER NOT NULL DEFAULT 0,
     werewolfWins INTEGER NOT NULL DEFAULT 0
 );

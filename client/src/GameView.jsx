@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react';
 import Voting from './Voting.jsx';
 
 
-const handleVote = (gameState, day, id) => {
-  if (gameState.players[id].role === 'werewolf' && !day) {
-    return (
-      <Werewolf />
-    )
-  } else if (gameState.players[id].role === 'doctor' ) {
-    return (
-      <Doctor />
-    )
-  } else if (gameState.players[id].role === 'seer') {
-    return <Seer />
-  } else {
-    return <Villager />
-  }
-}
+// const handleVote = (gameState, day, id) => {
+//   if (gameState.players[id].role === 'werewolf' && !day) {
+//     return (
+//       <Werewolf />
+//     )
+//   } else if (gameState.players[id].role === 'doctor' ) {
+//     return (
+//       <Doctor />
+//     )
+//   } else if (gameState.players[id].role === 'seer') {
+//     return <Seer />
+//   } else {
+//     return <Villager />
+//   }
+// }
 
 const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame }) => {
 
@@ -85,7 +85,7 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame }) => 
           ></textarea>
           <button type='submit' value='Submit'>Post</button>
         </div>
-        {handleVote(gameState, day, myId)}
+        {/* {handleVote(gameState, day, myId)} */}
         <Voting gameState={gameState} day={day} myId={myId} vote={vote} docChoice={docChoice}/>
       </div>
     </>
