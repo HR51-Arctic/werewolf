@@ -31,11 +31,11 @@ const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
         {gameState.players.map((player) => {
           if (day) {
             if (player.id !== myId && player.alive) {
-              return <button onClick={() => { vote(player.id) }}>{player.name}</button>
+              return <button onClick={() => { vote(player.id) }}>{player.name}<br/>Votes: {player.targeted}</button>
             }
           } else {
             if (player.id !== myId && player.role !== 'werewolf' && player.alive) {
-              return <button onClick={() => { vote(player.id) }}>{player.name}</button>
+              return <button onClick={() => { vote(player.id) }}>{player.name}<br/>Votes: {player.targeted}</button>
             }
           }
         })}
