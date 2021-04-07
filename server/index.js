@@ -21,6 +21,7 @@ const io = socketIo(server);
 
 const clients = [];
 const players = [];
+const messages = [];
 let currentGame;
 
 io.on("connection", (socket) => {
@@ -128,6 +129,12 @@ io.on("connection", (socket) => {
         player.protected = true;
       }
     })
+  })
+
+  //////// werewolf chat ///////////
+  socket.on('werewolfMessages', (message) => {
+    messages.push(message)
+    io.sockets.emit('GetWerewolfChat', messages)
   })
 })
 
