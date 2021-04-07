@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Voting from './Voting.jsx';
+import WerewolfChat from './WerewolfChat.jsx';
 
 const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGame, werewolves, villagers }) => {
 
   const [message, setMessage] = useState('');
   const [voting, setVoting] = useState(false);
+
+  console.log(gameState.players)
 
   let role;
   gameState.players.forEach((player) => {
@@ -39,6 +42,8 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGa
         <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
           <Voting gameState={gameState} day={day} myId={myId} vote={vote} docChoice={docChoice} preGame={preGame} role={role} />
         </div>
+        {!day && role === 'werewolf' ? <WerewolfChat werewolfMessages={werewolfMessages} handleWerewolfChat={handleWerewolfChat} /> : null}
+
       </div>
     </>
   )
