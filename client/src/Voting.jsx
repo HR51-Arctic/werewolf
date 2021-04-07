@@ -17,6 +17,7 @@ const Voting = ({ gameState, day, myId, vote, docChoice, role }) => {
   // else if (myPlayer.role === 'werewolf' && !day && myPlayer.alive) {
   //   setVoting(true)
   // }
+
   return(
     <div>
       {gameState.players.map((player) => {
