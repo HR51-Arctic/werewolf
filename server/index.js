@@ -26,12 +26,11 @@ let currentGame;
 io.on("connection", (socket) => {
   console.log("New client connected");
   clients.push(socket.id);
-  console.log(clients);
   socket.emit('myId', socket.id);
   io.sockets.emit('GetParticipants', players);
 
   socket.on('disconnect', () => {
-    if(socket.username) {
+    if (socket.username) {
       console.log(socket.username, 'disconnected');
       // players.splice(players.indexOf())
       // write a way to get depopulate players
@@ -40,7 +39,7 @@ io.on("connection", (socket) => {
     }
     clients.splice(clients.indexOf(socket.id), 1);
     for (let i = 0; i < players.length; i++) {
-      if(players[i].id === socket.id) {
+      if (players[i].id === socket.id) {
         players.splice(i, 1);
       }
     }
@@ -52,7 +51,7 @@ io.on("connection", (socket) => {
   /////////////////////////////login and signup//////////////////////////////////
   socket.on('Login', (username, password) => {
     socket.username = username;
-    console.log(username,'logged in');
+    console.log(username, 'logged in');
     players.push(new Player(socket.id, socket.username));
     io.sockets.emit('GetParticipants', players);
     //check login info via database - later
@@ -69,9 +68,9 @@ io.on("connection", (socket) => {
     socket.username = username;
     players.push(new Player(socket.id, socket.username));
     io.sockets.emit('GetParticipants', players);
-      //create Player using info
-      //push into players list
-      //remove from clients list
+    //create Player using info
+    //push into players list
+    //remove from clients list
   });
 
   //////////////////////////////////////////////////////////////
@@ -125,7 +124,7 @@ io.on("connection", (socket) => {
 
   socket.on('docChoice', (protectedId) => {
     currentGame.players.forEach((player) => {
-      if (player.id === protectedId) {
+      if (player.id === protectedId.vote) {
         player.protected = true;
       }
     })
@@ -138,18 +137,18 @@ const nightPhase = (currentGame) => {
   //check win conditions
 
   if (currentGame.numberOfAliveWerewolves() >= currentGame.numberOfAliveVillagers()) {
-    io.sockets.emit('endGame', 'werewolves win');
+    io.sockets.emit('endGame', 'Werewolves win');
     return;
   }
   if (currentGame.numberOfAliveWerewolves() === 0) {
-    io.sockets.emit('endGame', 'villagers win');
+    io.sockets.emit('endGame', 'Villagers win');
     return;
   }
 
 
   io.sockets.emit('changePhase', currentGame);
   //send and receiving the game data
-  let nightTimer = 10;
+  let nightTimer = 30;
   const nightTimerLoop =
     setInterval(() => {
       nightTimer -= 1;
@@ -205,7 +204,7 @@ const dayPhase = (currentGame) => {
 
 ////////////////////////////////////////////////////////////////////////
 app.post('/registerUser', function (req, res) {
-  const {username, password, email} = req.body;
+  const { username, password, email } = req.body;
   db.registerUser(username, password, email, (err, data) => {
     if (err) {
       console.log('register user erroring out');
@@ -218,7 +217,7 @@ app.post('/registerUser', function (req, res) {
 });
 
 app.post('/login', function (req, res) {
-  const {username, password} = req.body;
+  const { username, password } = req.body;
   db.verifyUser(username, (err, data) => {
     if (err) {
       console.log('login not successful');
