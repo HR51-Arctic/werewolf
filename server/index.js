@@ -24,6 +24,9 @@ const messages = [];
 let currentGame;
 
 io.on("connection", (socket) => {
+  if(currentGame) {
+    return
+  }
   console.log("New client connected");
   clients.push(socket.id);
   socket.emit('myId', socket.id);
