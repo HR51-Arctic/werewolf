@@ -15,23 +15,36 @@ function App() {
   const [timer, setTimer] = useState("");
   const [day, setDay] = useState(true);
   const [endGame, setEndGame] = useState(null);
+  const [preGame, setPreGame] = useState(true);
+  const [wereWolves, setWerewolves] = useState(0);
+  const [villagers, setVillagers] = useState(0);
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
     setConnection(socket);
-    //  + console.log(dirtySock);
-    // console.log(dirtySock)
     socket.on("myId", (id) => {
       setMyId(id);
     });
 
     socket.on("GetParticipants", (data) => {
       setLobbyParticipants(data);
-      console.log(lobbyParticipants)
     });
 
     socket.on("PreGame", (gameState) => {
+      let werewolves = 0;
+      let villagers = 0;
+      gameState.players.map((player) => {
+        if (player.role === 'werewolf' && player.alive) {
+          werewolves += 1;
+        }
+        if (player.role !== 'werewolf' && player.alive) {
+          villagers += 1;
+        }
+      })
+
+      setWerewolves(werewolves);
+      setVillagers(villagers);
       setGameState(gameState);
       setPlay(true);
     });
@@ -45,8 +58,21 @@ function App() {
     })
 
     socket.on("changePhase", (gamePhase) => {
+      let werewolves = 0;
+      let villagers = 0;
+      gamePhase.players.map((player) => {
+        if (player.role === 'werewolf' && player.alive) {
+          werewolves += 1;
+        }
+        if (player.role !== 'werewolf' && player.alive) {
+          villagers += 1;
+        }
+      })
+      setWerewolves(werewolves);
+      setVillagers(villagers);
       setDay(gamePhase.day);
-      setGameState(gamePhase)
+      setPreGame(false);
+      setGameState(gamePhase);
     });
   }, []);
 
@@ -80,7 +106,7 @@ function App() {
   }
 
   if (play) {
-    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} vote={vote.bind(this)} docChoice={docChoice.bind(this)} endGame={endGame} />
+    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} vote={vote.bind(this)} docChoice={docChoice.bind(this)} endGame={endGame} preGame={preGame} werewolves={wereWolves} villagers={villagers} />
   }
 
   return (

@@ -1,31 +1,34 @@
 import React from 'react';
 
 class DocVote extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       protect: false
     }
+    this.protect = this.protect.bind(this);
   }
 
   protect(player) {
-    this.setState({protect: player.name}, this.props.docChoice(player.id));
+    this.setState({ protect: player.name });
+    console.log(this.props.docChoice);
+    this.props.docChoice(player.id);
   }
 
   render() {
-    const { gameState, docChoice } = this.props;
+    const { gameState, docChoice, myId } = this.props;
     if (!this.state.protect) {
-      return(
+      return (
         <div>
           <h3>Choose Who to protect</h3>
           <div>
             {gameState.players.map((player) => {
-              if (player.alive) {
-               return (
-               <button onClick={() => { this.protect(player) }}>{player.name}</button>
-               )
+              if (player.alive && player.id !== myId) {
+                return (
+                  <button onClick={() => { this.protect(player) }}>{player.name}</button>
+                )
               }
-            }) }
+            })}
           </div>
         </div>
       )
