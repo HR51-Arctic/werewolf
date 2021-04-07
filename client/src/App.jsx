@@ -3,6 +3,7 @@ import socketIOClient from "socket.io-client";
 import Login from './Login.jsx';
 import Lobby from "./Lobby.jsx";
 import GameView from "./GameView.jsx";
+
 const ENDPOINT = "http://localhost:3000";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
   const [preGame, setPreGame] = useState(true);
   const [wereWolves, setWerewolves] = useState(0);
   const [villagers, setVillagers] = useState(0);
+  const [werewolfMessages, setWereWolfMessages] = useState([]);
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
@@ -26,6 +28,10 @@ function App() {
     socket.on("myId", (id) => {
       setMyId(id);
     });
+
+    socket.on("GetWerewolfChat", (data) => {
+      setWereWolfMessages(data);
+    })
 
     socket.on("GetParticipants", (data) => {
       setLobbyParticipants(data);
@@ -105,9 +111,7 @@ function App() {
   const handleSignup = (username, password, email) => {
     connection.emit('Signup', username, password, email);
   };
-  // const handleAnonymous = (name) => {
-  //   connection.emit('AnonymousLogin', name);
-  // };
+
   const vote = (data) => {
     let vote = {
       me: myId,
@@ -124,8 +128,12 @@ function App() {
     connection.emit('docChoice', docChoice);
   }
 
+  const handleWerewolfChat = (message) => {
+    connection.emit("werewolfMessages", message);
+  }
+
   if (play) {
-    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} vote={vote.bind(this)} docChoice={docChoice.bind(this)} endGame={endGame} preGame={preGame} werewolves={wereWolves} villagers={villagers} />
+    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} vote={vote.bind(this)} docChoice={docChoice.bind(this)} endGame={endGame} preGame={preGame} werewolves={wereWolves} villagers={villagers} werewolfMessages={werewolfMessages} handleWerewolfChat={handleWerewolfChat.bind(this)} />
   }
 
   return (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Voting from './Voting.jsx';
+import WerewolfChat from './WerewolfChat.jsx';
 
 
 // const handleVote = (gameState, day, id) => {
@@ -18,7 +19,7 @@ import Voting from './Voting.jsx';
 //   }
 // }
 
-const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGame, werewolves, villagers }) => {
+const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGame, werewolves, villagers, werewolfMessages, handleWerewolfChat }) => {
 
   const [message, setMessage] = useState('');
   const [voting, setVoting] = useState(false);
@@ -52,6 +53,8 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGa
         <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
           <Voting gameState={gameState} day={day} myId={myId} vote={vote} docChoice={docChoice} preGame={preGame} role={role} />
         </div>
+        {!day && role === 'werewolf' ? <WerewolfChat werewolfMessages={werewolfMessages} handleWerewolfChat={handleWerewolfChat} /> : null}
+
       </div>
     </>
   )
