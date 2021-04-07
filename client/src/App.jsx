@@ -57,10 +57,10 @@ function App() {
       setEndGame(whoWon);
     })
 
-    socket.on("changePhase", (gamePhase) => {
+    socket.on("changePhase", (gameState) => {
       let werewolves = 0;
       let villagers = 0;
-      gamePhase.players.map((player) => {
+      gameState.players.map((player) => {
         if (player.role === 'werewolf' && player.alive) {
           werewolves += 1;
         }
@@ -70,9 +70,9 @@ function App() {
       })
       setWerewolves(werewolves);
       setVillagers(villagers);
-      setDay(gamePhase.day);
+      setDay(gameState.day);
       setPreGame(false);
-      setGameState(gamePhase);
+      setGameState(gameState);
     });
   }, []);
 
