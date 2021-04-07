@@ -23,6 +23,8 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGa
   const [message, setMessage] = useState('');
   const [voting, setVoting] = useState(false);
 
+  console.log(gameState.players)
+
   let role;
   gameState.players.forEach((player) => {
     if (player.id === myId) {
