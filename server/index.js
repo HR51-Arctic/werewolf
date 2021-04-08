@@ -23,6 +23,11 @@ let unregisteredClients = [];
 let players = [];
 let messages = [];
 let currentGame;
+let gameSettings = {
+  preGameTimer: 30,
+  dayTimer: 60,
+  nightTimer: 30
+};
 
 io.on("connection", (socket) => {
   if (currentGame) {
@@ -33,6 +38,7 @@ io.on("connection", (socket) => {
   clients.push(socket.id);
   unregisteredClients.push(socket.id);
   socket.emit("myId", socket.id);
+  socket.emit('GetSettings', gameSettings);
   io.sockets.emit("GetParticipants", players);
 
   socket.on("disconnect", () => {
@@ -65,7 +71,6 @@ io.on("connection", (socket) => {
 
   // socket.on('Signup', (username, password, email) => {
   //   console.log(username, password, email, 'is signing up');
-
   //   socket.username = username;
   //   players.push(new Player(socket.id, socket.username));
   //   io.sockets.emit('GetParticipants', players);
@@ -88,12 +93,18 @@ io.on("connection", (socket) => {
     io.sockets.emit("GetParticipants", players);
     io.sockets.emit("gameInProgress", false);
   });
+  //////////Settings Logic //////////
+  socket.on('NewSettings', (newSettings) => {
+    gameSettings = newSettings;
+    io.sockets.emit('GetSettings', gameSettings);
+  });
+
+
   //////////////////////////////////////////////////////////////
   // Function that triggers on 'Play' button in lobby
   socket.on("StartGame", () => {
     if (!currentGame) {
-      //input settings here
-      currentGame = new Game();
+      currentGame = new Game(gameSettings);
     }
 
     let playerPool = players;

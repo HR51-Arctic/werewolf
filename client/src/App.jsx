@@ -22,6 +22,13 @@ function App() {
   const [villagers, setVillagers] = useState(0);
   const [werewolfMessages, setWereWolfMessages] = useState([]);
   const [gameInProgress, setGameInProgress] = useState(false);
+  const [gameSettings, setGameSettings] = useState({
+    preGameTimer: 30,
+    dayTimer: 60,
+    nightTimer: 30
+  });
+  // const [dayTimer, setDayTimer] = useState(60);
+  // const [nightTimer, setNightTimer] = useState(30);
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
@@ -47,6 +54,10 @@ function App() {
     socket.on("GetParticipants", (data) => {
       setLobbyParticipants(data);
     });
+
+    socket.on('GetSettings', (data) => {
+      setGameSettings(data);
+    })
 
     socket.on("PreGame", (gameState) => {
       let werewolves = 0;
@@ -169,6 +180,14 @@ function App() {
   const handleWerewolfChat = (message) => {
     connection.emit("werewolfMessages", message);
   };
+
+  const onGameSettingsChange = (e) => {
+    let newGameSettings = gameSettings;
+    newGameSettings[e.target.name] = e.target.value;
+    connection.emit('NewSettings', newGameSettings);
+  };
+
+  /////////////////////////Rendering Below //////////////////////////
   if (gameInProgress) {
     return < GameInProgress />
   } else {
@@ -203,6 +222,8 @@ function App() {
           participants={lobbyParticipants}
           handleGameStart={handleGameStart.bind(this)}
           loggedIn={loggedIn}
+          gameSettings={gameSettings}
+          onGameSettingsChange={onGameSettingsChange.bind(this)}
         />
       </div>
     );

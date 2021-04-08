@@ -201,11 +201,10 @@ input[type="submit"]:hover {
   background-color: white;
 }
 
-#werewolfChat {
+.werewolfChat {
   grid-area: werewolfChat;
   display: grid;
   overflow-y: scroll;
-  border: solid 2px black;
   max-height: 250px;
 }
 

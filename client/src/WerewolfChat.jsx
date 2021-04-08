@@ -22,7 +22,7 @@ const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
         setMessage('')
       }} >
         <input onChange={handleMessage.bind(this)} value={message} />
-        <button type="submit">Submit Message</button>
+        <input type="submit" value="Submit Message"/>
       </form>
     </div>
   )
