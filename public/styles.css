@@ -203,6 +203,10 @@ input[type="submit"]:hover {
 
 #werewolfChat {
   grid-area: werewolfChat;
+  display: grid;
+  overflow-y: scroll;
+  border: solid 2px black;
+  max-height: 250px;
 }
 
 #seerContainer {
@@ -238,6 +242,7 @@ input[type="submit"]:hover {
   padding: 10px 20px;
   text-align: center;
   border: 2px solid rgb(0, 153, 255);
+  transition: all 0.2s ease-in-out;
 }
 
 #wolfVotingButton:hover {
@@ -254,6 +259,7 @@ input[type="submit"]:hover {
   padding: 10px 20px;
   text-align: center;
   border: 2px solid rgb(223, 70, 70);
+  transition: all 0.2s ease-in-out;
 }
 
 #villagerVotingButton:hover {
@@ -281,7 +287,6 @@ input[type="submit"]:hover {
 
 #Selection {
 }
-
 .fas{
   animation: rotation 2s linear infinite;
   display: inline-block;
@@ -290,6 +295,4 @@ input[type="submit"]:hover {
 
 @keyframes rotation {
   to {transform: rotate(360deg);}
-}
-
-/*-----------------------------------------*/
+}/*-----------------------------------------*/
