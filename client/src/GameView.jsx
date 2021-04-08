@@ -12,9 +12,11 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGa
 
 
   let role;
+  let alive;
   gameState.players.forEach((player) => {
     if (player.id === myId) {
       role = player.role;
+      alive = player.alive;
     }
   });
 
@@ -57,7 +59,7 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGa
           <div id='voting'>
             <Voting gameState={gameState} day={day} myId={myId} vote={vote} docChoice={docChoice} preGame={preGame} role={role} />
           </div>
-          {!day && role === 'werewolf' ? <WerewolfChat werewolfMessages={werewolfMessages} handleWerewolfChat={handleWerewolfChat} /> : null}
+          {!day && role === 'werewolf' && alive ? <WerewolfChat werewolfMessages={werewolfMessages} handleWerewolfChat={handleWerewolfChat} /> : null}
         </div>
       </div>
     </>
