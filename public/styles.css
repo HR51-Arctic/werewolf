@@ -3,28 +3,44 @@
   background-color: grey;
 }
 .werewolfLogo {
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  margin-top: -110px;
 }
 .appHeaderContainer {
   background-color: grey;
+  display: inline-block;
+  height: 350px;
+  overflow: hidden;
+  width: 70%; /*keep same as werewolf logo width to maintain centering */
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 /*---Lobby--*/
 #frontPage {
-  height: 100%;
-  width: 100%;
+
+}
+#frontPage div {
+  margin: 0 auto;
 }
 #lobby {
   display: grid;
   grid-template-rows: auto;
   grid-template-areas:
     "lobby lobby lobby"
+    ". login ."
     ". players ."
     ". playButton .";
   background-color: grey;
+}
+
+#lobby .login {
+  grid-area: login;
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 51vw;
+  margin-bottom: 10px;
 }
 
 #header {
@@ -126,8 +142,8 @@ input[type="text"] {
   border-radius: 4px;
   font-weight: normal;
   transition: all 0.2s ease-in-out;
-  width: 10vw;
-  margin: 2vw;
+  width: 75%;
+  /* margin: 2vw; */
   outline: none;
 }
 
@@ -148,8 +164,8 @@ input[type="submit"] {
   border-radius: 4px;
   font-weight: normal;
   transition: all 0.2s ease-in-out;
-  width: 10vw;
-  margin: 2vw;
+  width: 23%;
+  /* margin: 2vw; */
 }
 
 input[type="submit"]:hover {
@@ -295,7 +311,14 @@ input[type="submit"]:hover {
 
 #Selection {
 }
-.fas {
+
+#lobby ul{
+  list-style-type: square;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.fas{
   animation: rotation 2s linear infinite;
   display: inline-block;
   color: rgb(75, 3, 3);

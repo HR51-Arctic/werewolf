@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import GameView from "./GameView.jsx";
 import AppHeader from "./AppHeader.jsx";
+import Login from "./Login.jsx"
 
-const Lobby = ({ participants, handleGameStart, loggedIn, gameSettings, onGameSettingsChange }) => {
+const Lobby = ({ participants, handleGameStart, handleLogin, handleSignup, loggedIn, gameSettings, onGameSettingsChange }) => {
   const [message, setMessage] = useState("");
   let settingsForm = (<form
   id='settingsView'
@@ -45,16 +46,19 @@ const Lobby = ({ participants, handleGameStart, loggedIn, gameSettings, onGameSe
       <div id="frontPage">
         <AppHeader id="header" />
         <div id="lobby">
+           <Login loggedIn={loggedIn} handleLogin={handleLogin} handleSignup={handleSignup}/>
           <div id="players">
             <h4 id="playerHeader">Players</h4>{settingsForm}
-
+            <ul>
             {participants.map((player) => {
               return (
-                <div id="indivPlayer" key={player.id}>
+                <li id="indivPlayer" key={player.id}>
                   {player.name}
-                </div>
+
+                </li>
               );
             })}
+            </ul>
           </div>
           {participants.length >= 7 && loggedIn && (
             <button
