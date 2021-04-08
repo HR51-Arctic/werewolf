@@ -39,4 +39,3 @@ const assignRoles = (currentGame, playerPool) => {
 };
 
 module.exports = assignRoles;
-

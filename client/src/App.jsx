@@ -121,9 +121,21 @@ function App() {
     connection.emit("StartGame");
   };
 
-  const handleLogin = (username, password) => {
-    connection.emit("Login", username, password);
-    setLoggedIn(true);
+  const handleLogin = (username, callback) => {
+    let double = false;
+    lobbyParticipants.forEach((player) => {
+      if (player.name === username) {
+        double = true;
+      }
+    })
+
+    if (double) {
+      callback()
+    } else {
+      connection.emit("Login", username);
+      setLoggedIn(true);
+    }
+
   };
   const handleSignup = (username, password, email) => {
     connection.emit("Signup", username, password, email);
@@ -198,6 +210,7 @@ function App() {
         <Lobby
           participants={lobbyParticipants}
           handleGameStart={handleGameStart.bind(this)}
+          loggedIn={loggedIn}
         />
       </div>
     );
