@@ -24,7 +24,7 @@ const messages = [];
 let currentGame;
 
 io.on("connection", (socket) => {
-  if(currentGame) {
+  if (currentGame) {
     socket.emit('GameInProgress');
     return
   }
@@ -56,13 +56,17 @@ io.on("connection", (socket) => {
     console.log(username, 'logged in');
     players.push(new Player(socket.id, socket.username));
     io.sockets.emit('GetParticipants', players);
+
   });
 
   socket.on('Signup', (username, password, email) => {
-    // console.log(username, password, email, 'is signing up');
+    console.log(username, password, email, 'is signing up');
+
+
     socket.username = username;
     players.push(new Player(socket.id, socket.username));
     io.sockets.emit('GetParticipants', players);
+
   });
 
   /////////RESET LOGIC //////////
@@ -71,7 +75,7 @@ io.on("connection", (socket) => {
     currentGame.players.forEach((player) => {
       player.role = 'villager';
       player.alive = true;
-      if(clients.indexOf(player.id) !== -1) {
+      if (clients.indexOf(player.id) !== -1) {
         players.push(player);
       }
     })
@@ -83,7 +87,6 @@ io.on("connection", (socket) => {
   //////////////////////////////////////////////////////////////
   // Function that triggers on 'Play' button in lobby
   socket.on('StartGame', () => {
-    // this is only available if clients.length >= 7
     if (!currentGame) {
       currentGame = new Game();
     }

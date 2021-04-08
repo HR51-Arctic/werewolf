@@ -12,34 +12,34 @@ const SignUp = (props) => {
     <div>
       <form>
         <input
-        name='username'
-        type='text'
-        value={username}
-        placeholder='Username'
-        onChange={e => setUsername(e.target.value)}
+          name='username'
+          type='text'
+          value={username}
+          placeholder='Username'
+          onChange={e => setUsername(e.target.value)}
         />
         <input
-        name='password'
-        type='text'
-        value={password}
-        placeholder='Password'
-        onChange={e => setPassword(e.target.value)}
+          name='password'
+          type='text'
+          value={password}
+          placeholder='Password'
+          onChange={e => setPassword(e.target.value)}
         />
         <input
-        name='email'
-        type='text'
-        value={email}
-        placeholder='Email'
-        onChange={e => setEmail(e.target.value)}
+          name='email'
+          type='text'
+          value={email}
+          placeholder='Email'
+          onChange={e => setEmail(e.target.value)}
         />
       </form>
       <button
-      type='submit'
-      value='Submit'
-      onClick={() => {
-        console.log(`Welcome ${username}`);
-        props.handleSignup(username, password, email);
-      }}
+        type='submit'
+        value='Submit'
+        onClick={() => {
+          console.log(`Welcome ${username}`);
+          props.handleSignup(username, password, email);
+        }}
       >Sign Up</button>
     </div>
   )
@@ -57,47 +57,46 @@ const Login = (props) => {
       handleSignup={props.handleSignup}
     />
   } else {
-  return (
-    <div>
-      <form>
-        <input
-        name='username'
-        type='text'
-        value={username}
-        onChange={e => setUsername(e.target.value)}
-        placeholder='Username'
-        />
-        <input
-        name='password'
-        type='text'
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        placeholder='Password'
-        />
-      </form>
-      <button
-      type='submit'
-      value='Submit'
-      onClick={() => {
-        console.log('Submit')
-        props.handleLogin(username, password)
-      }}
-      >Login</button>
-      <button
-      type='submit'
-      value='Submit'
-      onClick={() => signUp(true)}
-      >Not a member? Sign Up!</button>
-      <button
-      type='submit'
-      value='Submit'
-      onClick={() => {
-        console.log('Playing anonomously')
-      }
-      }
-      >Play Anonomously</button>
-    </div>
-  )
+    return (
+      <div>
+        <form>
+          <input
+            name='username'
+            type='text'
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            placeholder='Username'
+          />
+          <input
+            name='password'
+            type='text'
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder='Password'
+          />
+        </form>
+        <button
+          type='submit'
+          value='Submit'
+          onClick={() => {
+            props.handleLogin(username, password)
+          }}
+        >Login</button>
+        <button
+          type='submit'
+          value='Submit'
+          onClick={() => signUp(true)}
+        >Not a member? Sign Up!</button>
+        <button
+          type='submit'
+          value='Submit'
+          onClick={() => {
+            console.log('Playing anonomously')
+          }
+          }
+        >Play Anonomously</button>
+      </div>
+    )
   }
 }
 

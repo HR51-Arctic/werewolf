@@ -1,4 +1,7 @@
 /*---Logo/Header---*/
+.werewolfApp {
+  background-color: grey;
+}
 .werewolfLogo {
   width: 100vw;
   display: flex;
@@ -10,6 +13,10 @@
 }
 
 /*---Lobby--*/
+#frontPage {
+  height:100%;
+  width: 100%
+}
 #lobby {
   display: grid;
   grid-template-rows: auto;
@@ -100,8 +107,113 @@
 }
 
 /*---------------- GameView ---------------------*/
-#voting {
+
+#gameView {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "villageImage villageImage villageImage villageImage"
+    "roleContainer remaining gameMessage gameMessage"
+    "werewolfChat .  aliveDeadList voting";
+  background-color: grey;
+
 }
+
+#villageImage {
+  grid-area: villageImage;
+  align-content: center;
+  display-content: center;
+  height: 600px;
+  width: 100vw;
+  border: 3px solid black;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+
+#gameMessage {
+  grid-area: gameMessage;
+  height: 250px;
+  width: 50%;
+  border: 3px solid black;
+
+}
+
+#role-container {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  align-items: flex-start;
+  align-content: space-around;
+}
+
+#role {
+ margin-right: 20px;
+ font-family: Georgia;
+
+}
+
+#timer {
+font-family: Georgia;
+    font-size: 25px;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+#werewolfChat {
+  grid-area: werewolfChat;
+
+}
+
+#seerContainer {
+
+}
+
+#aliveDeadList {
+  grid-area: aliveDeadList;
+  display: grid;
+  max-height: 256px;
+  overflow-y: auto;
+}
+
+#aliveDeadTitle {
+  justify-self: center;
+}
+
+#remaining {
+  grid-area: remaining;
+
+}
+
+#voting {
+  grid-area: voting;
+  height: 250px;
+  width: 50%;
+  border: 3px solid black;
+}
+
+#votingButton {
+  color: black;
+  background-color: white;
+  padding: 10px 20px;
+  text-align: center;
+  border: 2px solid rgb(0, 153, 255);
+
+}
+
+#votingButton:hover {
+  color:white;
+  background-color: rgb(0, 153, 255);
+  padding: 10px 20px;
+  text-align: center;
+  border: 2px solid rgb(0, 153, 255);
+
+}
+
+#votingButton
 
 #bacground {
 }
