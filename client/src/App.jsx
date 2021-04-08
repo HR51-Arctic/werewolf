@@ -25,6 +25,8 @@ function App() {
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
+    document.body.style = 'background: grey';
+
     setConnection(socket);
     socket.on("myId", (id) => {
       setMyId(id);
@@ -57,14 +59,9 @@ function App() {
     });
 
     socket.on('updateVotes', (newGameState) => {
-      console.log(`update triggered: ${newGameState.votes}`)
-      console.log(`keys: ${Object.values(newGameState.votes)}`)
-
-      debugger;
       let votes = Object.values(newGameState.votes)
       votes.forEach((vote) => {
-        debugger;
-        for (let x=0; x<newGameState.players.length; x++) {
+        for (let x = 0; x < newGameState.players.length; x++) {
           let player = newGameState.players[x]
           if (vote === player.id) {
             player.targeted += 1
@@ -114,7 +111,6 @@ function App() {
   };
 
   const vote = (data) => {
-    debugger;
     let vote = {
       me: myId,
       vote: data
@@ -139,7 +135,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div className='werewolfApp'>
       <Login
         handleLogin={handleLogin.bind(this)}
         handleSignup={handleSignup.bind(this)}

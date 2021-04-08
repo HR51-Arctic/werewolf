@@ -55,46 +55,33 @@ io.on("connection", (socket) => {
     console.log(username, 'logged in');
     players.push(new Player(socket.id, socket.username));
     io.sockets.emit('GetParticipants', players);
-    //check login info via database - later
-    //create Player using info
-    //push into players list
-    //remove from clients list
+
   });
 
   socket.on('Signup', (username, password, email) => {
     console.log(username, password, email, 'is signing up');
 
-    //send to database
-    //if no errors,
+
     socket.username = username;
     players.push(new Player(socket.id, socket.username));
     io.sockets.emit('GetParticipants', players);
-    //create Player using info
-    //push into players list
-    //remove from clients list
+
   });
 
   //////////////////////////////////////////////////////////////
   socket.on('StartGame', () => {
-    // this is only available if clients.length >= 7
     if (!currentGame) {
       currentGame = new Game();
     }
 
-    // var newGame = new Game(); ---> for futurue instancing for many game states. Right now single state for MVP
-    // currentGame = newGame
     let playerPool = players;
-    // let playerPool = [];
-    // clients.forEach((client) => {
-    //   var newPlayer = new Player(client);
-    //   playerPool.push(newPlayer);
-    // })
 
-    /////////instead of looping through clients, loop through players -johnathan
+
+
 
     if (playerPool.length >= 7) {
       assignRoles(currentGame, playerPool)
-      currentGame.active = true //turning on the game --> game is in progress until win condition, run check win condition after every cycle :)
+      currentGame.active = true
       io.sockets.emit('PreGame', currentGame);
     }
 
@@ -102,7 +89,7 @@ io.on("connection", (socket) => {
     //change phase to "pregame" so there is no voting, perhaps no timer?
     io.sockets.emit('PreGame', currentGame);
     //start timer
-    let preGameTimer = 30;
+    let preGameTimer = 5;
     const preGameTimerLoop =
       setInterval(() => {
         preGameTimer -= 1;
@@ -120,7 +107,7 @@ io.on("connection", (socket) => {
   socket.on('vote', (voteObject) => {
     // console.log(voteObject.me, voteObject.vote);
     currentGame.votes[voteObject.me] = voteObject.vote;
-    //when user votes and updates votes in game object, send back to client immediately after to update counts client side
+
     io.sockets.emit('updateVotes', currentGame)
   })
 

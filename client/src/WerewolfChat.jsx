@@ -10,14 +10,13 @@ const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
   }
 
   return (
-    <>
+    <div id="werewolfChat">
       <div className='werewolfChat'>
         {werewolfMessages.map((message) => {
           return <p>{message}</p>
         })}
       </div>
       <form onSubmit={(event) => {
-        console.log(event)
         event.preventDefault();
         handleWerewolfChat(message);
         setMessage('')
@@ -25,7 +24,7 @@ const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
         <input onChange={handleMessage.bind(this)} value={message} />
         <button type="submit">Submit Message</button>
       </form>
-    </>
+    </div>
   )
 }
 
