@@ -3,6 +3,7 @@ import socketIOClient from "socket.io-client";
 import Login from "./Login.jsx";
 import Lobby from "./Lobby.jsx";
 import GameView from "./GameView.jsx";
+import GameInProgress from './GameInProgress.jsx';
 const ENDPOINT = "http://localhost:3000";
 
 function App() {
@@ -170,14 +171,7 @@ function App() {
     connection.emit("werewolfMessages", message);
   };
   if (gameInProgress) {
-    return (
-      <h1>
-        {" "}
-        game in progress.
-        <br /> please come back later
-        <br /> 申し訳ございません <br /> ありがとうございます
-      </h1>
-    );
+    return < GameInProgress />
   } else {
     if (play) {
       return (
