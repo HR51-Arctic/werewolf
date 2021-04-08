@@ -168,7 +168,13 @@ function App() {
     connection.emit("docChoice", docChoice);
   };
   const handleWerewolfChat = (message) => {
-    connection.emit("werewolfMessages", message);
+    let username = '';
+    gameState.players.forEach(player => {
+      if (player.id === myId) {
+        username = player.name;
+      }
+    });
+    connection.emit("werewolfMessages", [username, message]);
   };
   if (gameInProgress) {
     return < GameInProgress />
