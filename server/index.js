@@ -18,18 +18,20 @@ const server = http.createServer(app);
 
 const io = socketIo(server);
 
-const clients = [];
+let clients = [];
+let unregisteredClients = [];
 let players = [];
-const messages = [];
+let messages = [];
 let currentGame;
 
 io.on("connection", (socket) => {
   if (currentGame) {
-    socket.emit('GameInProgress');
+    socket.emit('gameInProgress', true);
     return
   }
   console.log("New client connected");
   clients.push(socket.id);
+  unregisteredClients.push(socket.id);
   socket.emit('myId', socket.id);
   io.sockets.emit('GetParticipants', players);
 
@@ -40,6 +42,7 @@ io.on("connection", (socket) => {
       console.log('client disconnected')
     }
     clients.splice(clients.indexOf(socket.id), 1);
+    unregisteredClients.splice(unregisteredClients.indexOf(socket.id), 1);
     for (let i = 0; i < players.length; i++) {
       if (players[i].id === socket.id) {
         players.splice(i, 1);
@@ -54,24 +57,27 @@ io.on("connection", (socket) => {
   socket.on('Login', (username, password) => {
     socket.username = username;
     console.log(username, 'logged in');
+    unregisteredClients.splice(unregisteredClients.indexOf(socket.id), 1); //testing splicing out early
+    console.log(unregisteredClients)
     players.push(new Player(socket.id, socket.username));
     io.sockets.emit('GetParticipants', players);
 
   });
 
-  socket.on('Signup', (username, password, email) => {
-    console.log(username, password, email, 'is signing up');
+  // socket.on('Signup', (username, password, email) => {
+  //   console.log(username, password, email, 'is signing up');
 
 
-    socket.username = username;
-    players.push(new Player(socket.id, socket.username));
-    io.sockets.emit('GetParticipants', players);
+  //   socket.username = username;
+  //   players.push(new Player(socket.id, socket.username));
+  //   io.sockets.emit('GetParticipants', players);
 
-  });
+  // });
 
   /////////RESET LOGIC //////////
   socket.on('initializeReset', () => {
     players = [];
+    messages = [];
     currentGame.players.forEach((player) => {
       player.role = 'villager';
       player.alive = true;
@@ -81,9 +87,9 @@ io.on("connection", (socket) => {
     })
     currentGame = null;
     io.sockets.emit('resetGame', currentGame);
+    io.sockets.emit('GetParticipants', players);
+    io.sockets.emit('gameInProgress', false);
   });
-  ///////////////////////////////
-
   //////////////////////////////////////////////////////////////
   // Function that triggers on 'Play' button in lobby
   socket.on('StartGame', () => {
@@ -103,6 +109,10 @@ io.on("connection", (socket) => {
       io.to(client).emit('GameInProgress');
     })
 
+    //loop through and disconnect clients who are not in players
+    for (let i = 0; i < unregisteredClients.length; i++) {
+      io.to(unregisteredClients[i]).emit('gameInProgress', true);
+    }
     if (playerPool.length >= 7) {
       assignRoles(currentGame, playerPool)
       currentGame.active = true;
@@ -203,7 +213,6 @@ const dayPhase = (currentGame) => {
       }
     }, 1000);
 }
-
 
 ////////////////////////////////////////////////////////////////////////
 app.post('/registerUser', function (req, res) {
