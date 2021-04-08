@@ -7,8 +7,6 @@ const Player = require("./playerClass.js");
 const assignRoles = require("./assignRoles.js");
 const db = require("../database/index.js");
 const path = require('path');
-
-
 const favicon = require('serve-favicon');
 
 const port = process.env.PORT || 3000;
