@@ -36,6 +36,11 @@ const GameView = ({
           <div id="role-container">
             <h1 id="role">You are a {role}</h1>
             <div id="timer">Time left: {timer} </div>
+            <div id="remaining">
+              <h2 id="playersRemaining">Players Remaining</h2>
+              <div>Remaining Werewolves: {werewolves}</div>
+              <div>Remaining Villagers: {villagers}</div>
+            </div>
           </div>
 
           <div id="gameMessage">
@@ -85,11 +90,7 @@ const GameView = ({
               );
             })}
           </div>
-          <div id="remaining">
-            <h2 id="playersRemaining">Players Remaining</h2>
-            <div>Remaining Werewolves: {werewolves}</div>
-            <div>Remaining Villagers: {villagers}</div>
-          </div>
+
           <div id="voting">
             <Voting
               gameState={gameState}
