@@ -25,6 +25,7 @@ let currentGame;
 
 io.on("connection", (socket) => {
   if(currentGame) {
+    socket.emit('GameInProgress');
     return
   }
   console.log("New client connected");
