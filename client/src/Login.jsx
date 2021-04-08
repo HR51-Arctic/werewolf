@@ -67,13 +67,13 @@ const Login = (props) => {
             onChange={e => setUsername(e.target.value)}
             placeholder='Username'
           />
-          <input
+          {/* <input
             name='password'
             type='text'
             value={password}
             onChange={e => setPassword(e.target.value)}
             placeholder='Password'
-          />
+          /> */}
         </form>
         <button
           type='submit'
@@ -82,19 +82,19 @@ const Login = (props) => {
             props.handleLogin(username, password)
           }}
         >Login</button>
-        <button
+        {/* <button
           type='submit'
           value='Submit'
           onClick={() => signUp(true)}
-        >Not a member? Sign Up!</button>
-        <button
+        >Not a member? Sign Up!</button> */}
+        {/* <button
           type='submit'
           value='Submit'
           onClick={() => {
             console.log('Playing anonomously')
           }
           }
-        >Play Anonomously</button>
+        >Play Anonomously</button> */}
       </div>
     )
   }
