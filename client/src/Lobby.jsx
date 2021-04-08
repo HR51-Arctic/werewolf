@@ -6,7 +6,7 @@ const Lobby = ({ participants, handleGameStart }) => {
   const [message, setMessage] = useState("");
   return (
     <>
-      <div>
+      <div id="frontPage">
         <AppHeader id="header" />
         <div id="lobby">
           <div id="players">
@@ -15,7 +15,6 @@ const Lobby = ({ participants, handleGameStart }) => {
               return (
                 <div id="indivPlayer" key={player.id}>
                   {player.name}
-
                 </div>
               );
             })}

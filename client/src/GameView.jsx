@@ -1,75 +1,115 @@
-import React, { useState, useEffect } from 'react';
-import Voting from './Voting.jsx';
+import React, { useState, useEffect } from "react";
+import Voting from "./Voting.jsx";
+import WerewolfChat from "./WerewolfChat.jsx";
+import villageDay from "./images/villageDay.jpg";
+import villageNight from "./images/villageNight.jpg";
 
-const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame }) => {
-
-  const [message, setMessage] = useState('');
-  // timer will start/end voting???
+const GameView = ({
+  myId,
+  gameState,
+  timer,
+  day,
+  vote,
+  docChoice,
+  endGame,
+  preGame,
+  werewolves,
+  villagers,
+  werewolfMessages,
+  handleWerewolfChat,
+  handleResetGame,
+}) => {
+  const [message, setMessage] = useState("");
   const [voting, setVoting] = useState(false);
-  const [votes, setVote] = useState(0);
-  // # of werewolves dependant on # players???
-  const [wolves, setWolves] = useState(2);
-  // Just for testings sake
-  // const [day, setDay] = useState(true);
 
   let role;
   gameState.players.forEach((player) => {
     if (player.id === myId) {
       role = player.role;
-    }});
-  // ideally, we would want separate components for each type of vote (werewolf/villager/seer/doctor)
-  // find self in game state, if role is werewolf and it is night, then render werewolf vote component -> example
-  // const Voting = () => {
-  //   if (!voting) {
-  //     return null;
-  //   } else {
-  //     return (
-  //       <div>
-  //         <span>Player <a>Votes {votes}</a></span>
-  //         <button
-  //           type='submit'
-  //           value='Submit'
-  //           onClick={() => setVote(votes + 1) + setVoting(false)}
-  //         >Vote</button>
-  //       </div>
-  //     )
-  //   }
-  // };
+    }
+  });
 
   return (
     <>
-      <div style={{ backgroundColor: day ? 'yellow' : 'grey' }}>
-        <button
-          type='submit'
-          value='Submit'
-          onClick={() => setDay(day ? false : true)}
-        >Change Phase</button>
-        <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
-          <button onClick={() => vote(myId)}>Test Voting</button>
-          {endGame ? <h1>{endGame}</h1> : null}
-          <p>You are a {role}</p>
-          <p>Current turn</p>
-          <span>Discussion Timer</span>
+      <div style={{ backgroundColor: "grey" }}>
+        <div id="gameView">
+          <div id="role-container">
+            <h1 id="role">You are a {role}</h1>
+            <div id="timer">Time left: {timer} </div>
+          </div>
+
+          <div id="gameMessage">
+            {endGame ? (
+              <h1>
+                {endGame}
+                <button onClick={handleResetGame}>EndGame</button>
+              </h1>
+            ) : null}
+            {preGame ? (
+              <div>
+                Welcome to werewolf! This is a small and tight-knit town, so
+                introduce yourselves and get to know each other! But be careful,
+                some may not be what they seem...
+              </div>
+            ) : null}
+            {day && !preGame ? (
+              <div>
+                Talk amongst yourselves and try to figure out who is really a
+                werewolf! Vote below and at the end of the day the one with the
+                most votes will be killed.
+              </div>
+            ) : null}
+            {!day ? (
+              <div>
+                It is dangerous to walk these streets alone at night. Pray the
+                werewolves don't find you!
+              </div>
+            ) : null}
+          </div>
+
+          <div
+            id="villageImage"
+            style={{
+              backgroundImage: day
+                ? `url(${require("./images/villageDay.jpg")})`
+                : `url(${require("./images/villageNight.jpg")})`,
+            }}
+          />
+          <div id="aliveDeadList">
+            <div id="aliveDeadTitle">Current players</div>
+            {gameState.players.map((player) => {
+              return (
+                <div key={player.id} className="aliveDeadEntry">
+                  {player.name} is {player.alive ? "Alive" : "Dead"}
+                </div>
+              );
+            })}
+          </div>
+          <div id="remaining">
+            <h2 id="playersRemaining">Players Remaining</h2>
+            <div>Remaining Werewolves: {werewolves}</div>
+            <div>Remaining Villagers: {villagers}</div>
+          </div>
+          <div id="voting">
+            <Voting
+              gameState={gameState}
+              day={day}
+              myId={myId}
+              vote={vote}
+              docChoice={docChoice}
+              preGame={preGame}
+              role={role}
+            />
+          </div>
+          {!day && role === "werewolf" ? (
+            <WerewolfChat
+              werewolfMessages={werewolfMessages}
+              handleWerewolfChat={handleWerewolfChat}
+            />
+          ) : null}
         </div>
-        <div style={{ height: '100px', width: '50%', border: '3px solid black' }}>
-          <h1>You are a {role}</h1>
-          <div>Time left: {timer} </div>
-        </div>
-        <span>Remaining Werewolves {wolves}</span>
-        <div style={{ height: '250px', width: '50%', border: '3px solid black' }}>
-          <span>Username, icon, message</span>
-          <span>Username, icon, message</span>
-          <br />
-          <textarea
-            name='gameChat'
-            value={message}
-            onChange={e => setMessage(e.target.value)}
-          ></textarea>
-          <button type='submit' value='Submit'>Post</button>
-        </div>
-        <Voting gameState={gameState} day={day} myId={myId} vote={vote} docChoice={docChoice}/>
       </div>
     </>
-  )
-}
+  );
+};
 export default GameView;
