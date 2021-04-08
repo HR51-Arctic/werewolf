@@ -18,6 +18,8 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGa
     }
   });
 
+  let myClass;
+
 
   return (
     < >
@@ -44,8 +46,13 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGa
           <div id='aliveDeadList'>
             <div id='aliveDeadTitle'>Current players</div>
             {gameState.players.map((player) => {
+              if (player.alive) {
+                myClass = "aliveDeadEntry alive";
+              } else {
+                myClass = "aliveDeadEntry dead";
+              }
               return (
-                <div key={player.id} className="aliveDeadEntry" >{player.name} is {player.alive ? 'Alive' : 'Dead'}</div>
+                <div key={player.id} className={myClass}>{player.name} is {player.alive ? 'Alive' : 'Dead'}</div>
               )
             })}
           </div>

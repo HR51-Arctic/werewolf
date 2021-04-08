@@ -210,13 +210,18 @@ input[type="submit"]:hover {
 
 #aliveDeadList {
   grid-area: aliveDeadList;
-  display: grid;
+  display: relative;
   max-height: 256px;
+  min-width: 256px;
   overflow-y: auto;
 }
 
 #aliveDeadTitle {
-  justify-self: center;
+}
+
+.dead {
+  color: rgb(75, 3, 3);
+  text-decoration: line-through;
 }
 
 #remaining {
@@ -282,14 +287,16 @@ input[type="submit"]:hover {
 #Selection {
 }
 
-.fas{
+.fas {
   animation: rotation 2s linear infinite;
   display: inline-block;
-  color:rgb(75, 3, 3)
+  color: rgb(75, 3, 3);
 }
 
 @keyframes rotation {
-  to {transform: rotate(360deg);}
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /*-----------------------------------------*/
