@@ -3,6 +3,7 @@ import socketIOClient from "socket.io-client";
 import Login from "./Login.jsx";
 import Lobby from "./Lobby.jsx";
 import GameView from "./GameView.jsx";
+import GameInProgress from './GameInProgress.jsx';
 const ENDPOINT = "http://localhost:3000";
 
 function App() {
@@ -121,9 +122,21 @@ function App() {
     connection.emit("StartGame");
   };
 
-  const handleLogin = (username, password) => {
-    connection.emit("Login", username, password);
-    setLoggedIn(true);
+  const handleLogin = (username, callback) => {
+    let double = false;
+    lobbyParticipants.forEach((player) => {
+      if (player.name === username) {
+        double = true;
+      }
+    })
+
+    if (double) {
+      callback()
+    } else {
+      connection.emit("Login", username);
+      setLoggedIn(true);
+    }
+
   };
   const handleSignup = (username, password, email) => {
     connection.emit("Signup", username, password, email);
@@ -164,14 +177,7 @@ function App() {
     connection.emit("werewolfMessages", [username, message]);
   };
   if (gameInProgress) {
-    return (
-      <h1>
-        {" "}
-        game in progress.
-        <br /> please come back later
-        <br /> 申し訳ございません <br /> ありがとうございます
-      </h1>
-    );
+    return < GameInProgress />
   } else {
     if (play) {
       return (
@@ -204,6 +210,7 @@ function App() {
         <Lobby
           participants={lobbyParticipants}
           handleGameStart={handleGameStart.bind(this)}
+          loggedIn={loggedIn}
         />
       </div>
     );

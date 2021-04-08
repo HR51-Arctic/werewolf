@@ -57,8 +57,11 @@ const Login = (props) => {
     return (
       <div>
         <form
-          onSubmit={() => {
-            props.handleLogin(username, password);
+          onSubmit={(event) => {
+            event.preventDefault();
+            props.handleLogin(username, () => {
+              setUsername(`${username} is taken`);
+            });
           }}
         >
           <input
