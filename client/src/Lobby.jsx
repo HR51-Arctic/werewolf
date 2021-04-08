@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import GameView from "./GameView.jsx";
 import AppHeader from "./AppHeader.jsx";
 
-const Lobby = ({ participants, handleGameStart }) => {
+const Lobby = ({ participants, handleGameStart, loggedIn }) => {
   const [message, setMessage] = useState("");
   return (
     <>
@@ -19,7 +19,7 @@ const Lobby = ({ participants, handleGameStart }) => {
               );
             })}
           </div>
-          {participants.length >= 7 && (
+          {(participants.length >= 7 && loggedIn) && (
             <button
               className="playButton"
               type="submit"

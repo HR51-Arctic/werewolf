@@ -7,7 +7,7 @@ const assignRoles = (currentGame, playerPool) => {
   //determine how many wolves desired
   if (playerPool.length <= 15) wolvesCount = 2;
   if (playerPool.length > 15) {
-    let additonalWolves = Math.floor((playerPool.length - 16) / 4);
+    let additionalWolves = Math.floor((playerPool.length - 16) / 4);
     wolvesCount = 3 + additionalWolves;
   }
 

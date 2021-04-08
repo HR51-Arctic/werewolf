@@ -56,7 +56,14 @@ const Login = (props) => {
   } else {
     return (
       <div>
-        <form>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            props.handleLogin(username, () => {
+              setUsername(`${username} is taken`);
+            });
+          }}
+        >
           <input
             name="username"
             type="text"
@@ -71,16 +78,14 @@ const Login = (props) => {
             onChange={e => setPassword(e.target.value)}
             placeholder='Password'
           /> */}
+          <input
+            type="submit"
+            value="Submit"
+            // onClick={() => {
+            //   props.handleLogin(username, password)
+            // }}
+          ></input>
         </form>
-        <button
-          type="submit"
-          value="Submit"
-          onClick={() => {
-            props.handleLogin(username, password);
-          }}
-        >
-          Login
-        </button>
         {/* <button
           type='submit'
           value='Submit'

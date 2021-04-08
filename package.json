@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/darianchan/werewolf.git"
+    "url": "gnit+https://github.com/darianchan/werewolf.git"
   },
   "author": "",
   "license": "ISC",
@@ -44,6 +44,7 @@
     "pg": "^8.5.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "serve-favicon": "^2.5.0",
     "socket.io": "^4.0.1",
     "socket.io-client": "^4.0.1"
   }
