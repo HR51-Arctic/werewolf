@@ -128,15 +128,14 @@ function App() {
       if (player.name === username) {
         double = true;
       }
-    })
+    });
 
     if (double) {
-      callback()
+      callback();
     } else {
       connection.emit("Login", username);
       setLoggedIn(true);
     }
-
   };
   const handleSignup = (username, password, email) => {
     connection.emit("Signup", username, password, email);
@@ -192,7 +191,6 @@ function App() {
         />
       );
     }
-    ////whooooaaaaaa
     return (
       <div className="werewolfApp">
         {loggedIn ? null : (

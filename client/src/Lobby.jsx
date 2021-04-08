@@ -6,7 +6,7 @@ const Lobby = ({ participants, handleGameStart, loggedIn }) => {
   const [message, setMessage] = useState("");
   return (
     <>
-      <div id='frontPage'>
+      <div id="frontPage">
         <AppHeader id="header" />
         <div id="lobby">
           <div id="players">
@@ -15,12 +15,11 @@ const Lobby = ({ participants, handleGameStart, loggedIn }) => {
               return (
                 <div id="indivPlayer" key={player.id}>
                   {player.name}
-
                 </div>
               );
             })}
           </div>
-          {(participants.length >= 7 && loggedIn) && (
+          {participants.length >= 7 && loggedIn && (
             <button
               className="playButton"
               type="submit"

@@ -1,4 +1,4 @@
-const Player = require('./playerClass.js')
+const Player = require("./playerClass.js");
 
 class Game {
   constructor(preGameTimer, dayTimer, nightTimer) {
@@ -12,16 +12,15 @@ class Game {
   }
 
   addPlayer(id, name = id, admin = false) {
-    let player = new Player(id, name, admin)
-    this.players.push(player)
-
+    let player = new Player(id, name, admin);
+    this.players.push(player);
   }
 
   removePlayer(id) {
     for (let x = 0; x < this.players.length; x++) {
-      let current = this.players[x]
+      let current = this.players[x];
       if (current.id === id) {
-        this.players.splice(x, 1)
+        this.players.splice(x, 1);
         return;
       }
     }
@@ -30,21 +29,21 @@ class Game {
   //methods for checking number of werewolves and villagers
   numberOfAliveVillagers() {
     var count = 0;
-    this.players.forEach(player => {
-      if (player.role !== 'werewolf' && player.alive) {
+    this.players.forEach((player) => {
+      if (player.role !== "werewolf" && player.alive) {
         count += 1;
       }
-    })
+    });
     return count;
   }
 
   numberOfAliveWerewolves() {
     var count = 0;
-    this.players.forEach(player => {
-      if (player.role === 'werewolf' && player.alive) {
+    this.players.forEach((player) => {
+      if (player.role === "werewolf" && player.alive) {
         count += 1;
       }
-    })
+    });
     return count;
   }
 
@@ -53,7 +52,7 @@ class Game {
     for (player of this.players) {
       if (player.id === id) {
         player.protected = true;
-        return
+        return;
       }
     }
   }
@@ -61,37 +60,37 @@ class Game {
   // method to toggle protected
   toggleTargetVoteCount(id) {
     for (var x = 0; x < this.players.length; x++) {
-      let currentPlayer = this.players[x]
+      let currentPlayer = this.players[x];
       if (currentPlayer.id === id) {
-        currentPlayer.targeted += 1
+        currentPlayer.targeted += 1;
       }
     }
   }
 
   // method to check win condition
   checkWinCondition() {
-    let wolves = 0
-    let players = 0
+    let wolves = 0;
+    let players = 0;
     this.players.forEach((player) => {
       if (this.player.alive) {
-        if (this.player.role === 'werewolf') {
-          wolves++
+        if (this.player.role === "werewolf") {
+          wolves++;
         } else {
-          players++
+          players++;
         }
       }
-    })
+    });
     if (wolves >= players) {
       //wolf win condition
-      this.active = false
-      return true
+      this.active = false;
+      return true;
     }
     if (!wolves) {
       //villager win condition
-      this.active = false
-      return true
+      this.active = false;
+      return true;
     }
-    return false
+    return false;
   }
 
   determineKill() {
@@ -106,17 +105,17 @@ class Game {
       } else {
         voteCount[this.votes[key]] += 1;
       }
-    };
+    }
     this.votes = {};
     let maxVotes = 0;
-    let targeted = '';
+    let targeted = "";
     for (let key in voteCount) {
       if (voteCount[key] > maxVotes) {
         maxVotes = voteCount[key];
         targeted = key;
       }
-    };
-    this.players.forEach(player => {
+    }
+    this.players.forEach((player) => {
       if (player.id === targeted) {
         if (player.protected) {
           return;
@@ -124,7 +123,7 @@ class Game {
           player.alive = false;
         }
       }
-    })
+    });
     // this.players.forEach((player, index) => {
     //   if (player.targeted && player.targeted > targetCount) { //make sure target isnt protected
     //     targetedPlayers = [index]
@@ -145,9 +144,6 @@ class Game {
     //   player.targeted = 0
     // })
   }
-
-
 }
 
-
-module.exports = Game
+module.exports = Game;
