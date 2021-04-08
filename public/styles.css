@@ -99,6 +99,7 @@
   width: 50vw;
   margin-top: 5vw;
   margin-bottom: 2vw;
+  justify-self: center;
 }
 
 .playButton:hover {
