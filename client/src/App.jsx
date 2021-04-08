@@ -19,11 +19,14 @@ function App() {
   const [wereWolves, setWerewolves] = useState(0);
   const [villagers, setVillagers] = useState(0);
   const [werewolfMessages, setWereWolfMessages] = useState([]);
+  const [gameInProgress, setGameInProgress] = useState(false);
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
     setConnection(socket);
-
+    socket.on('GameInProgress', () => {
+      setGameInProgress(true);
+    })
     socket.on("myId", (id) => {
       setMyId(id);
     });
@@ -150,6 +153,9 @@ function App() {
   }
   const handleWerewolfChat = (message) => {
     connection.emit("werewolfMessages", message);
+  }
+  if (gameInProgress) {
+    return <h1> game in progress.<br/> please come back later<br/> ありがとうございます</h1>
   }
   if (play) {
     return <GameView myId={myId} gameState={gameState} timer={timer} day={day} vote={vote.bind(this)} docChoice={docChoice.bind(this)} endGame={endGame} preGame={preGame} werewolves={wereWolves} villagers={villagers} werewolfMessages={werewolfMessages} handleWerewolfChat={handleWerewolfChat.bind(this)} handleResetGame={handleResetGame.bind(this)}/>
