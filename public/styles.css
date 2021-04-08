@@ -34,7 +34,7 @@
 #players {
   grid-area: players;
   width: 50vw;
-  justify-content: center;
+  justify-self: center;
   align-content: center;
   background-color: rgb(205, 201, 201);
   border: solid 7px black;
