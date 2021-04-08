@@ -69,7 +69,15 @@
   grid-area: lobby-chat;
   border: solid 5px black;
 }
-
+#settingsView {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-between;
+  border: 1px solid black
+}
+.setting {
+  width: 50px;
+}
 #msg-input {
   display: inline-block;
   position: relative;
