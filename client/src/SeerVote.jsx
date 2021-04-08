@@ -27,7 +27,7 @@ class SeerVote extends React.Component {
     const { revealed } = this.state;
     if (!revealed) {
       return (
-        <>
+        <div id="seerContainer">
           <h4>Who do you want to SEEEE</h4>
           <div>
             {gameState.players.map((player) => {
@@ -38,7 +38,7 @@ class SeerVote extends React.Component {
               }
             })}
           </div>
-        </>
+        </div>
       )
     } else {
       return <h4>{revealed.name} is a {revealed.role}</h4>

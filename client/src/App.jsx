@@ -23,6 +23,8 @@ function App() {
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
+    document.body.style = 'background: grey';
+
     setConnection(socket);
     socket.on('GameInProgress', () => {
       setGameInProgress(true);
@@ -65,7 +67,7 @@ function App() {
     socket.on('updateVotes', (newGameState) => {
       let votes = Object.values(newGameState.votes)
       votes.forEach((vote) => {
-        for (let x=0; x<newGameState.players.length; x++) {
+        for (let x = 0; x < newGameState.players.length; x++) {
           let player = newGameState.players[x]
           if (vote === player.id) {
             player.targeted += 1
@@ -135,7 +137,7 @@ function App() {
   //   setPlay(false);
   // });
   //socket listener for returning to lobby
- //////////////////////////////////////
+  //////////////////////////////////////
   const vote = (data) => {
     let vote = {
       me: myId,
@@ -155,14 +157,14 @@ function App() {
     connection.emit("werewolfMessages", message);
   }
   if (gameInProgress) {
-    return <h1> game in progress.<br/> please come back later<br/> ありがとうございます</h1>
+    return <h1> game in progress.<br /> please come back later<br /> ありがとうございます</h1>
   }
   if (play) {
-    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} vote={vote.bind(this)} docChoice={docChoice.bind(this)} endGame={endGame} preGame={preGame} werewolves={wereWolves} villagers={villagers} werewolfMessages={werewolfMessages} handleWerewolfChat={handleWerewolfChat.bind(this)} handleResetGame={handleResetGame.bind(this)}/>
+    return <GameView myId={myId} gameState={gameState} timer={timer} day={day} vote={vote.bind(this)} docChoice={docChoice.bind(this)} endGame={endGame} preGame={preGame} werewolves={wereWolves} villagers={villagers} werewolfMessages={werewolfMessages} handleWerewolfChat={handleWerewolfChat.bind(this)} handleResetGame={handleResetGame.bind(this)} />
   }
 
   return (
-    <div>
+    <div className='werewolfApp'>
       <Login
         handleLogin={handleLogin.bind(this)}
         handleSignup={handleSignup.bind(this)}

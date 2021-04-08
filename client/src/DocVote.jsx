@@ -11,7 +11,6 @@ class DocVote extends React.Component {
 
   protect(player) {
     this.setState({ protect: player.name });
-    console.log(this.props.docChoice);
     this.props.docChoice(player.id);
   }
 
