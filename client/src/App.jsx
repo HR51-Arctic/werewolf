@@ -23,12 +23,21 @@ function App() {
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
+<<<<<<< HEAD
     document.body.style = "background: grey";
 
     setConnection(socket);
     socket.on("gameInProgress", (bool) => {
       setGameInProgress(bool);
     });
+=======
+    document.body.style = 'background: grey';
+
+    setConnection(socket);
+    socket.on('gameInProgress', (bool) => {
+      setGameInProgress(bool);
+    })
+>>>>>>> 6e42f76e9f83a345bf8658a80f2c85c48ae0ae0d
     socket.on("myId", (id) => {
       setMyId(id);
     });
@@ -40,7 +49,11 @@ function App() {
     // });
     socket.on("GetWerewolfChat", (data) => {
       setWereWolfMessages(data);
+<<<<<<< HEAD
     });
+=======
+    })
+>>>>>>> 6e42f76e9f83a345bf8658a80f2c85c48ae0ae0d
 
     socket.on("GetParticipants", (data) => {
       setLobbyParticipants(data);
@@ -50,10 +63,17 @@ function App() {
       let werewolves = 0;
       let villagers = 0;
       gameState.players.map((player) => {
+<<<<<<< HEAD
         if (player.role === "werewolf" && player.alive) {
           werewolves += 1;
         }
         if (player.role !== "werewolf" && player.alive) {
+=======
+        if (player.role === 'werewolf' && player.alive) {
+          werewolves += 1;
+        }
+        if (player.role !== 'werewolf' && player.alive) {
+>>>>>>> 6e42f76e9f83a345bf8658a80f2c85c48ae0ae0d
           villagers += 1;
         }
       });
@@ -63,6 +83,7 @@ function App() {
       setGameState(gameState);
       setPlay(true);
     });
+<<<<<<< HEAD
     socket.on("updateVotes", (newGameState) => {
       let votes = Object.values(newGameState.votes);
       votes.forEach((vote) => {
@@ -75,6 +96,20 @@ function App() {
         }
       });
       setGameState(newGameState);
+=======
+    socket.on('updateVotes', (newGameState) => {
+      let votes = Object.values(newGameState.votes)
+      votes.forEach((vote) => {
+        for (let x = 0; x < newGameState.players.length; x++) {
+          let player = newGameState.players[x]
+          if (vote === player.id) {
+            player.targeted += 1
+            return
+          }
+        }
+      });
+      setGameState(newGameState)
+>>>>>>> 6e42f76e9f83a345bf8658a80f2c85c48ae0ae0d
     });
     socket.on("timer", (timer) => {
       setTimer(timer);
@@ -85,6 +120,7 @@ function App() {
     });
 
     //////reset game listener
+<<<<<<< HEAD
     socket.on("resetGame", (data) => {
       console.log("reset game was clicked");
       setPlay(false);
@@ -94,12 +130,24 @@ function App() {
       setEndGame(null);
       setTimer("");
       setMessage("");
+=======
+    socket.on('resetGame', (data) => {
+      console.log('reset game was clicked')
+      setPlay(false);
+      setGameState(data);
+      setDay(true)      //recent added causing client disconnect
+      setPreGame(true) //recentlyAdded client Disconnect
+      setEndGame(null);
+      setTimer('');
+      setMessage('');
+>>>>>>> 6e42f76e9f83a345bf8658a80f2c85c48ae0ae0d
     });
 
     socket.on("changePhase", (gameState) => {
       let werewolves = 0;
       let villagers = 0;
       gameState.players.map((player) => {
+<<<<<<< HEAD
         if (player.role === "werewolf" && player.alive) {
           werewolves += 1;
         }
@@ -107,6 +155,15 @@ function App() {
           villagers += 1;
         }
       });
+=======
+        if (player.role === 'werewolf' && player.alive) {
+          werewolves += 1;
+        }
+        if (player.role !== 'werewolf' && player.alive) {
+          villagers += 1;
+        }
+      })
+>>>>>>> 6e42f76e9f83a345bf8658a80f2c85c48ae0ae0d
       setWerewolves(werewolves);
       setVillagers(villagers);
       setDay(gameState.day);
@@ -131,6 +188,12 @@ function App() {
   const handleResetGame = () => {
     // emit to server to end => server handles the reset stuff => server emits to all clients to reset states
     connection.emit("initializeReset");
+  };
+
+  //////////reset game logic ////////////
+  const handleResetGame = () => {
+    // emit to server to end => server handles the reset stuff => server emits to all clients to reset states
+    connection.emit('initializeReset');
   };
   // socket.on('resetGame', () => {
   //   setPlay(false);
@@ -184,9 +247,20 @@ function App() {
         />
       );
     }
+    connection.emit('docChoice', docChoice);
+  }
+  const handleWerewolfChat = (message) => {
+    connection.emit("werewolfMessages", message);
+  }
+  if (gameInProgress) {
+    return <h1> game in progress.<br /> please come back later<br /> 申し訳ございません <br /> ありがとうございます</h1>
+  } else {
+    if (play) {
+      return <GameView myId={myId} gameState={gameState} timer={timer} day={day} vote={vote.bind(this)} docChoice={docChoice.bind(this)} endGame={endGame} preGame={preGame} werewolves={wereWolves} villagers={villagers} werewolfMessages={werewolfMessages} handleWerewolfChat={handleWerewolfChat.bind(this)} handleResetGame={handleResetGame.bind(this)} />
+    }
 
     return (
-      <div className="werewolfApp">
+      <div className='werewolfApp'>
         <Login
           handleLogin={handleLogin.bind(this)}
           handleSignup={handleSignup.bind(this)}

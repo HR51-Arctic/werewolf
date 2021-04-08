@@ -26,18 +26,18 @@ let currentGame;
 
 io.on("connection", (socket) => {
   if (currentGame) {
-    socket.emit("gameInProgress", true);
-    return;
+    socket.emit('gameInProgress', true);
+    return
   }
   console.log("New client connected");
   clients.push(socket.id);
   unregisteredClients.push(socket.id);
-  socket.emit("myId", socket.id);
-  io.sockets.emit("GetParticipants", players);
+  socket.emit('myId', socket.id);
+  io.sockets.emit('GetParticipants', players);
 
-  socket.on("disconnect", () => {
+  socket.on('disconnect', () => {
     if (socket.username) {
-      console.log(socket.username, "disconnected");
+      console.log(socket.username, 'disconnected');
     } else {
       console.log("client disconnected");
     }
@@ -56,11 +56,12 @@ io.on("connection", (socket) => {
   /////////////////////////////login and signup//////////////////////////////////
   socket.on("Login", (username, password) => {
     socket.username = username;
-    console.log(username, "logged in");
+    console.log(username, 'logged in');
     unregisteredClients.splice(unregisteredClients.indexOf(socket.id), 1); //testing splicing out early
-    console.log(unregisteredClients);
+    console.log(unregisteredClients)
     players.push(new Player(socket.id, socket.username));
-    io.sockets.emit("GetParticipants", players);
+    io.sockets.emit('GetParticipants', players);
+
   });
 
   // socket.on('Signup', (username, password, email) => {
@@ -73,24 +74,24 @@ io.on("connection", (socket) => {
   // });
 
   /////////RESET LOGIC //////////
-  socket.on("initializeReset", () => {
+  socket.on('initializeReset', () => {
     players = [];
     messages = [];
     currentGame.players.forEach((player) => {
-      player.role = "villager";
+      player.role = 'villager';
       player.alive = true;
       if (clients.indexOf(player.id) !== -1) {
         players.push(player);
       }
-    });
+    })
     currentGame = null;
-    io.sockets.emit("resetGame", currentGame);
-    io.sockets.emit("GetParticipants", players);
-    io.sockets.emit("gameInProgress", false);
+    io.sockets.emit('resetGame', currentGame);
+    io.sockets.emit('GetParticipants', players);
+    io.sockets.emit('gameInProgress', false);
   });
   //////////////////////////////////////////////////////////////
   // Function that triggers on 'Play' button in lobby
-  socket.on("StartGame", () => {
+  socket.on('StartGame', () => {
     if (!currentGame) {
       currentGame = new Game();
     }
@@ -99,15 +100,15 @@ io.on("connection", (socket) => {
 
     //loop through and disconnect clients who are not in players
     for (let i = 0; i < unregisteredClients.length; i++) {
-      io.to(unregisteredClients[i]).emit("gameInProgress", true);
+      io.to(unregisteredClients[i]).emit('gameInProgress', true);
     }
     if (playerPool.length >= 7) {
-      assignRoles(currentGame, playerPool);
+      assignRoles(currentGame, playerPool)
       currentGame.active = true;
-      io.sockets.emit("PreGame", currentGame);
+      io.sockets.emit('PreGame', currentGame);
     }
 
-    io.sockets.emit("PreGame", currentGame);
+    io.sockets.emit('PreGame', currentGame);
     let preGameTimer = 5;
     const preGameTimerLoop = setInterval(() => {
       preGameTimer -= 1;
@@ -122,18 +123,25 @@ io.on("connection", (socket) => {
   });
 
   /////////////////////////////////////////////////////////////
-  socket.on("vote", (voteObject) => {
+  socket.on('vote', (voteObject) => {
     currentGame.votes[voteObject.me] = voteObject.vote;
-    io.sockets.emit("updateVotes", currentGame);
-  });
+    io.sockets.emit('updateVotes', currentGame)
+  })
 
-  socket.on("docChoice", (protectedId) => {
+  socket.on('docChoice', (protectedId) => {
     currentGame.players.forEach((player) => {
       if (player.id === protectedId.vote) {
         player.protected = true;
       }
-    });
-  });
+    })
+  })
+
+  //////// werewolf chat ///////////
+  socket.on('werewolfMessages', (message) => {
+    messages.push(message)
+    io.sockets.emit('GetWerewolfChat', messages)
+  })
+})
 
   //////// werewolf chat ///////////
   socket.on("werewolfMessages", (message) => {
@@ -144,36 +152,36 @@ io.on("connection", (socket) => {
 
 /////////////////////////////////////////////////////////////////////////////////////////
 const nightPhase = (currentGame) => {
-  if (
-    currentGame.numberOfAliveWerewolves() >=
-    currentGame.numberOfAliveVillagers()
-  ) {
-    io.sockets.emit("endGame", "Werewolves win");
+
+  if (currentGame.numberOfAliveWerewolves() >= currentGame.numberOfAliveVillagers()) {
+    io.sockets.emit('endGame', 'Werewolves win');
     return;
   }
   if (currentGame.numberOfAliveWerewolves() === 0) {
-    io.sockets.emit("endGame", "Villagers win");
+    io.sockets.emit('endGame', 'Villagers win');
     return;
   }
 
-  io.sockets.emit("changePhase", currentGame);
+
+  io.sockets.emit('changePhase', currentGame);
   let nightTimer = 3;
-  const nightTimerLoop = setInterval(() => {
-    nightTimer -= 1;
-    io.sockets.emit("timer", nightTimer);
-    console.log(nightTimer);
-    if (nightTimer == 0) {
-      clearInterval(nightTimerLoop);
-      currentGame.determineKill();
-      currentGame.day = true;
-      io.sockets.emit("changePhase", currentGame);
-      currentGame.players.forEach((player) => {
-        player.protected = false;
-      });
-      dayPhase(currentGame);
-    }
-  }, 1000);
-};
+  const nightTimerLoop =
+    setInterval(() => {
+      nightTimer -= 1;
+      io.sockets.emit('timer', nightTimer);
+      console.log(nightTimer);
+      if (nightTimer == 0) {
+        clearInterval(nightTimerLoop);
+        currentGame.determineKill();
+        currentGame.day = true;
+        io.sockets.emit('changePhase', currentGame);
+        currentGame.players.forEach((player) => {
+          player.protected = false;
+        })
+        dayPhase(currentGame);
+      }
+    }, 1000);
+}
 /////////////////////////////////////////////////////////////////////////
 const dayPhase = (currentGame) => {
   if (
@@ -188,47 +196,48 @@ const dayPhase = (currentGame) => {
     return;
   }
   let dayTimer = 3;
-  const dayTimerLoop = setInterval(() => {
-    dayTimer -= 1;
-    io.sockets.emit("timer", dayTimer);
-    console.log(dayTimer);
-    if (dayTimer == 0) {
-      clearInterval(dayTimerLoop);
-      currentGame.determineKill();
-      currentGame.day = false;
-      io.sockets.emit("changePhase", currentGame);
-      nightPhase(currentGame);
-    }
-  }, 1000);
-};
+  const dayTimerLoop =
+    setInterval(() => {
+      dayTimer -= 1;
+      io.sockets.emit('timer', dayTimer);
+      console.log(dayTimer);
+      if (dayTimer == 0) {
+        clearInterval(dayTimerLoop);
+        currentGame.determineKill();
+        currentGame.day = false;
+        io.sockets.emit('changePhase', currentGame);
+        nightPhase(currentGame);
+      }
+    }, 1000);
+}
 
 ////////////////////////////////////////////////////////////////////////
-app.post("/registerUser", function (req, res) {
+app.post('/registerUser', function (req, res) {
   const { username, password, email } = req.body;
   db.registerUser(username, password, email, (err, data) => {
     if (err) {
-      console.log("register user erroring out");
+      console.log('register user erroring out');
       res.status(500).send(data);
     } else {
-      console.log("successfully registered", username);
+      console.log('successfully registered', username);
       res.status(200).send(data);
     }
   });
 });
 
-app.post("/login", function (req, res) {
+app.post('/login', function (req, res) {
   const { username, password } = req.body;
   db.verifyUser(username, (err, data) => {
     if (err) {
-      console.log("login not successful");
+      console.log('login not successful');
       res.status(500).send(data);
     } else {
       var x = data.rows[0].userpassword;
       if (password === x) {
-        console.log(username, "logged in");
-        res.status(200).send("done");
+        console.log(username, 'logged in');
+        res.status(200).send('done');
       } else {
-        res.status(500).send("Wrong password, foo");
+        res.status(500).send('Wrong password, foo')
       }
     }
   });
