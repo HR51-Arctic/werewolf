@@ -233,4 +233,14 @@ font-family: Georgia;
 #Selection {
 }
 
+.fas{
+  animation: rotation 2s linear infinite;
+  display: inline-block;
+  color:rgb(75, 3, 3)
+}
+
+@keyframes rotation {
+  to {transform: rotate(360deg);}
+}
+
 /*-----------------------------------------*/
