@@ -3,19 +3,26 @@
   background-color: grey;
 }
 .werewolfLogo {
-  width: 100vw;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .appHeaderContainer {
   background-color: grey;
+  display: inline-block;
+  width: 80%; /*keep same as werewolf logo width to maintain centering */
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 /*---Lobby--*/
 #frontPage {
-  height: 100%;
-  width: 100%;
+
+}
+#frontPage div {
+  margin: 0 auto;
 }
 #lobby {
   display: grid;
