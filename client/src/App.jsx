@@ -195,13 +195,10 @@ function App() {
     ////whooooaaaaaa
     return (
       <div className="werewolfApp">
-        {loggedIn ? null : (
-          <Login
-            handleLogin={handleLogin.bind(this)}
-            handleSignup={handleSignup.bind(this)}
-          />
-        )}
         <Lobby
+          loggedIn = {loggedIn}
+          handleLogin={handleLogin.bind(this)}
+          handleSignup={handleSignup.bind(this)}
           participants={lobbyParticipants}
           handleGameStart={handleGameStart.bind(this)}
           loggedIn={loggedIn}
