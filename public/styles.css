@@ -4,14 +4,14 @@
 }
 .werewolfLogo {
   width: 100%;
-  margin-top: -110px;
+  margin-top: -7.5vw;
 }
 .appHeaderContainer {
   background-color: grey;
   display: inline-block;
-  height: 350px;
+  height: 46.75vh;
   overflow: hidden;
-  width: 70%; /*keep same as werewolf logo width to maintain centering */
+  width: 70vw; /*keep same as werewolf logo width to maintain centering */
   position: relative;
   left: 50%;
   transform: translate(-50%);
