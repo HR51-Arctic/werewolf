@@ -6,9 +6,9 @@ class Game {
     this.day = true; // can be false for night
     this.active = false; //boolean values indicates whether game is in progress
     this.votes = {};
-    this.preGameTimer = gameSettings.preGameTimer || 10;
-    this.dayTimer = gameSettings.dayTimer || 10;
-    this.nightTimer = gameSettings.nightTimer || 10;
+    this.preGameTimer = gameSettings.preGameTimer || 30;
+    this.dayTimer = gameSettings.dayTimer || 60;
+    this.nightTimer = gameSettings.nightTimer || 30;
   }
 
   addPlayer(id, name = id, admin = false) {

@@ -111,20 +111,11 @@ io.on("connection", (socket) => {
     }
 
     let playerPool = players;
-    clients.forEach((client) => {
-      for (let x = 0; x < playerPool.length; x++) {
-        let player = playerPool[x];
-        if (player.id === client) {
-          return;
-        }
-      }
-      io.to(client).emit("gameInProgress");
-    });
 
-    //loop through and disconnect clients who are not in players
     for (let i = 0; i < unregisteredClients.length; i++) {
       io.to(unregisteredClients[i]).emit("gameInProgress", true);
     }
+
     if (playerPool.length >= 7) {
       assignRoles(currentGame, playerPool);
       currentGame.active = true;
