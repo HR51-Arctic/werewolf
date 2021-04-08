@@ -19,7 +19,6 @@
 
 /*---Lobby--*/
 #frontPage {
-
 }
 #frontPage div {
   margin: 0 auto;
@@ -233,6 +232,12 @@ input[type="submit"]:hover {
   max-height: 250px;
 }
 
+#werewolfChatHeading {
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
 #seerContainer {
 }
 
@@ -282,16 +287,15 @@ input[type="submit"]:hover {
   background-color: white;
   padding: 10px 20px;
   text-align: center;
-  border: 2px solid rgb(223, 70, 70);
-  transition: all 0.2s ease-in-out;
+  border: 2px solid rgb(75, 3, 3);
 }
 
 #villagerVotingButton:hover {
   color: white;
-  background-color: rgb(223, 70, 70);
+  background-color: rgb(75, 3, 3);
   padding: 10px 20px;
   text-align: center;
-  border: 2px solid rgb(223, 70, 70);
+  border: 2px solid rgb(75, 3, 3);
 }
 
 #votingButton #bacground {
@@ -312,13 +316,13 @@ input[type="submit"]:hover {
 #Selection {
 }
 
-#lobby ul{
+#lobby ul {
   list-style-type: square;
   font-size: 20px;
   font-weight: bold;
 }
 
-.fas{
+.fas {
   animation: rotation 2s linear infinite;
   display: inline-block;
   color: rgb(75, 3, 3);
@@ -328,4 +332,6 @@ input[type="submit"]:hover {
   to {
     transform: rotate(360deg);
   }
-} /*-----------------------------------------*/
+}
+
+/*-----------------------------------------*/
