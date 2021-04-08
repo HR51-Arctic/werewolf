@@ -155,6 +155,7 @@ function App() {
     connection.emit("werewolfMessages", message);
   }
   if (gameInProgress) {
+    connection.disconnect();
     return <h1> game in progress.<br/> please come back later<br/> ありがとうございます</h1>
   }
   if (play) {
