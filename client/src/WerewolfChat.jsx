@@ -18,11 +18,7 @@ const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
         setMessage('')
       }} >
         <input onChange={handleMessage.bind(this)} value={message} />
-<<<<<<< HEAD
-        <input type="submit" value="Submit Message"/>
-=======
         <input type="submit" value="Message"/>
->>>>>>> 958e14133c567d19e4defd3868492a3a66e9e776
       </form>
       <div className='werewolfChat'>
         {werewolfMessages.map((message, index, array) => {

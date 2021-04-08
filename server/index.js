@@ -202,7 +202,7 @@ const dayPhase = (currentGame) => {
     io.sockets.emit("endGame", "villagers win");
     return;
   }
-  let dayTimer = currentGame.nightTimer;
+  let dayTimer = currentGame.dayTimer;
   const dayTimerLoop = setInterval(() => {
     dayTimer -= 1;
     io.sockets.emit("timer", dayTimer);

@@ -99,7 +99,6 @@ function App() {
 
     //////reset game listener
     socket.on("resetGame", (data) => {
-      console.log("reset game was clicked");
       setPlay(false);
       setGameState(data);
       setDay(true); //recent added causing client disconnect
