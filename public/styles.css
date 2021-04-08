@@ -19,7 +19,6 @@
 
 /*---Lobby--*/
 #frontPage {
-
 }
 #frontPage div {
   margin: 0 auto;
@@ -50,7 +49,7 @@
 #players {
   grid-area: players;
   width: 50vw;
-  justify-content: center;
+  justify-self: center;
   align-content: center;
   background-color: rgb(205, 201, 201);
   border: solid 7px black;
@@ -115,6 +114,7 @@
   width: 50vw;
   margin-top: 5vw;
   margin-bottom: 2vw;
+  justify-self: center;
 }
 
 .playButton:hover {
@@ -217,8 +217,17 @@ input[type="submit"]:hover {
   background-color: white;
 }
 
-#werewolfChat {
+.werewolfChat {
   grid-area: werewolfChat;
+  display: grid;
+  overflow-y: scroll;
+  max-height: 250px;
+}
+
+#werewolfChatHeading {
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 5px;
 }
 
 #seerContainer {
@@ -269,15 +278,15 @@ input[type="submit"]:hover {
   background-color: white;
   padding: 10px 20px;
   text-align: center;
-  border: 2px solid rgb(223, 70, 70);
+  border: 2px solid rgb(75, 3, 3);
 }
 
 #villagerVotingButton:hover {
   color: white;
-  background-color: rgb(223, 70, 70);
+  background-color: rgb(75, 3, 3);
   padding: 10px 20px;
   text-align: center;
-  border: 2px solid rgb(223, 70, 70);
+  border: 2px solid rgb(75, 3, 3);
 }
 
 #votingButton #bacground {
@@ -298,20 +307,22 @@ input[type="submit"]:hover {
 #Selection {
 }
 
-#lobby ul{
+#lobby ul {
   list-style-type: square;
   font-size: 20px;
   font-weight: bold;
 }
 
-.fas{
+.fas {
   animation: rotation 2s linear infinite;
   display: inline-block;
-  color:rgb(75, 3, 3)
+  color: rgb(75, 3, 3);
 }
 
 @keyframes rotation {
-  to {transform: rotate(360deg);}
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /*-----------------------------------------*/
