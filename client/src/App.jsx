@@ -22,6 +22,13 @@ function App() {
   const [villagers, setVillagers] = useState(0);
   const [werewolfMessages, setWereWolfMessages] = useState([]);
   const [gameInProgress, setGameInProgress] = useState(false);
+  const [gameSettings, setGameSettings] = useState({
+    preGameTimer: 30,
+    dayTimer: 60,
+    nightTimer: 30
+  });
+  // const [dayTimer, setDayTimer] = useState(60);
+  // const [nightTimer, setNightTimer] = useState(30);
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
@@ -47,6 +54,10 @@ function App() {
     socket.on("GetParticipants", (data) => {
       setLobbyParticipants(data);
     });
+
+    socket.on('GetSettings', (data) => {
+      setGameSettings(data);
+    })
 
     socket.on("PreGame", (gameState) => {
       let werewolves = 0;
@@ -88,7 +99,6 @@ function App() {
 
     //////reset game listener
     socket.on("resetGame", (data) => {
-      console.log("reset game was clicked");
       setPlay(false);
       setGameState(data);
       setDay(true); //recent added causing client disconnect
@@ -128,15 +138,14 @@ function App() {
       if (player.name === username) {
         double = true;
       }
-    })
+    });
 
     if (double) {
-      callback()
+      callback();
     } else {
       connection.emit("Login", username);
       setLoggedIn(true);
     }
-
   };
   const handleSignup = (username, password, email) => {
     connection.emit("Signup", username, password, email);
@@ -176,6 +185,14 @@ function App() {
     });
     connection.emit("werewolfMessages", [username, message]);
   };
+
+  const onGameSettingsChange = (e) => {
+    let newGameSettings = gameSettings;
+    newGameSettings[e.target.name] = e.target.value;
+    connection.emit('NewSettings', newGameSettings);
+  };
+
+  /////////////////////////Rendering Below //////////////////////////
   if (gameInProgress) {
     return < GameInProgress />
   } else {
@@ -198,7 +215,6 @@ function App() {
         />
       );
     }
-    ////whooooaaaaaa
     return (
       <div className="werewolfApp">
         <Lobby
@@ -208,6 +224,8 @@ function App() {
           participants={lobbyParticipants}
           handleGameStart={handleGameStart.bind(this)}
           loggedIn={loggedIn}
+          gameSettings={gameSettings}
+          onGameSettingsChange={onGameSettingsChange.bind(this)}
         />
       </div>
     );

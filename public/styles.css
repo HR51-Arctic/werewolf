@@ -84,7 +84,15 @@
   grid-area: lobby-chat;
   border: solid 5px black;
 }
-
+#settingsView {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-between;
+  border: 1px solid black
+}
+.setting {
+  width: 50px;
+}
 #msg-input {
   display: inline-block;
   position: relative;
@@ -263,6 +271,7 @@ input[type="submit"]:hover {
   padding: 10px 20px;
   text-align: center;
   border: 2px solid rgb(0, 153, 255);
+  transition: all 0.2s ease-in-out;
 }
 
 #wolfVotingButton:hover {
