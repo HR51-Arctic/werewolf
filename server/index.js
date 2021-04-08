@@ -98,6 +98,16 @@ io.on("connection", (socket) => {
     }
 
     let playerPool = players;
+    clients.forEach((client) => {
+      for (let x=0; x<playerPool.length; x++) {
+        let player = playerPool[x]
+        if (player.id === client) {
+          return
+        }
+      }
+      //what if they are not in the palyerlist?
+      io.to(client).emit('GameInProgress');
+    })
 
     //loop through and disconnect clients who are not in players
     for (let i = 0; i < unregisteredClients.length; i++) {
