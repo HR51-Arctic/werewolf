@@ -3,28 +3,43 @@
   background-color: grey;
 }
 .werewolfLogo {
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  margin-top: -110px;
 }
 .appHeaderContainer {
   background-color: grey;
+  display: inline-block;
+  height: 350px;
+  overflow: hidden;
+  width: 70%; /*keep same as werewolf logo width to maintain centering */
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 /*---Lobby--*/
 #frontPage {
-  height: 100%;
-  width: 100%;
+}
+#frontPage div {
+  margin: 0 auto;
 }
 #lobby {
   display: grid;
   grid-template-rows: auto;
   grid-template-areas:
     "lobby lobby lobby"
+    ". login ."
     ". players ."
     ". playButton .";
   background-color: grey;
+}
+
+#lobby .login {
+  grid-area: login;
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 51vw;
+  margin-bottom: 10px;
 }
 
 #header {
@@ -34,7 +49,7 @@
 #players {
   grid-area: players;
   width: 50vw;
-  justify-content: center;
+  justify-self: center;
   align-content: center;
   background-color: rgb(205, 201, 201);
   border: solid 7px black;
@@ -69,7 +84,15 @@
   grid-area: lobby-chat;
   border: solid 5px black;
 }
-
+#settingsView {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-between;
+  border: 1px solid black;
+}
+.setting {
+  width: 50px;
+}
 #msg-input {
   display: inline-block;
   position: relative;
@@ -99,6 +122,7 @@
   width: 50vw;
   margin-top: 5vw;
   margin-bottom: 2vw;
+  justify-self: center;
 }
 
 .playButton:hover {
@@ -117,8 +141,8 @@ input[type="text"] {
   border-radius: 4px;
   font-weight: normal;
   transition: all 0.2s ease-in-out;
-  width: 10vw;
-  margin: 2vw;
+  width: 75%;
+  /* margin: 2vw; */
   outline: none;
 }
 
@@ -139,8 +163,8 @@ input[type="submit"] {
   border-radius: 4px;
   font-weight: normal;
   transition: all 0.2s ease-in-out;
-  width: 10vw;
-  margin: 2vw;
+  width: 23%;
+  /* margin: 2vw; */
 }
 
 input[type="submit"]:hover {
@@ -201,8 +225,17 @@ input[type="submit"]:hover {
   background-color: white;
 }
 
-#werewolfChat {
+.werewolfChat {
   grid-area: werewolfChat;
+  display: grid;
+  overflow-y: scroll;
+  max-height: 250px;
+}
+
+#werewolfChatHeading {
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 5px;
 }
 
 #seerContainer {
@@ -243,6 +276,7 @@ input[type="submit"]:hover {
   padding: 10px 20px;
   text-align: center;
   border: 2px solid rgb(0, 153, 255);
+  transition: all 0.2s ease-in-out;
 }
 
 #wolfVotingButton:hover {
@@ -258,15 +292,15 @@ input[type="submit"]:hover {
   background-color: white;
   padding: 10px 20px;
   text-align: center;
-  border: 2px solid rgb(223, 70, 70);
+  border: 2px solid rgb(75, 3, 3);
 }
 
 #villagerVotingButton:hover {
   color: white;
-  background-color: rgb(223, 70, 70);
+  background-color: rgb(75, 3, 3);
   padding: 10px 20px;
   text-align: center;
-  border: 2px solid rgb(223, 70, 70);
+  border: 2px solid rgb(75, 3, 3);
 }
 
 #votingButton #bacground {
@@ -285,6 +319,12 @@ input[type="submit"]:hover {
 }
 
 #Selection {
+}
+
+#lobby ul {
+  list-style-type: square;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .fas {
