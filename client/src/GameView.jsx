@@ -24,8 +24,8 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGa
       <div style={{ backgroundColor: 'grey' }}>
         <div id='gameView' >
           <div id="role-container">
-            <h1>You are a {role}</h1>
-            <div>Time left: {timer} </div>
+            <h1 id='role'>You are a {role}</h1>
+            <div id='timer'>Time left: {timer} </div>
           </div>
 
           <div id='gameMessage'>
@@ -50,6 +50,7 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGa
             })}
           </div>
           <div id='remaining'>
+            <h2 id='playersRemaining'>Players Remaining</h2>
             <div>Remaining Werewolves: {werewolves}</div>
             <div>Remaining Villagers: {villagers}</div>
           </div>

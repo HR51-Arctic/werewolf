@@ -11,7 +11,6 @@ const port = process.env.PORT || 3000;
 const index = require("./routes/index");
 
 app.use(express.static("public"));
-// app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(index);
 
@@ -20,11 +19,15 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 const clients = [];
-const players = [];
+let players = [];
 const messages = [];
 let currentGame;
 
 io.on("connection", (socket) => {
+  if (currentGame) {
+    socket.emit('GameInProgress');
+    return
+  }
   console.log("New client connected");
   clients.push(socket.id);
   socket.emit('myId', socket.id);
@@ -33,8 +36,6 @@ io.on("connection", (socket) => {
   socket.on('disconnect', () => {
     if (socket.username) {
       console.log(socket.username, 'disconnected');
-      // players.splice(players.indexOf())
-      // write a way to get depopulate players
     } else {
       console.log('client disconnected')
     }
@@ -68,7 +69,23 @@ io.on("connection", (socket) => {
 
   });
 
+  /////////RESET LOGIC //////////
+  socket.on('initializeReset', () => {
+    players = [];
+    currentGame.players.forEach((player) => {
+      player.role = 'villager';
+      player.alive = true;
+      if (clients.indexOf(player.id) !== -1) {
+        players.push(player);
+      }
+    })
+    currentGame = null;
+    io.sockets.emit('resetGame', currentGame);
+  });
+  ///////////////////////////////
+
   //////////////////////////////////////////////////////////////
+  // Function that triggers on 'Play' button in lobby
   socket.on('StartGame', () => {
     if (!currentGame) {
       currentGame = new Game();
@@ -76,19 +93,13 @@ io.on("connection", (socket) => {
 
     let playerPool = players;
 
-
-
-
     if (playerPool.length >= 7) {
       assignRoles(currentGame, playerPool)
-      currentGame.active = true
+      currentGame.active = true;
       io.sockets.emit('PreGame', currentGame);
     }
 
-
-    //change phase to "pregame" so there is no voting, perhaps no timer?
     io.sockets.emit('PreGame', currentGame);
-    //start timer
     let preGameTimer = 5;
     const preGameTimerLoop =
       setInterval(() => {
@@ -105,9 +116,7 @@ io.on("connection", (socket) => {
 
   /////////////////////////////////////////////////////////////
   socket.on('vote', (voteObject) => {
-    // console.log(voteObject.me, voteObject.vote);
     currentGame.votes[voteObject.me] = voteObject.vote;
-
     io.sockets.emit('updateVotes', currentGame)
   })
 
@@ -129,7 +138,6 @@ io.on("connection", (socket) => {
 
 /////////////////////////////////////////////////////////////////////////////////////////
 const nightPhase = (currentGame) => {
-  //check win conditions
 
   if (currentGame.numberOfAliveWerewolves() >= currentGame.numberOfAliveVillagers()) {
     io.sockets.emit('endGame', 'Werewolves win');
@@ -142,8 +150,7 @@ const nightPhase = (currentGame) => {
 
 
   io.sockets.emit('changePhase', currentGame);
-  //send and receiving the game data
-  let nightTimer = 20;
+  let nightTimer = 3;
   const nightTimerLoop =
     setInterval(() => {
       nightTimer -= 1;
@@ -151,17 +158,12 @@ const nightPhase = (currentGame) => {
       console.log(nightTimer);
       if (nightTimer == 0) {
         clearInterval(nightTimerLoop);
-        // collect votes from client
         currentGame.determineKill();
-        // calculate deaths
-        // broadcast newGame
         currentGame.day = true;
         io.sockets.emit('changePhase', currentGame);
-        //reset protected status
         currentGame.players.forEach((player) => {
           player.protected = false;
         })
-        // call dayPhase
         dayPhase(currentGame);
       }
     }, 1000);
@@ -176,7 +178,7 @@ const dayPhase = (currentGame) => {
     io.sockets.emit('endGame', 'villagers win');
     return;
   }
-  let dayTimer = 60;
+  let dayTimer = 3;
   const dayTimerLoop =
     setInterval(() => {
       dayTimer -= 1;
@@ -184,13 +186,9 @@ const dayPhase = (currentGame) => {
       console.log(dayTimer);
       if (dayTimer == 0) {
         clearInterval(dayTimerLoop);
-        // collect votes from client
         currentGame.determineKill();
-        // calculate deaths
-        // broadcast newGame
         currentGame.day = false;
         io.sockets.emit('changePhase', currentGame);
-        // call dayPhase
         nightPhase(currentGame);
       }
     }, 1000);
@@ -218,13 +216,11 @@ app.post('/login', function (req, res) {
       console.log('login not successful');
       res.status(500).send(data);
     } else {
-      //check password first
       var x = data.rows[0].userpassword;
       if (password === x) {
         console.log(username, 'logged in');
         res.status(200).send('done');
       } else {
-        //wrong password
         res.status(500).send('Wrong password, foo')
       }
     }
