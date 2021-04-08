@@ -106,6 +106,48 @@
   box-shadow: 0 5px 15px rgba(96, 12, 12, 0.4);
 }
 
+input[type="text"] {
+  text-decoration: none;
+  font-family: Georgia;
+  letter-spacing: 0.2em;
+  font-weight: 150;
+  /* font-size: 5vw; */
+  color: rgb(75, 3, 3);
+  padding: 5px;
+  border-radius: 4px;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+  width: 10vw;
+  margin: 2vw;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border-color: #333;
+  outline: none;
+}
+
+input[type="submit"] {
+  text-decoration: none;
+  font-family: Georgia;
+  letter-spacing: 0.2em;
+  font-weight: 150;
+  /* font-size: 5vw; */
+  color: rgba(255, 255, 255, 0.8);
+  background: rgb(75, 3, 3);
+  padding: 5px;
+  border-radius: 4px;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+  width: 10vw;
+  margin: 2vw;
+}
+
+input[type="submit"]:hover {
+  color: rgba(255, 255, 255, 1);
+  box-shadow: 0 5px 15px rgba(96, 12, 12, 0.4);
+}
+
 /*---------------- GameView ---------------------*/
 
 #gameView {
