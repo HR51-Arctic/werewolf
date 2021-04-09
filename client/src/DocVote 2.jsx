@@ -24,7 +24,7 @@ class DocVote extends React.Component {
             {gameState.players.map((player) => {
               if (player.alive && player.id !== myId) {
                 return (
-                  <button id="doctorVoteButton"
+                  <button
                     onClick={() => {
                       this.protect(player);
                     }}
