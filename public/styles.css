@@ -252,17 +252,8 @@ input[type="submit"]:hover {
 #aliveDeadTitle {
 }
 
-.dead:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 10px;
-  background-image: url(../client/src/images/scratch.png);
-  background-size: cover;
-  opacity: 0.7;
-  z-index: 1;
+.dead {
+  text-decoration: line-through;
 }
 
 #remaining {
@@ -356,10 +347,9 @@ input[type="submit"]:hover {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
-
 
 #endGameModal {
   display: grid;
@@ -370,7 +360,7 @@ input[type="submit"]:hover {
   width: 30vw;
   min-width: 550px;
   height: 30vw;
-  border-radius: 5px;;
+  border-radius: 5px;
   background-color: rgb(205, 201, 201);
 }
 
@@ -380,7 +370,7 @@ input[type="submit"]:hover {
   justify-self: center;
   margin-top: 5px;
   font-size: 60px;
-  color: rgb(75, 3, 3);;
+  color: rgb(75, 3, 3);
 }
 
 #endGameButton {
@@ -401,23 +391,22 @@ input[type="submit"]:hover {
   justify-self: center;
 }
 
-
 .drop {
   position: relative;
-	width: 20px;
-	height: 20px;
+  width: 20px;
+  height: 20px;
   top: -30px;
   margin: 0 auto;
-	background: rgb(75, 3, 3);
-	-moz-border-radius: 20px;
-	-webkit-border-radius: 20px;
-	border-radius: 20px;
+  background: rgb(75, 3, 3);
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
   -moz-animation-name: drip;
   -webkit-animation-name: drip;
   animation-name: drip;
-  -moz-animation-timing-function: cubic-bezier(1,0,.91,.19);
-  -webkit-animation-timing-function: cubic-bezier(1,0,.91,.19);
-  animation-timing-function: cubic-bezier(1,0,.91,.19);
+  -moz-animation-timing-function: cubic-bezier(1, 0, 0.91, 0.19);
+  -webkit-animation-timing-function: cubic-bezier(1, 0, 0.91, 0.19);
+  animation-timing-function: cubic-bezier(1, 0, 0.91, 0.19);
   -moz-animation-duration: 2s;
   -webkit-animation-duration: 2s;
   animation-duration: 2s;
@@ -430,18 +419,17 @@ input[type="submit"]:hover {
   content: "";
   position: absolute;
   width: 0;
-	height: 0;
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	border-bottom: 30px solid rgb(75, 3, 3);
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 30px solid rgb(75, 3, 3);
   top: -22px;
 }
 
-
 @keyframes drip {
-    to {
-      top: 190px;
-    }
+  to {
+    top: 190px;
+  }
 }
 
 #bloodContainer {
@@ -464,6 +452,6 @@ input[type="submit"]:hover {
 }
 
 .four {
-  animation-delay: .45s;
+  animation-delay: 0.45s;
   right: 23px;
 }
