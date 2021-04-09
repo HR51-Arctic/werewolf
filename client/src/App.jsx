@@ -4,7 +4,7 @@ import Login from "./Login.jsx";
 import Lobby from "./Lobby.jsx";
 import GameView from "./GameView.jsx";
 import GameInProgress from './GameInProgress.jsx';
-const ENDPOINT = "/";
+// const ENDPOINT = "/";
 
 function App() {
   const [connection, setConnection] = useState({});

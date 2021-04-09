@@ -5,7 +5,7 @@ const app = express();
 const Game = require("./gameClass.js");
 const Player = require("./playerClass.js");
 const assignRoles = require("./assignRoles.js");
-const db = require("../database/index.js");
+// const db = require("../database/index.js");
 const path = require("path");
 const favicon = require("serve-favicon");
 
