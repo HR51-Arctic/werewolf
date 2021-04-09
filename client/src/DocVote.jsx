@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 class DocVote extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      protect: false
-    }
+      protect: false,
+    };
     this.protect = this.protect.bind(this);
   }
 
@@ -24,18 +24,21 @@ class DocVote extends React.Component {
             {gameState.players.map((player) => {
               if (player.alive && player.id !== myId) {
                 return (
-                  <button onClick={() => { this.protect(player) }}>{player.name}</button>
-                )
+                  <button
+                    onClick={() => {
+                      this.protect(player);
+                    }}
+                  >
+                    {player.name}
+                  </button>
+                );
               }
             })}
           </div>
         </div>
-      )
-    }
-    else {
-      return (
-        <h3>You have protected: {this.state.protect}</h3>
-      )
+      );
+    } else {
+      return <h3>You have protected: {this.state.protect}</h3>;
     }
   }
 }

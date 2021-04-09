@@ -6,8 +6,8 @@ const Game = require("./gameClass.js");
 const Player = require("./playerClass.js");
 const assignRoles = require("./assignRoles.js");
 const db = require("../database/index.js");
-const path = require('path');
-const favicon = require('serve-favicon');
+const path = require("path");
+const favicon = require("serve-favicon");
 
 const port = process.env.PORT || 3000;
 const index = require("./routes/index");
@@ -15,7 +15,7 @@ const index = require("./routes/index");
 app.use(express.static("public"));
 app.use(express.json());
 app.use(index);
-app.use(favicon(path.join('client', 'src', 'images', 'favicon.ico')))
+app.use(favicon(path.join("client", "src", "images", "favicon.ico")));
 
 const server = http.createServer(app);
 
@@ -29,7 +29,7 @@ let currentGame;
 let gameSettings = {
   preGameTimer: 30,
   dayTimer: 60,
-  nightTimer: 30
+  nightTimer: 30,
 };
 
 io.on("connection", (socket) => {
@@ -41,7 +41,7 @@ io.on("connection", (socket) => {
   clients.push(socket.id);
   unregisteredClients.push(socket.id);
   socket.emit("myId", socket.id);
-  socket.emit('GetSettings', gameSettings);
+  socket.emit("GetSettings", gameSettings);
   io.sockets.emit("GetParticipants", players);
 
   socket.on("disconnect", () => {
@@ -97,11 +97,10 @@ io.on("connection", (socket) => {
     io.sockets.emit("gameInProgress", false);
   });
   //////////Settings Logic //////////
-  socket.on('NewSettings', (newSettings) => {
+  socket.on("NewSettings", (newSettings) => {
     gameSettings = newSettings;
-    io.sockets.emit('GetSettings', gameSettings);
+    io.sockets.emit("GetSettings", gameSettings);
   });
-
 
   //////////////////////////////////////////////////////////////
   // Function that triggers on 'Play' button in lobby
