@@ -3,6 +3,7 @@ import Voting from './Voting.jsx';
 import WerewolfChat from './WerewolfChat.jsx';
 import villageDay from './images/villageDay.jpg';
 import villageNight from './images/villageNight.jpg';
+import EndGameModal from './EndGame.jsx';
 
 
 const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGame, werewolves, villagers, werewolfMessages, handleWerewolfChat, handleResetGame }) => {
@@ -33,8 +34,7 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGa
           </div>
 
           <div id='gameMessage'>
-
-            {endGame ? <h1>{endGame}<button onClick={handleResetGame}>EndGame</button></h1> : null}
+            {endGame ? <EndGameModal endGame={endGame} clickHandler={handleResetGame} /> : null}
             {preGame ? <div>Welcome to werewolf! This is a small and tight-knit town, so introduce yourselves and get to know each other! But be careful, some may not be what they seem...</div> : null}
             {day && !preGame ? <div>Talk amongst yourselves and try to figure out who is really a werewolf! Vote below and at the end of the day the one with the most votes will be killed.</div> : null}
             {!day ? <div>It is dangerous to walk these streets alone at night. Pray the werewolves don't find you!</div> : null}
