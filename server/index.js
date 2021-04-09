@@ -27,9 +27,9 @@ let players = [];
 let messages = [];
 let currentGame;
 let gameSettings = {
-  preGameTimer: 30,
-  dayTimer: 60,
-  nightTimer: 30,
+  preGameTimer: 1, //dev mode changes
+  dayTimer: 10,
+  nightTimer: 10,
 };
 
 io.on("connection", (socket) => {
@@ -115,7 +115,7 @@ io.on("connection", (socket) => {
       io.to(unregisteredClients[i]).emit("gameInProgress", true);
     }
 
-    if (playerPool.length >= 7) {
+    if (playerPool.length >= 1) { // for debug
       assignRoles(currentGame, playerPool);
       currentGame.active = true;
       io.sockets.emit("PreGame", currentGame);
