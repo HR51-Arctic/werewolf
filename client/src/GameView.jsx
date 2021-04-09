@@ -79,7 +79,7 @@ const GameView = ({
             }}
           />
           <div id="aliveDeadList">
-            <div id="aliveDeadTitle">Current players</div>
+            <h2>Current players</h2>
             {gameState.players.map((player) => {
               if (player.alive) {
                 myClass = "aliveDeadEntry alive";

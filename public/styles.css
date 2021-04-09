@@ -283,6 +283,7 @@ input[type="submit"]:hover {
 
 #aliveDeadList {
   grid-area: aliveDeadList;
+  justify-content: center;
   display: relative;
   max-height: 256px;
   min-width: 256px;
@@ -293,7 +294,31 @@ input[type="submit"]:hover {
 }
 
 .dead {
-  text-decoration: line-through;
+  color: rgb(75, 3, 3);
+  font-family: "Bellefair", serif;
+  line-height: 1;
+  position: relative;
+  width: fit-content;
+}
+
+.dead:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 1%;
+  height: 2px;
+  background: rgb(75, 3, 3);
+  border-radius: 20px;
+  animation: stretch 3s linear infinite;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes stretch {
+  to {
+    width: 100%;
+  }
 }
 
 #remaining {
