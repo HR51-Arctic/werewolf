@@ -4,14 +4,14 @@
 }
 .werewolfLogo {
   width: 100%;
-  margin-top: -110px;
+  margin-top: -7.5vw;
 }
 .appHeaderContainer {
   background-color: grey;
   display: inline-block;
-  height: 350px;
+  height: 46.75vh;
   overflow: hidden;
-  width: 70%; /*keep same as werewolf logo width to maintain centering */
+  width: 70vw; /*keep same as werewolf logo width to maintain centering */
   position: relative;
   left: 50%;
   transform: translate(-50%);
@@ -175,19 +175,19 @@ input[type="submit"]:hover {
 /*---------------- GameView ---------------------*/
 
 #gameView {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 95vh;
   display: grid;
-  grid-template-rows: auto;
-  grid-template-areas:
-    "villageImage villageImage villageImage villageImage"
-    "roleContainer roleContainer roleContainer roleContainer"
-    "werewolfChat .  aliveDeadList voting";
+  grid-template-columns: auto 25% 25%;
+  grid-template-rows: 10% 40% 25% auto;
   background-color: grey;
 }
 
 #villageImage {
-  grid-area: villageImage;
+  grid-row-start: 2;
+  grid-row-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 2;
   align-content: center;
   box-sizing: border-box;
   width: 96%;
@@ -206,24 +206,31 @@ input[type="submit"]:hover {
 }
 
 #gameMessage {
-  grid-area: gameMessage;
-  height: 250px;
-  width: 80%;
   font-weight: 100;
   color: white;
   font-size: 30px;
   font-family: "Bellefair", serif;
   position: relative;
   text-shadow: 0 0 20px rgb(230 10 10), 0 0 20px rgb(10 175 230 / 0%);
-  padding: 0.3em 1em 0.25em;
   align-content: center;
-  margin-top: 25px;
   min-width: fit-content;
-  width: 500px;
+}
+
+#messages-container {
+  position: relative;
+  border: 3px solid black;
+  border-right: none;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 3;
+  grid-row-end: 3;
 }
 
 #role-container {
-  grid-area: roleContainer;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 4;
   background: linear-gradient(
     to right,
     rgba(36, 31, 31, 1) 0%,
@@ -232,7 +239,6 @@ input[type="submit"]:hover {
   );
   display: flex;
   flex-direction: row;
-  width: 96%;
   align-items: center;
   align-content: space-between;
   color: #fff;
@@ -253,6 +259,14 @@ input[type="submit"]:hover {
   margin-right: 30px;
   line-height: 1.3;
 }
+#voting {
+  border: 3px solid black;
+  border-left: none;
+  grid-column-start: 3;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 5;
+}
 
 #timer {
   font-weight: 400;
@@ -265,11 +279,16 @@ input[type="submit"]:hover {
   width: 500px;
 }
 
-.werewolfChat {
-  grid-area: werewolfChat;
+#werewolfChat {
+  border: 3px solid black;
+  border-top: none;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 4;
+  grid-row-end: 5;
   display: grid;
-  overflow-y: scroll;
-  max-height: 250px;
+  overflow-y: auto;
+  border-right: none;
 }
 
 #werewolfChatHeading {
@@ -281,13 +300,14 @@ input[type="submit"]:hover {
 #seerContainer {
 }
 
+
+
 #aliveDeadList {
-  grid-area: aliveDeadList;
-  justify-content: center;
-  display: relative;
-  max-height: 256px;
-  min-width: 256px;
-  overflow-y: auto;
+  border: 3px solid black;
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 5;
 }
 
 #aliveDeadTitle {
@@ -322,22 +342,10 @@ input[type="submit"]:hover {
 }
 
 #remaining {
-  grid-area: remaining;
-  display: flex;
-  flex-direction: column;
-  width: 500px;
-  align-items: flex-start;
-  align-content: space-around;
-  width: 200px;
-}
-
-#voting {
-  display: grid;
-  overflow-y: scroll;
-  grid-area: voting;
-  height: 250px;
-  width: 50%;
-  border: 3px solid black;
+  width: 100%;
+  position: absolute;
+  margin-bottom: 5px;
+  bottom: 0;
 }
 
 #wolfVotingButton {
@@ -379,8 +387,6 @@ input[type="submit"]:hover {
 #turn-info {
 }
 
-#role-container {
-}
 
 #remaining-wolves {
 }
