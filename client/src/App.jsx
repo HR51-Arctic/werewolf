@@ -3,8 +3,8 @@ import socketIOClient from "socket.io-client";
 import Login from "./Login.jsx";
 import Lobby from "./Lobby.jsx";
 import GameView from "./GameView.jsx";
-import GameInProgress from "./GameInProgress.jsx";
-const ENDPOINT = "http://localhost:3000";
+import GameInProgress from './GameInProgress.jsx';
+const ENDPOINT = "/";
 
 function App() {
   const [connection, setConnection] = useState({});
@@ -27,8 +27,7 @@ function App() {
     dayTimer: 60,
     nightTimer: 30
   });
-  // const [dayTimer, setDayTimer] = useState(60);
-  // const [nightTimer, setNightTimer] = useState(30);
+
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
@@ -41,12 +40,7 @@ function App() {
     socket.on("myId", (id) => {
       setMyId(id);
     });
-    // socket.on("checkGameInProgress", (currentGame) => {
-    //   if (progress) {
-    //     // set up a check for player within gamestate before rendering
-    //     // setGameState(currentGame)
-    //   }
-    // });
+
     socket.on("GetWerewolfChat", (data) => {
       setWereWolfMessages(data);
     });
@@ -97,7 +91,6 @@ function App() {
       setEndGame(whoWon);
     });
 
-    //////reset game listener
     socket.on("resetGame", (data) => {
       setPlay(false);
       setGameState(data);
@@ -128,7 +121,6 @@ function App() {
   }, []);
 
   const handleGameStart = () => {
-    //set state of currentGame = gameState
     connection.emit("StartGame");
   };
 
@@ -151,16 +143,10 @@ function App() {
     connection.emit("Signup", username, password, email);
   };
 
-  //////////reset game logic ////////////
   const handleResetGame = () => {
-    // emit to server to end => server handles the reset stuff => server emits to all clients to reset states
     connection.emit("initializeReset");
   };
-  // socket.on('resetGame', () => {
-  //   setPlay(false);
-  // });
-  //socket listener for returning to lobby
-  //////////////////////////////////////
+
   const vote = (data) => {
     let vote = {
       me: myId,
