@@ -58,6 +58,7 @@ const Lobby = ({
             loggedIn={loggedIn}
             handleLogin={handleLogin}
             handleSignup={handleSignup}
+            participants={participants}
           />
           <div id="players">
             <h4 id="playerHeader">Players</h4>

@@ -32,6 +32,9 @@ const GameView = ({
     }
   });
 
+  let myClass;
+
+
   return (
     <div id="gameView">
       <div id="role-container">
