@@ -217,36 +217,36 @@ const dayPhase = (currentGame) => {
 };
 
 ////////////////////////////////////////////////////////////////////////
-app.post("/registerUser", function (req, res) {
-  const { username, password, email } = req.body;
-  db.registerUser(username, password, email, (err, data) => {
-    if (err) {
-      console.log("register user erroring out");
-      res.status(500).send(data);
-    } else {
-      console.log("successfully registered", username);
-      res.status(200).send(data);
-    }
-  });
-});
+// app.post("/registerUser", function (req, res) {
+//   const { username, password, email } = req.body;
+//   db.registerUser(username, password, email, (err, data) => {
+//     if (err) {
+//       console.log("register user erroring out");
+//       res.status(500).send(data);
+//     } else {
+//       console.log("successfully registered", username);
+//       res.status(200).send(data);
+//     }
+//   });
+// });
 
-app.post("/login", function (req, res) {
-  const { username, password } = req.body;
-  db.verifyUser(username, (err, data) => {
-    if (err) {
-      console.log("login not successful");
-      res.status(500).send(data);
-    } else {
-      var x = data.rows[0].userpassword;
-      if (password === x) {
-        console.log(username, "logged in");
-        res.status(200).send("done");
-      } else {
-        res.status(500).send("Wrong password, foo");
-      }
-    }
-  });
-});
+// app.post("/login", function (req, res) {
+//   const { username, password } = req.body;
+//   db.verifyUser(username, (err, data) => {
+//     if (err) {
+//       console.log("login not successful");
+//       res.status(500).send(data);
+//     } else {
+//       var x = data.rows[0].userpassword;
+//       if (password === x) {
+//         console.log(username, "logged in");
+//         res.status(200).send("done");
+//       } else {
+//         res.status(500).send("Wrong password, foo");
+//       }
+//     }
+//   });
+// });
 ///////////////////////////////////////////////////////////////////////
 server.listen(port, () => {
   console.log(`Server listening on ${port}`);
