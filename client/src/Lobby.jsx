@@ -54,18 +54,22 @@ const Lobby = ({ participants, handleGameStart, handleLogin, handleSignup, logge
       <div id="frontPage">
         <AppHeader id="header" />
         <div id="lobby">
-           <Login loggedIn={loggedIn} handleLogin={handleLogin} handleSignup={handleSignup}/>
+          <Login
+            loggedIn={loggedIn}
+            handleLogin={handleLogin}
+            handleSignup={handleSignup}
+          />
           <div id="players">
-            <h4 id="playerHeader">Players</h4>{settingsForm}
+            <h4 id="playerHeader">Players</h4>
+            {settingsForm}
             <ul>
-            {participants.map((player) => {
-              return (
-                <li id="indivPlayer" key={player.id}>
-                  {player.name}
-
-                </li>
-              );
-            })}
+              {participants.map((player) => {
+                return (
+                  <li id="indivPlayer" key={player.id}>
+                    {player.name}
+                  </li>
+                );
+              })}
             </ul>
           </div>
           {participants.length >= 7 && loggedIn && (
