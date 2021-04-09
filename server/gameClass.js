@@ -1,11 +1,14 @@
 const Player = require("./playerClass.js");
 
 class Game {
-  constructor() {
+  constructor(gameSettings) {
     this.players = []; // array of player objects // Possible object?
     this.day = true; // can be false for night
     this.active = false; //boolean values indicates whether game is in progress
     this.votes = {};
+    this.preGameTimer = gameSettings.preGameTimer || 30;
+    this.dayTimer = gameSettings.dayTimer || 60;
+    this.nightTimer = gameSettings.nightTimer || 30;
   }
 
   addPlayer(id, name = id, admin = false) {

@@ -23,9 +23,11 @@ const GameView = ({
   const [voting, setVoting] = useState(false);
 
   let role;
+  let alive;
   gameState.players.forEach((player) => {
     if (player.id === myId) {
       role = player.role;
+      alive = player.alive;
     }
   });
 
@@ -37,39 +39,37 @@ const GameView = ({
             <h1 id="role">You are a {role}</h1>
             <div id="timer">Time left: {timer} </div>
             <div id="remaining">
-              <h2 id="playersRemaining">Players Remaining</h2>
               <div>Remaining Werewolves: {werewolves}</div>
               <div>Remaining Villagers: {villagers}</div>
             </div>
-          </div>
-
-          <div id="gameMessage">
-            {endGame ? (
-              <h1>
-                {endGame}
-                <button onClick={handleResetGame}>EndGame</button>
-              </h1>
-            ) : null}
-            {preGame ? (
-              <div>
-                Welcome to werewolf! This is a small and tight-knit town, so
-                introduce yourselves and get to know each other! But be careful,
-                some may not be what they seem...
-              </div>
-            ) : null}
-            {day && !preGame ? (
-              <div>
-                Talk amongst yourselves and try to figure out who is really a
-                werewolf! Vote below and at the end of the day the one with the
-                most votes will be killed.
-              </div>
-            ) : null}
-            {!day ? (
-              <div>
-                It is dangerous to walk these streets alone at night. Pray the
-                werewolves don't find you!
-              </div>
-            ) : null}
+            <div id="gameMessage">
+              {endGame ? (
+                <h1>
+                  {endGame}
+                  <button onClick={handleResetGame}>EndGame</button>
+                </h1>
+              ) : null}
+              {preGame ? (
+                <div>
+                  Welcome to werewolf! This is a small and tight-knit town, so
+                  introduce yourselves and get to know each other! But be
+                  careful, some may not be what they seem...
+                </div>
+              ) : null}
+              {day && !preGame ? (
+                <div>
+                  Talk amongst yourselves and try to figure out who is really a
+                  werewolf! Vote below and at the end of the day the one with
+                  the most votes will be killed.
+                </div>
+              ) : null}
+              {!day ? (
+                <div>
+                  It is dangerous to walk these streets alone at night. Pray the
+                  werewolves don't find you!
+                </div>
+              ) : null}
+            </div>
           </div>
 
           <div
@@ -103,7 +103,7 @@ const GameView = ({
               role={role}
             />
           </div>
-          {!day && role === "werewolf" ? (
+          {!day && role === "werewolf" && alive ? (
             <WerewolfChat
               werewolfMessages={werewolfMessages}
               handleWerewolfChat={handleWerewolfChat}

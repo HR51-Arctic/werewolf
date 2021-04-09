@@ -6,8 +6,8 @@ const Game = require("./gameClass.js");
 const Player = require("./playerClass.js");
 const assignRoles = require("./assignRoles.js");
 const db = require("../database/index.js");
-const path = require('path');
-const favicon = require('serve-favicon');
+const path = require("path");
+const favicon = require("serve-favicon");
 
 const port = process.env.PORT || 3000;
 const index = require("./routes/index");
@@ -15,7 +15,7 @@ const index = require("./routes/index");
 app.use(express.static("public"));
 app.use(express.json());
 app.use(index);
-app.use(favicon(path.join('client', 'src', 'images', 'favicon.ico')))
+app.use(favicon(path.join("client", "src", "images", "favicon.ico")));
 
 const server = http.createServer(app);
 
@@ -26,6 +26,11 @@ let unregisteredClients = [];
 let players = [];
 let messages = [];
 let currentGame;
+let gameSettings = {
+  preGameTimer: 30,
+  dayTimer: 60,
+  nightTimer: 30,
+};
 
 io.on("connection", (socket) => {
   if (currentGame) {
@@ -36,6 +41,7 @@ io.on("connection", (socket) => {
   clients.push(socket.id);
   unregisteredClients.push(socket.id);
   socket.emit("myId", socket.id);
+  socket.emit("GetSettings", gameSettings);
   io.sockets.emit("GetParticipants", players);
 
   socket.on("disconnect", () => {
@@ -60,7 +66,7 @@ io.on("connection", (socket) => {
   socket.on("Login", (username, password) => {
     socket.username = username;
     console.log(username, "logged in");
-    unregisteredClients.splice(unregisteredClients.indexOf(socket.id), 1); //testing splicing out early
+    unregisteredClients.splice(unregisteredClients.indexOf(socket.id), 1);
     console.log(unregisteredClients);
     players.push(new Player(socket.id, socket.username));
     io.sockets.emit("GetParticipants", players);
@@ -68,7 +74,6 @@ io.on("connection", (socket) => {
 
   // socket.on('Signup', (username, password, email) => {
   //   console.log(username, password, email, 'is signing up');
-
   //   socket.username = username;
   //   players.push(new Player(socket.id, socket.username));
   //   io.sockets.emit('GetParticipants', players);
@@ -91,29 +96,25 @@ io.on("connection", (socket) => {
     io.sockets.emit("GetParticipants", players);
     io.sockets.emit("gameInProgress", false);
   });
+  //////////Settings Logic //////////
+  socket.on("NewSettings", (newSettings) => {
+    gameSettings = newSettings;
+    io.sockets.emit("GetSettings", gameSettings);
+  });
+
   //////////////////////////////////////////////////////////////
   // Function that triggers on 'Play' button in lobby
   socket.on("StartGame", () => {
     if (!currentGame) {
-      currentGame = new Game();
+      currentGame = new Game(gameSettings);
     }
 
     let playerPool = players;
-    clients.forEach((client) => {
-      for (let x = 0; x < playerPool.length; x++) {
-        let player = playerPool[x]
-        if (player.id === client) {
-          return
-        }
-      }
-      //what if they are not in the palyerlist?
-      io.to(client).emit('GameInProgress');
-    })
 
-    //loop through and disconnect clients who are not in players
     for (let i = 0; i < unregisteredClients.length; i++) {
       io.to(unregisteredClients[i]).emit("gameInProgress", true);
     }
+
     if (playerPool.length >= 7) {
       assignRoles(currentGame, playerPool);
       currentGame.active = true;
@@ -121,7 +122,7 @@ io.on("connection", (socket) => {
     }
 
     io.sockets.emit("PreGame", currentGame);
-    let preGameTimer = 5;
+    let preGameTimer = currentGame.preGameTimer;
     const preGameTimerLoop = setInterval(() => {
       preGameTimer -= 1;
       io.sockets.emit("timer", preGameTimer);
@@ -170,7 +171,7 @@ const nightPhase = (currentGame) => {
   }
 
   io.sockets.emit("changePhase", currentGame);
-  let nightTimer = 3;
+  let nightTimer = currentGame.nightTimer;
   const nightTimerLoop = setInterval(() => {
     nightTimer -= 1;
     io.sockets.emit("timer", nightTimer);
@@ -200,7 +201,7 @@ const dayPhase = (currentGame) => {
     io.sockets.emit("endGame", "villagers win");
     return;
   }
-  let dayTimer = 3;
+  let dayTimer = currentGame.dayTimer;
   const dayTimerLoop = setInterval(() => {
     dayTimer -= 1;
     io.sockets.emit("timer", dayTimer);
