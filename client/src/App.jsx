@@ -4,7 +4,7 @@ import Login from "./Login.jsx";
 import Lobby from "./Lobby.jsx";
 import GameView from "./GameView.jsx";
 import GameInProgress from './GameInProgress.jsx';
-const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = "/";
 
 function App() {
   const [connection, setConnection] = useState({});
@@ -22,6 +22,12 @@ function App() {
   const [villagers, setVillagers] = useState(0);
   const [werewolfMessages, setWereWolfMessages] = useState([]);
   const [gameInProgress, setGameInProgress] = useState(false);
+  const [gameSettings, setGameSettings] = useState({
+    preGameTimer: 30,
+    dayTimer: 60,
+    nightTimer: 30
+  });
+
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
@@ -34,12 +40,7 @@ function App() {
     socket.on("myId", (id) => {
       setMyId(id);
     });
-    // socket.on("checkGameInProgress", (currentGame) => {
-    //   if (progress) {
-    //     // set up a check for player within gamestate before rendering
-    //     // setGameState(currentGame)
-    //   }
-    // });
+
     socket.on("GetWerewolfChat", (data) => {
       setWereWolfMessages(data);
     });
@@ -47,6 +48,10 @@ function App() {
     socket.on("GetParticipants", (data) => {
       setLobbyParticipants(data);
     });
+
+    socket.on('GetSettings', (data) => {
+      setGameSettings(data);
+    })
 
     socket.on("PreGame", (gameState) => {
       let werewolves = 0;
@@ -86,9 +91,7 @@ function App() {
       setEndGame(whoWon);
     });
 
-    //////reset game listener
     socket.on("resetGame", (data) => {
-      console.log("reset game was clicked");
       setPlay(false);
       setGameState(data);
       setDay(true); //recent added causing client disconnect
@@ -118,7 +121,6 @@ function App() {
   }, []);
 
   const handleGameStart = () => {
-    //set state of currentGame = gameState
     connection.emit("StartGame");
   };
 
@@ -128,30 +130,23 @@ function App() {
       if (player.name === username) {
         double = true;
       }
-    })
+    });
 
     if (double) {
-      callback()
+      callback();
     } else {
       connection.emit("Login", username);
       setLoggedIn(true);
     }
-
   };
   const handleSignup = (username, password, email) => {
     connection.emit("Signup", username, password, email);
   };
 
-  //////////reset game logic ////////////
   const handleResetGame = () => {
-    // emit to server to end => server handles the reset stuff => server emits to all clients to reset states
     connection.emit("initializeReset");
   };
-  // socket.on('resetGame', () => {
-  //   setPlay(false);
-  // });
-  //socket listener for returning to lobby
-  //////////////////////////////////////
+
   const vote = (data) => {
     let vote = {
       me: myId,
@@ -168,16 +163,24 @@ function App() {
     connection.emit("docChoice", docChoice);
   };
   const handleWerewolfChat = (message) => {
-    let username = '';
-    gameState.players.forEach(player => {
+    let username = "";
+    gameState.players.forEach((player) => {
       if (player.id === myId) {
         username = player.name;
       }
     });
     connection.emit("werewolfMessages", [username, message]);
   };
+
+  const onGameSettingsChange = (e) => {
+    let newGameSettings = gameSettings;
+    newGameSettings[e.target.name] = e.target.value;
+    connection.emit('NewSettings', newGameSettings);
+  };
+
+  /////////////////////////Rendering Below //////////////////////////
   if (gameInProgress) {
-    return < GameInProgress />
+    return <GameInProgress />;
   } else {
     if (play) {
       return (
@@ -198,7 +201,6 @@ function App() {
         />
       );
     }
-    ////whooooaaaaaa
     return (
       <div className="werewolfApp">
         <Lobby
@@ -208,6 +210,8 @@ function App() {
           participants={lobbyParticipants}
           handleGameStart={handleGameStart.bind(this)}
           loggedIn={loggedIn}
+          gameSettings={gameSettings}
+          onGameSettingsChange={onGameSettingsChange.bind(this)}
         />
       </div>
     );

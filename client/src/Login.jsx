@@ -67,8 +67,7 @@ const Login = (props) => {
                 return
               }
               props.handleLogin(username, () => {
-                setError(`${username} is taken`);
-                setUsername('')
+                setUsername(`${username} is taken`);
               });
             }}
           >
@@ -78,6 +77,7 @@ const Login = (props) => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder={error ? error : "Username"}
+              required
             />
             {/* <input
               name='password'
