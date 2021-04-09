@@ -29,7 +29,7 @@ function App() {
   });
 
   useEffect(() => {
-    const socket = socketIOClient(ENDPOINT);
+    const socket = socketIOClient();
 
     document.body.style = "background: grey";
 
