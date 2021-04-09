@@ -3,7 +3,7 @@ import socketIOClient from "socket.io-client";
 import Login from "./Login.jsx";
 import Lobby from "./Lobby.jsx";
 import GameView from "./GameView.jsx";
-import GameInProgress from './GameInProgress.jsx';
+import GameInProgress from "./GameInProgress.jsx";
 const ENDPOINT = "http://localhost:3000";
 
 function App() {
@@ -177,8 +177,8 @@ function App() {
     connection.emit("docChoice", docChoice);
   };
   const handleWerewolfChat = (message) => {
-    let username = '';
-    gameState.players.forEach(player => {
+    let username = "";
+    gameState.players.forEach((player) => {
       if (player.id === myId) {
         username = player.name;
       }
@@ -194,7 +194,7 @@ function App() {
 
   /////////////////////////Rendering Below //////////////////////////
   if (gameInProgress) {
-    return < GameInProgress />
+    return <GameInProgress />;
   } else {
     if (play) {
       return (
