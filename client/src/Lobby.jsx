@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import GameView from "./GameView.jsx";
 import AppHeader from "./AppHeader.jsx";
-import Login from "./Login.jsx"
+import Login from "./Login.jsx";
+import useSound from 'use-sound';
+import mouseClick from '../../assets/sounds/mouseClick.mp3';
+
 
 const Lobby = ({ participants, handleGameStart, handleLogin, handleSignup, loggedIn, gameSettings, onGameSettingsChange }) => {
+
   const [message, setMessage] = useState("");
+  const [sound, setSound] = useState(true);
+  const [clickSound] = useSound(mouseClick, {volume: 0.5});
+
+
   let settingsForm = (<form
   id='settingsView'
 > <label>
@@ -65,7 +73,7 @@ const Lobby = ({ participants, handleGameStart, handleLogin, handleSignup, logge
               className="playButton"
               type="submit"
               value="Submit"
-              onClick={() => handleGameStart()}
+              onClick={() => handleGameStart() + clickSound()}
             >
               Play
             </button>

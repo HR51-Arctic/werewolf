@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Voting from './Voting.jsx';
 import WerewolfChat from './WerewolfChat.jsx';
 import villageDay from './images/villageDay.jpg';
@@ -23,7 +23,7 @@ const GameView = ({ myId, gameState, timer, day, vote, docChoice, endGame, preGa
 
 
   return (
-    < >
+    <>
       <div style={{ backgroundColor: 'grey' }}>
         <div id='gameView' >
           <div id="role-container">
