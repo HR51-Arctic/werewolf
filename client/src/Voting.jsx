@@ -53,10 +53,7 @@ const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
             ) {
               return (
                 <button
-<<<<<<< HEAD
-=======
                   id="villagerVotingButton"
->>>>>>> 0c7ef3ba497a079b3bde113c763e62ffc7022001
                   key={player.id}
                   onClick={() => {
                     vote(player.id);
