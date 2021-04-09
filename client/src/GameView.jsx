@@ -32,6 +32,9 @@ const GameView = ({
     }
   });
 
+  let myClass;
+
+
   return (
     <>
       <div style={{ backgroundColor: "grey" }}>
@@ -76,13 +79,16 @@ const GameView = ({
             }}
           />
           <div id="aliveDeadList">
-            <div id="aliveDeadTitle">Current players</div>
+            <h2>Current players</h2>
             {gameState.players.map((player) => {
+              if (player.alive) {
+                myClass = "aliveDeadEntry alive";
+              } else {
+                myClass = "aliveDeadEntry dead";
+              }
               return (
-                <div key={player.id} className="aliveDeadEntry">
-                  {player.name} is {player.alive ? "Alive" : "Dead"}
-                </div>
-              );
+                <div key={player.id} className={myClass}>{player.name} is {player.alive ? 'Alive' : 'Dead'}</div>
+              )
             })}
           </div>
           <div id="remaining">
