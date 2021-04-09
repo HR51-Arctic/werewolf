@@ -308,6 +308,11 @@ input[type="submit"]:hover {
   grid-column-end: 2;
   grid-row-start: 2;
   grid-row-end: 5;
+  justify-content: center;
+  display: relative;
+  max-height: 256px;
+  min-width: 256px;
+  overflow-y: auto;
 }
 
 #aliveDeadTitle {
