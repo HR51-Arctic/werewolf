@@ -334,4 +334,123 @@ input[type="submit"]:hover {
   }
 }
 
-/*-----------------------------------------*/
+/*-----------------End Game------------------------*/
+
+#endGameBackground {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+
+#endGameModal {
+  display: grid;
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30vw;
+  min-width: 550px;
+  height: 30vw;
+  border-radius: 5px;;
+  background-color: rgb(205, 201, 201);
+}
+
+#endGameMessage {
+  font-family: butcherman;
+  align-self: center;
+  justify-self: center;
+  margin-top: 5px;
+  font-size: 60px;
+  color: rgb(75, 3, 3);;
+}
+
+#endGameButton {
+  text-decoration: none;
+  font-family: Georgia;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgb(75, 3, 3);
+  padding: 15px 40px;
+  border-radius: 4px;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+  width: 50%;
+  margin-top: 5vw;
+  margin-bottom: 2vw;
+  justify-self: center;
+}
+
+
+.drop {
+  position: relative;
+	width: 20px;
+	height: 20px;
+  top: -30px;
+  margin: 0 auto;
+	background: rgb(75, 3, 3);
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+  -moz-animation-name: drip;
+  -webkit-animation-name: drip;
+  animation-name: drip;
+  -moz-animation-timing-function: cubic-bezier(1,0,.91,.19);
+  -webkit-animation-timing-function: cubic-bezier(1,0,.91,.19);
+  animation-timing-function: cubic-bezier(1,0,.91,.19);
+  -moz-animation-duration: 2s;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+.drop:before {
+  content: "";
+  position: absolute;
+  width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 30px solid rgb(75, 3, 3);
+  top: -22px;
+}
+
+
+@keyframes drip {
+    to {
+      top: 190px;
+    }
+}
+
+#bloodContainer {
+  display: inline-flex;
+  margin-bottom: 70px;
+}
+
+.one {
+  left: 24px;
+}
+
+.two {
+  animation-delay: 1s;
+  right: 8px;
+}
+
+.three {
+  animation-delay: 1.5s;
+  right: 7px;
+}
+
+.four {
+  animation-delay: .45s;
+  right: 23px;
+}
