@@ -252,9 +252,17 @@ input[type="submit"]:hover {
 #aliveDeadTitle {
 }
 
-.dead {
-  color: rgb(75, 3, 3);
-  text-decoration: line-through;
+.dead:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 10px;
+  background-image: url(../client/src/images/scratch.png);
+  background-size: cover;
+  opacity: 0.7;
+  z-index: 1;
 }
 
 #remaining {

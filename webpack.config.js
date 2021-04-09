@@ -19,9 +19,10 @@ module.exports = {
         },
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif|mp3)$/i,
+        test: /\.(svg|jpg|jpeg|gif|mp3)$/i,
         type: "asset/resource",
       },
+      { test: /\.(png|jpeg)$/, use: 'url-loader' },
     ],
   },
 };
