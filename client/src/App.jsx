@@ -29,7 +29,7 @@ function App() {
   });
 
   useEffect(() => {
-    const socket = socketIOClient(ENDPOINT);
+    const socket = socketIOClient();
 
     document.body.style = "background: grey";
 
@@ -204,7 +204,7 @@ function App() {
     return (
       <div className="werewolfApp">
         <Lobby
-          loggedIn = {loggedIn}
+          loggedIn={loggedIn}
           handleLogin={handleLogin.bind(this)}
           handleSignup={handleSignup.bind(this)}
           participants={lobbyParticipants}
