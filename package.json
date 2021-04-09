@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "just --coverage",
-    "start": "nodemon server",
-    "build": "webpack"
+    "start": "node server/index.js",
+    "build": "webpack -w"
   },
   "repository": {
     "type": "git",
