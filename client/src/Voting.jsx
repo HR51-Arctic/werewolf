@@ -5,27 +5,40 @@ import DocVote from "./DocVote.jsx";
 const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
   let voting = false;
   let myPlayer = null;
-  for (let x = 0; x < gameState.players.length; x++) {
-    let player = gameState.players[x];
-    if (myId === player.id) {
-      myPlayer = player;
-      break;
+  if (gameState.players.length > 1) { //remove if check
+    for (let x = 0; x < gameState.players.length; x++) {
+      let player = gameState.players[x];
+      if (myId === player.id) {
+        myPlayer = player;
+        break;
+      }
     }
-  }
-  if (myPlayer.alive && day) {
-    voting = true;
-  } else if (!day && myPlayer.role === "werewolf" && myPlayer.alive) {
-    voting = true;
-  }
-  // else if (myPlayer.role === 'werewolf' && !day && myPlayer.alive) {
-  //   setVoting(true)
-  // }
-  if (preGame) {
-    return null;
+    if (myPlayer.alive && day) {
+      voting = true;
+    } else if (!day && myPlayer.role === "werewolf" && myPlayer.alive) {
+      voting = true;
+    }
+    // else if (myPlayer.role === 'werewolf' && !day && myPlayer.alive) {
+    //   setVoting(true)
+    // }
+    if (preGame) {
+      return null;
+    }
+  } else {
+    voting = true
+    myPlayer = {
+      name: 'alex',
+      id: myId,
+      role: "werewolf",
+      admin: false,
+      alive: true,
+      protected: false,
+      targeted: 0,
+    }
   }
   if (voting) {
     return (
-      <div>
+      <div id="voting">
         {role === "werewolf" && !day ? <h3>Choose your victim!</h3> : null}
         {day ? <h3>Kill the werewolves!</h3> : null}
         {gameState.players.map((player) => {

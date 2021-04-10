@@ -19,6 +19,7 @@ const GameView = ({
   werewolfMessages,
   handleWerewolfChat,
   handleResetGame,
+  voiceUrl,
 }) => {
   const [message, setMessage] = useState("");
   const [voting, setVoting] = useState(false);
@@ -36,86 +37,88 @@ const GameView = ({
 
 
   return (
-    <>
-      <div style={{ backgroundColor: "grey" }}>
-        <div id="gameView">
-          <div id="role-container">
-            <h1 id="role">You are a {role}</h1>
-            <div id="timer">Time left: {timer} </div>
-          </div>
-
-          <div id="gameMessage">
-            {endGame ? (
-              <EndGameModal endGame={endGame} clickHandler={handleResetGame} />
-            ) : null}
-            {preGame ? (
-              <div>
-                Welcome to werewolf! This is a small and tight-knit town, so
-                introduce yourselves and get to know each other! But be careful,
-                some may not be what they seem...
-              </div>
-            ) : null}
-            {day && !preGame ? (
-              <div>
-                Talk amongst yourselves and try to figure out who is really a
-                werewolf! Vote below and at the end of the day the one with the
-                most votes will be killed.
-              </div>
-            ) : null}
-            {!day ? (
-              <div>
-                It is dangerous to walk these streets alone at night. Pray the
-                werewolves don't find you!
-              </div>
-            ) : null}
-          </div>
-
-          <div
-            id="villageImage"
-            style={{
-              backgroundImage: day
-                ? `url(${require("./images/villageDay.jpg")})`
-                : `url(${require("./images/villageNight.jpg")})`,
-            }}
-          />
-          <div id="aliveDeadList">
-            <h2>Current players</h2>
-            {gameState.players.map((player) => {
-              if (player.alive) {
-                myClass = "aliveDeadEntry alive";
-              } else {
-                myClass = "aliveDeadEntry dead";
-              }
-              return (
-                <div key={player.id} className={myClass}>{player.name} is {player.alive ? 'Alive' : 'Dead'}</div>
-              )
-            })}
-          </div>
-          <div id="remaining">
-            <h2 id="playersRemaining">Players Remaining</h2>
-            <div>Remaining Werewolves: {werewolves}</div>
-            <div>Remaining Villagers: {villagers}</div>
-          </div>
-          <div id="voting">
-            <Voting
-              gameState={gameState}
-              day={day}
-              myId={myId}
-              vote={vote}
-              docChoice={docChoice}
-              preGame={preGame}
-              role={role}
-            />
-          </div>
-          {!day && role === "werewolf" && alive ? (
-            <WerewolfChat
-              werewolfMessages={werewolfMessages}
-              handleWerewolfChat={handleWerewolfChat}
-            />
-          ) : null}
+    <div id="gameView">
+      <div id="role-container">
+        <h1 id="role">You are a {role}</h1>
+        <div id="timer">Time left: {timer} </div>
+        <div id="voiceSetting">
+          <a
+            id="voiceUrl"
+            href={voiceUrl.slice(0, 4) === 'http' ? voiceUrl : '//' + voiceUrl}
+            target="_blank"
+          >
+            Join the Call!
+          </a>
         </div>
       </div>
-    </>
+
+      <div id="messages-container">
+        <div id = "gameMessage">
+          {endGame ? (
+            <EndGameModal endGame={endGame} clickHandler={handleResetGame} />
+          ) : null}
+          {preGame ? (
+            <div>
+              Welcome to werewolf! This is a small and tight-knit town, so
+              introduce yourselves and get to know each other! But be careful,
+              some may not be what they seem...
+            </div>
+          ) : null}
+          {day && !preGame ? (
+            <div>
+              Talk amongst yourselves and try to figure out who is really a
+              werewolf! Vote below and at the end of the day the one with the
+              most votes will be killed.
+            </div>
+          ) : null}
+          {!day ? (
+            <div>
+              It is dangerous to walk these streets alone at night. Pray the
+              werewolves don't find you!
+            </div>
+          ) : null}
+        </div>
+        <div id="remaining">
+           {/* <h2 id="playersRemaining">Players Remaining</h2> */}
+          <div style={{float: 'left', marginLeft: '5px'}}>Remaining Werewolves: {werewolves}</div>
+          <div style={{float: 'right', marginRight: '5px'}}>Remaining Villagers: {villagers}</div>
+        </div>
+      </div>
+
+      {/* <div
+        id="villageImage"
+        style={{
+          backgroundImage: day
+            ? `url(${require("./images/villageDay.jpg")})`
+            : `url(${require("./images/villageNight.jpg")})`,
+        }}
+      /> */}
+      <div id="aliveDeadList">
+        <div id="aliveDeadTitle">Current players</div>
+        {gameState.players.map((player) => {
+          return (
+            <div key={player.id} className="aliveDeadEntry">
+              {player.name} is {player.alive ? "Alive" : "Dead"}
+            </div>
+          );
+        })}
+      </div>
+      <Voting
+        gameState={gameState}
+        day={day}
+        myId={myId}
+        vote={vote}
+        docChoice={docChoice}
+        preGame={preGame}
+        role={role}
+      />
+      {!day && role === "werewolf" && alive ? (
+        <WerewolfChat
+          werewolfMessages={werewolfMessages}
+          handleWerewolfChat={handleWerewolfChat}
+        />
+      ) : null}
+    </div>
   );
 };
 export default GameView;
