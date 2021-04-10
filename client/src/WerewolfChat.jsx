@@ -9,9 +9,9 @@ const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
 
   return (
     <div id="werewolfChat">
-      <div id="werewolfChatHeading">
+      <h3>
         Strategize with other werewolves here:
-      </div>
+      </h3>
       <div className="message-list">
         {werewolfMessages.map((message, index, array) => {
           return (

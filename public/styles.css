@@ -93,6 +93,7 @@
 .setting {
   width: 50px;
 }
+
 #msg-input {
   display: inline-block;
   position: relative;
@@ -297,6 +298,17 @@ input[type="submit"]:hover {
   grid-row-start: 4;
   grid-row-end: 5;
 }
+
+h3 {
+  color: rgb(75, 3, 3);
+  font-size: 20px;
+  font-family: "Bellefair", serif;
+  position: relative;
+  text-shadow: 0 0 20px rgb(230 10 10), 0 0 20px rgb(10 175 230 / 0%);
+  text-align: center;
+  min-width: fit-content;
+}
+
 .message {
   grid-row-start: 3;
   align-self: flex-end;
@@ -342,41 +354,21 @@ input[type="submit"]:hover {
   grid-column-end: 2;
   grid-row-start: 2;
   grid-row-end: 5;
-  justify-content: center;
+  text-align: center;
   display: relative;
   overflow-y: auto;
 }
 
+<<<<<<< HEAD
 .aliveDeadList::-webkit-scrollbar {
   display: none;
 }
 
+=======
+>>>>>>> cbedd3e5ec77719c66ab1f153371273f3572e85d
 .dead {
   color: rgb(75, 3, 3);
-  font-family: "Bellefair", serif;
-  line-height: 1;
-  position: relative;
-  width: fit-content;
-}
-
-.dead:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 1%;
-  height: 2px;
-  background: rgb(75, 3, 3);
-  border-radius: 20px;
-  animation: stretch 3s linear infinite;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
-@keyframes stretch {
-  to {
-    width: 100%;
-  }
+  text-decoration: line-through;
 }
 
 #remaining {
