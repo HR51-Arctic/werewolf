@@ -70,8 +70,8 @@ const GameView = ({
         </div>
         <div id="remaining">
            {/* <h2 id="playersRemaining">Players Remaining</h2> */}
-          <div style={{float: 'left', marginLeft: '5px'}}>Remaining Werewolves: {werewolves}</div>
-          <div style={{float: 'right', marginRight: '5px'}}>Remaining Villagers: {villagers}</div>
+          <div style={{float: 'left', marginLeft: '0px'}}>Remaining Werewolves: {werewolves}</div>
+          <div style={{float: 'right', marginRight: '20px'}}>Remaining Villagers: {villagers}</div>
         </div>
       </div>
 
@@ -105,12 +105,12 @@ const GameView = ({
         preGame={preGame}
         role={role}
       />
-      {!day && role === "werewolf" && alive ? (
+      {/* {!day && role === "werewolf" && alive ? ( */}
         <WerewolfChat
           werewolfMessages={werewolfMessages}
           handleWerewolfChat={handleWerewolfChat}
         />
-      ) : null}
+      {/* ) : null} */}
     </div>
   );
 };

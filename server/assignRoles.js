@@ -7,7 +7,7 @@ const assignRoles = (currentGame, playerPool) => {
     playerPool[0].role = 'werewolf'
     currentGame.players.push(playerPool[0])
     //spoofing players for debug purposes
-    for (let x=0; x < 5; x++) {
+    for (let x=0; x < 50; x++) {
       currentGame.players.push(new Player(x.toString()))
     }
     return

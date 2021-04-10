@@ -12,31 +12,39 @@ const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
       <div id="werewolfChatHeading">
         Strategize with other werewolves here:
       </div>
-
-      <div className="werewolfChat">
-        <div className="message-list">
-          {werewolfMessages.map((message, index, array) => {
-            return (
-              <p>
+      <div className="message-list">
+        {werewolfMessages.map((message, index, array) => {
+          return (
+            <p>
+              <span style={{fontWeight: 'bold'}}>
                 {array[array.length - 1 - index][0]}:{" "}
-                {array[array.length - 1 - index][1]}
-              </p>
-            );
-          })}
-        </div>
+              </span>
+              {array[array.length - 1 - index][1]}
+            </p>
+          );
+        })}
       </div>
-      <form
+      {/* <form
         onSubmit={(event) => {
           event.preventDefault();
           handleWerewolfChat(message);
           setMessage("");
         }}
-      >
+      > */}
         <div className="message">
           <input className='message-input' onChange={handleMessage.bind(this)} value={message} />
-          <input className='message-button' type="submit" value="Message" />
+          <input
+            className='message-button'
+            type="submit"
+            value="Message"
+            onClick={(event) => {
+              event.preventDefault();
+              handleWerewolfChat(message);
+              setMessage("");
+            }}
+          />
         </div>
-      </form>
+      {/* </form> */}
     </div>
   );
 };
