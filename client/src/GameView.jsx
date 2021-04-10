@@ -96,12 +96,12 @@ const GameView = ({
         preGame={preGame}
         role={role}
       />
-      {/* {!day && role === "werewolf" && alive ? ( */}
+      {!day && role === "werewolf" && alive ? (
         <WerewolfChat
           werewolfMessages={werewolfMessages}
           handleWerewolfChat={handleWerewolfChat}
         />
-      {/* ) : null} */}
+      ) : null}
     </div>
   );
 };
