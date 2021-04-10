@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import useSound from 'use-sound';
+
+import mouseClick from '../../assets/sounds/mouseClick.mp3';
 
 // Here just in case we don't get to third party auth ------------------
 const SignUp = (props) => {
@@ -51,6 +54,8 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [newUser, signUp] = useState(false);
   const [error, setError] = useState(false);
+  const [sound, setSound] = useState(true);
+  const [clickSound] = useSound(mouseClick, {volume: 0.5});
 
   if (newUser) {
     return <SignUp handleSignup={props.handleSignup} />;
@@ -89,6 +94,7 @@ const Login = (props) => {
             <input
               type="submit"
               value="Submit"
+              onClick={() => clickSound()}
               // onClick={() => {
               //   props.handleLogin(username, password)
               // }}
