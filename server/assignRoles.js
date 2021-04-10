@@ -1,8 +1,17 @@
+const Player = require ('./playerClass.js')
 //Take an array of players already instantiated as player by class and defines all the roles and populates the game class
 //no return changes game in place
 const assignRoles = (currentGame, playerPool) => {
   //get wolves
-
+  if (playerPool.length === 1) {
+    playerPool[0].role = 'werewolf'
+    currentGame.players.push(playerPool[0])
+    //spoofing players for debug purposes
+    for (let x=0; x < 50; x++) {
+      currentGame.players.push(new Player(x.toString()))
+    }
+    return
+  }
   let wolvesCount;
   //determine how many wolves desired
   if (playerPool.length <= 15) wolvesCount = 2;
