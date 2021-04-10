@@ -4,9 +4,15 @@
   "description": "Blue Ocean - Werewolf",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "start": "nodem server/index.js",
     "start-dev": "nodemon server/index.js",
     "build": "webpack -w"
+=======
+    "test": "just --coverage",
+    "start": "nodemon server -w ",
+    "build": "webpack "
+>>>>>>> c120ded58df41f419e0ad7490c99a57f23e75af3
   },
   "repository": {
     "type": "git",
