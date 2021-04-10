@@ -30,6 +30,7 @@ let gameSettings = {
   preGameTimer: 1, //dev mode changes
   dayTimer: 10,
   nightTimer: 10,
+  voiceUrl: '',
 };
 
 io.on("connection", (socket) => {

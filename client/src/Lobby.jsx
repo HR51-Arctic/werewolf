@@ -15,10 +15,9 @@ const Lobby = ({
   const [message, setMessage] = useState("");
   let settingsForm = (
     <form id="settingsView">
-      {" "}
       <label>Timers:</label>
       <label>
-        Pre-game:
+        Pregame:
         <input
           className="setting"
           name="preGameTimer"
@@ -44,6 +43,16 @@ const Lobby = ({
           name="nightTimer"
           type="number"
           value={gameSettings.nightTimer}
+          onChange={onGameSettingsChange}
+        />
+      </label>
+      <label>
+        Voice URL:
+        <input
+          className="urlsetting"
+          name="voiceUrl"
+          type="url"
+          value={gameSettings.voiceUrl}
           onChange={onGameSettingsChange}
         />
       </label>

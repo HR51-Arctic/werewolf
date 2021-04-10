@@ -19,6 +19,7 @@ const GameView = ({
   werewolfMessages,
   handleWerewolfChat,
   handleResetGame,
+  voiceUrl,
 }) => {
   const [message, setMessage] = useState("");
   const [voting, setVoting] = useState(false);
@@ -40,6 +41,15 @@ const GameView = ({
       <div id="role-container">
         <h1 id="role">You are a {role}</h1>
         <div id="timer">Time left: {timer} </div>
+        <div id="voiceSetting">
+          <a
+            id="voiceUrl"
+            href={voiceUrl.slice(0, 4) === 'http' ? voiceUrl : '//' + voiceUrl}
+            target="_blank"
+          >
+            Join the Call!
+          </a>
+        </div>
       </div>
 
       <div id="messages-container">

@@ -89,10 +89,22 @@
   /* flex-direction: column; */
   justify-content: space-between;
   border: 1px solid black;
+  overflow: hidden;
 }
 .setting {
   width: 50px;
 }
+.urlsetting {
+  min
+  width: 250px;
+}
+
+
+#voiceUrl, #voiceUrl:visited, #voiceUrl:hover, #voiceUrl:active {
+  color: inherit;
+}
+
+
 #msg-input {
   display: inline-block;
   position: relative;
@@ -243,6 +255,7 @@ input[type="submit"]:hover {
   align-content: space-between;
   color: #fff;
   text-align: center;
+  align-self: center;
 }
 
 #role {
@@ -274,6 +287,16 @@ input[type="submit"]:hover {
   letter-spacing: 0.1em;
   padding: 10px;
   color: red;
+  text-shadow: 0 0 20px rgb(230 10 10), 0 0 20px rgb(10 175 230 / 0%);
+  font-family: "Bellefair", serif;
+  width: 500px;
+}
+
+#voiceSetting {
+  font-weight: 400;
+  font-size: 25px;
+  letter-spacing: 0.1em;
+  padding: 10px;
   text-shadow: 0 0 20px rgb(230 10 10), 0 0 20px rgb(10 175 230 / 0%);
   font-family: "Bellefair", serif;
   width: 500px;

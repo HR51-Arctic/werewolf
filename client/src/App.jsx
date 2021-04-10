@@ -25,7 +25,8 @@ function App() {
   const [gameSettings, setGameSettings] = useState({
     preGameTimer: 30,
     dayTimer: 60,
-    nightTimer: 30
+    nightTimer: 30,
+    voiceUrl: '',
   });
 
   useEffect(() => {
@@ -198,6 +199,7 @@ function App() {
           werewolfMessages={werewolfMessages}
           handleWerewolfChat={handleWerewolfChat.bind(this)}
           handleResetGame={handleResetGame.bind(this)}
+          voiceUrl={gameSettings.voiceUrl}
         />
       );
     }
