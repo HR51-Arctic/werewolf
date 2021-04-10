@@ -359,13 +359,10 @@ h3 {
   overflow-y: auto;
 }
 
-<<<<<<< HEAD
 .aliveDeadList::-webkit-scrollbar {
   display: none;
 }
 
-=======
->>>>>>> cbedd3e5ec77719c66ab1f153371273f3572e85d
 .dead {
   color: rgb(75, 3, 3);
   text-decoration: line-through;

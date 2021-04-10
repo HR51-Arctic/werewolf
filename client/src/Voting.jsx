@@ -95,7 +95,7 @@ const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
   if (myPlayer.role === "seer") {
     return <SeerVote gameState={gameState} myId={myId} />;
   }
-  return <h1>Beware! Werewolves are on the hunt!</h1>;
+  return <h3 className="votingHeader">Beware! Werewolves are on the hunt!</h3>;
 };
 
 export default Voting;
