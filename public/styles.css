@@ -214,7 +214,7 @@ input[type="submit"]:hover {
   outline-offset: 0px;
   margin: 11px;
 }
-#villageImage img{
+#villageImage img {
   max-width: 100%;
 }
 
@@ -279,6 +279,13 @@ input[type="submit"]:hover {
   grid-column-end: 3;
   grid-row-start: 2;
   grid-row-end: 5;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  overflow-y: auto;
+}
+.voting::-webkit-scrollbar {
+  display: none;
 }
 
 #timer {
@@ -313,6 +320,17 @@ input[type="submit"]:hover {
   grid-row-start: 4;
   grid-row-end: 5;
 }
+
+h3 {
+  color: rgb(75, 3, 3);
+  font-size: 20px;
+  font-family: "Bellefair", serif;
+  position: relative;
+  text-shadow: 0 0 20px rgb(230 10 10), 0 0 20px rgb(10 175 230 / 0%);
+  text-align: center;
+  min-width: fit-content;
+}
+
 .message {
   grid-row-start: 3;
   align-self: flex-end;
@@ -341,7 +359,6 @@ input[type="submit"]:hover {
   margin-right: 0;
 }
 
-
 #werewolfChatHeading {
   grid-row-start: 1;
   text-align: center;
@@ -359,40 +376,18 @@ input[type="submit"]:hover {
   grid-column-end: 2;
   grid-row-start: 2;
   grid-row-end: 5;
-  justify-content: center;
+  text-align: center;
   display: relative;
   overflow-y: auto;
 }
 
-#aliveDeadTitle {
+.aliveDeadList::-webkit-scrollbar {
+  display: none;
 }
 
 .dead {
   color: rgb(75, 3, 3);
-  font-family: "Bellefair", serif;
-  line-height: 1;
-  position: relative;
-  width: fit-content;
-}
-
-.dead:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 1%;
-  height: 2px;
-  background: rgb(75, 3, 3);
-  border-radius: 20px;
-  animation: stretch 3s linear infinite;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
-@keyframes stretch {
-  to {
-    width: 100%;
-  }
+  text-decoration: line-through;
 }
 
 #remaining {
@@ -413,16 +408,16 @@ input[type="submit"]:hover {
   background-color: white;
   padding: 10px 20px;
   text-align: center;
-  border: 2px solid rgb(0, 153, 255);
+  border: 2px solid black;
   transition: all 0.2s ease-in-out;
 }
 
 #wolfVotingButton:hover {
   color: white;
-  background-color: rgb(0, 153, 255);
+  background-color: black;
   padding: 10px 20px;
   text-align: center;
-  border: 2px solid rgb(0, 153, 255);
+  border: 2px solid black;
 }
 
 #villagerVotingButton {

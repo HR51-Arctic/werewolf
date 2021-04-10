@@ -50,7 +50,7 @@
     "serve-favicon": "^2.5.0",
     "socket.io": "^4.0.1",
     "socket.io-client": "^4.0.1",
-    "use-sound": "^2.0.1",
-    "url-loader": "^4.1.1"
+    "url-loader": "^4.1.1",
+    "use-sound": "^2.0.1"
   }
 }

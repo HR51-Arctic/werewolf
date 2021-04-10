@@ -4,7 +4,7 @@ const Player = require ('./playerClass.js')
 const assignRoles = (currentGame, playerPool) => {
   //get wolves
   if (playerPool.length === 1) {
-    playerPool[0].role = 'werewolf'
+    playerPool[0].role = 'doctor'
     currentGame.players.push(playerPool[0])
     //spoofing players for debug purposes
     for (let x=0; x < 50; x++) {
