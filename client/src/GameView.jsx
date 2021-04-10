@@ -74,27 +74,19 @@ const GameView = ({
           <div style={{float: 'right', marginRight: '20px'}}>Remaining Villagers: {villagers}</div>
         </div>
       </div>
-
-      {/* <div
-        id="villageImage"
-        style={{
-          backgroundImage: day
-            ? `url(${require("./images/villageDay.jpg")})`
-            : `url(${require("./images/villageNight.jpg")})`,
-        }}
-      /> */}
       <div id="villageImage">
         <img src={day? villageDay : villageNight}/>
       </div>
       <div id="aliveDeadList">
-        <div id="aliveDeadTitle">Current players</div>
+        <h2>Current players</h2>
         {gameState.players.map((player) => {
-          return (
-            <div key={player.id} className="aliveDeadEntry">
-              {player.name} is {player.alive ? "Alive" : "Dead"}
-            </div>
-          );
-        })}
+          if (player.alive) {
+             myClass = "aliveDeadEntry alive";
+          } else {
+            myClass = "aliveDeadEntry dead";
+            } return (
+            <div key={player.id} className={myClass}>{player.name} is {player.alive ? 'Alive' : 'Dead'}</div>
+            )} )}
       </div>
       <Voting
         gameState={gameState}
