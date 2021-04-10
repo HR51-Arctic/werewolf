@@ -202,7 +202,7 @@ input[type="submit"]:hover {
   outline-offset: 0px;
   margin: 11px;
 }
-#villageImage img{
+#villageImage img {
   max-width: 100%;
 }
 
@@ -269,6 +269,10 @@ input[type="submit"]:hover {
   display: flex;
   flex-direction: column;
   align-content: center;
+  overflow-y: auto;
+}
+.voting::-webkit-scrollbar {
+  display: none;
 }
 
 #timer {
@@ -321,7 +325,6 @@ input[type="submit"]:hover {
   margin-right: 0;
 }
 
-
 #werewolfChatHeading {
   grid-row-start: 1;
   text-align: center;
@@ -344,7 +347,8 @@ input[type="submit"]:hover {
   overflow-y: auto;
 }
 
-#aliveDeadTitle {
+.aliveDeadList::-webkit-scrollbar {
+  display: none;
 }
 
 .dead {
@@ -393,16 +397,16 @@ input[type="submit"]:hover {
   background-color: white;
   padding: 10px 20px;
   text-align: center;
-  border: 2px solid rgb(0, 153, 255);
+  border: 2px solid black;
   transition: all 0.2s ease-in-out;
 }
 
 #wolfVotingButton:hover {
   color: white;
-  background-color: rgb(0, 153, 255);
+  background-color: black;
   padding: 10px 20px;
   text-align: center;
-  border: 2px solid rgb(0, 153, 255);
+  border: 2px solid black;
 }
 
 #villagerVotingButton {
