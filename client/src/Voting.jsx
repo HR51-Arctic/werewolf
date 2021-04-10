@@ -5,7 +5,8 @@ import DocVote from "./DocVote.jsx";
 const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
   let voting = false;
   let myPlayer = null;
-  if (gameState.players.length > 1) { //remove if check
+  if (gameState.players.length > 1) {
+    //remove if check
     for (let x = 0; x < gameState.players.length; x++) {
       let player = gameState.players[x];
       if (myId === player.id) {
@@ -25,22 +26,24 @@ const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
       return null;
     }
   } else {
-    voting = true
+    voting = true;
     myPlayer = {
-      name: 'alex',
+      name: "alex",
       id: myId,
       role: "werewolf",
       admin: false,
       alive: true,
       protected: false,
       targeted: 0,
-    }
+    };
   }
   if (voting) {
     return (
       <div id="voting">
-        {role === "werewolf" && !day ? <h3>Choose your victim!</h3> : null}
-        {day ? <h3>Kill the werewolves!</h3> : null}
+        {role === "werewolf" && !day ? (
+          <h3 className="votingHeader">Choose your victim!</h3>
+        ) : null}
+        {day ? <h3 className="votingHeader">Kill the werewolves!</h3> : null}
         {gameState.players.map((player) => {
           if (day) {
             if (player.id !== myId && player.alive) {
