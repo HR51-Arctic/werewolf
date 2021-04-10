@@ -87,7 +87,7 @@ const GameView = ({
         <img src={day? villageDay : villageNight}/>
       </div>
       <div id="aliveDeadList">
-        <div id="aliveDeadTitle">Current players</div>
+        <h3>Current players</h3>
         {gameState.players.map((player) => {
           return (
             <div key={player.id} className="aliveDeadEntry">
