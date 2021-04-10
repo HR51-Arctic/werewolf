@@ -2,16 +2,12 @@ import React, { useState } from "react";
 import GameView from "./GameView.jsx";
 import AppHeader from "./AppHeader.jsx";
 import Login from "./Login.jsx";
+import useSound from 'use-sound';
+import mouseClick from '../../assets/sounds/mouseClick.mp3';
 
-const Lobby = ({
-  participants,
-  handleGameStart,
-  handleLogin,
-  handleSignup,
-  loggedIn,
-  gameSettings,
-  onGameSettingsChange,
-}) => {
+
+const Lobby = ({ participants, handleGameStart, handleLogin, handleSignup, loggedIn, gameSettings, onGameSettingsChange }) => {
+
   const [message, setMessage] = useState("");
   let settingsForm = (
     <form id="settingsView">
@@ -87,7 +83,7 @@ const Lobby = ({
               className="playButton"
               type="submit"
               value="Submit"
-              onClick={() => handleGameStart()}
+              onClick={() => handleGameStart() + clickSound()}
             >
               Play
             </button>
