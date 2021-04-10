@@ -300,8 +300,6 @@ input[type="submit"]:hover {
 #seerContainer {
 }
 
-
-
 #aliveDeadList {
   border: 3px solid black;
   grid-column-start: 2;
@@ -386,12 +384,43 @@ input[type="submit"]:hover {
   border: 2px solid rgb(75, 3, 3);
 }
 
+#doctorVoteButton {
+  color: black;
+  background-color: white;
+  padding: 10px 20px;
+  text-align: center;
+  border: 2px solid rgb(75, 3, 3);
+}
+
+#doctorVoteButton:hover {
+  color: white;
+  background-color: rgb(75, 3, 3);
+  padding: 10px 20px;
+  text-align: center;
+  border: 2px solid rgb(75, 3, 3);
+}
+
+#seerVoteButton {
+  color: black;
+  background-color: white;
+  padding: 10px 20px;
+  text-align: center;
+  border: 2px solid rgb(75, 3, 3);
+}
+
+#seerVoteButton:hover {
+  color: white;
+  background-color: rgb(75, 3, 3);
+  padding: 10px 20px;
+  text-align: center;
+  border: 2px solid rgb(75, 3, 3);
+}
+
 #votingButton #bacground {
 }
 
 #turn-info {
 }
-
 
 #remaining-wolves {
 }
