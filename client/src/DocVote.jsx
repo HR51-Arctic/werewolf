@@ -19,12 +19,13 @@ class DocVote extends React.Component {
     if (!this.state.protect) {
       return (
         <div>
-          <h3>Choose who to protect</h3>
-          <div>
+          <h3 className="votingHeader">Choose who to protect</h3>
+          <div id="voting">
             {gameState.players.map((player) => {
               if (player.alive && player.id !== myId) {
                 return (
                   <button
+                    id="doctorVoteButton"
                     onClick={() => {
                       this.protect(player);
                     }}

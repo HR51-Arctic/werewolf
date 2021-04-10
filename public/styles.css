@@ -4,14 +4,14 @@
 }
 .werewolfLogo {
   width: 100%;
-  margin-top: -110px;
+  margin-top: -7.5vw;
 }
 .appHeaderContainer {
   background-color: grey;
   display: inline-block;
-  height: 350px;
+  height: 46.75vh;
   overflow: hidden;
-  width: 70%; /*keep same as werewolf logo width to maintain centering */
+  width: 70vw; /*keep same as werewolf logo width to maintain centering */
   position: relative;
   left: 50%;
   transform: translate(-50%);
@@ -93,6 +93,7 @@
 .setting {
   width: 50px;
 }
+
 #msg-input {
   display: inline-block;
   position: relative;
@@ -175,26 +176,23 @@ input[type="submit"]:hover {
 /*---------------- GameView ---------------------*/
 
 #gameView {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 98vh;
   display: grid;
-  grid-template-rows: auto;
-  grid-template-areas:
-    "villageImage villageImage villageImage villageImage"
-    "roleContainer roleContainer roleContainer roleContainer"
-    "werewolfChat .  aliveDeadList voting";
+  grid-template-columns: auto 25% 25%;
+  grid-template-rows: 10% 40% 25% 25%;
   background-color: grey;
 }
 
 #villageImage {
-  grid-area: villageImage;
+  overflow: hidden;
+  grid-row-start: 2;
+  grid-row-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 2;
   align-content: center;
   box-sizing: border-box;
-  width: 96%;
-  height: 600px;
-  margin-bottom: 25px;
   display: block;
-  padding: 10%;
   background-color: #2c1401;
   background-repeat: no-repeat;
   background-size: cover;
@@ -203,27 +201,38 @@ input[type="submit"]:hover {
     0 0 30px rgba(0, 0, 0, 0.8) inset;
   outline: 2px solid #333;
   outline-offset: 0px;
+  margin: 11px;
+}
+#villageImage img {
+  max-width: 100%;
 }
 
 #gameMessage {
-  grid-area: gameMessage;
-  height: 250px;
-  width: 80%;
   font-weight: 100;
   color: white;
   font-size: 30px;
   font-family: "Bellefair", serif;
   position: relative;
   text-shadow: 0 0 20px rgb(230 10 10), 0 0 20px rgb(10 175 230 / 0%);
-  padding: 0.3em 1em 0.25em;
   align-content: center;
-  margin-top: 25px;
   min-width: fit-content;
-  width: 500px;
+}
+
+#messages-container {
+  padding: 10px;
+  position: relative;
+  border: 3px solid black;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 3;
+  grid-row-end: 3;
 }
 
 #role-container {
-  grid-area: roleContainer;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 1;
+  grid-column-end: 4;
   background: linear-gradient(
     to right,
     rgba(36, 31, 31, 1) 0%,
@@ -232,7 +241,6 @@ input[type="submit"]:hover {
   );
   display: flex;
   flex-direction: row;
-  width: 96%;
   align-items: center;
   align-content: space-between;
   color: #fff;
@@ -253,6 +261,20 @@ input[type="submit"]:hover {
   margin-right: 30px;
   line-height: 1.3;
 }
+#voting {
+  border: 3px solid black;
+  grid-column-start: 3;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 5;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  overflow-y: auto;
+}
+.voting::-webkit-scrollbar {
+  display: none;
+}
 
 #timer {
   font-weight: 400;
@@ -265,79 +287,98 @@ input[type="submit"]:hover {
   width: 500px;
 }
 
-.werewolfChat {
-  grid-area: werewolfChat;
+#werewolfChat {
   display: grid;
-  overflow-y: scroll;
-  max-height: 250px;
+  height: 99%;
+  grid-template-rows: 15% 70% 15%;
+  border: 3px solid black;
+  border-top: none;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 4;
+  grid-row-end: 5;
+}
+
+h3 {
+  color: rgb(75, 3, 3);
+  font-size: 20px;
+  font-family: "Bellefair", serif;
+  position: relative;
+  text-shadow: 0 0 20px rgb(230 10 10), 0 0 20px rgb(10 175 230 / 0%);
+  text-align: center;
+  min-width: fit-content;
+}
+
+.message {
+  grid-row-start: 3;
+  align-self: flex-end;
+  grid-row-start: 3;
+  width: 100%;
+  border: 1px solid black;
+  background-color: grey;
+}
+.message-list {
+  grid-row-start: 2;
+  overflow: auto;
+}
+.message-list::-webkit-scrollbar {
+  display: none;
+}
+.message-input {
+  width: 76%;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  max-height: 100%;
+}
+.message-button {
+  width: 20%;
+  padding: 0;
+  margin-right: 0;
 }
 
 #werewolfChatHeading {
+  grid-row-start: 1;
+  text-align: center;
   font-size: 25px;
   font-weight: bold;
-  margin-top: 5px;
+  padding: 2px;
 }
 
 #seerContainer {
 }
 
 #aliveDeadList {
-  grid-area: aliveDeadList;
-  justify-content: center;
+  border: 3px solid black;
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 5;
+  text-align: center;
   display: relative;
-  max-height: 256px;
-  min-width: 256px;
   overflow-y: auto;
 }
 
-#aliveDeadTitle {
+.aliveDeadList::-webkit-scrollbar {
+  display: none;
 }
 
 .dead {
   color: rgb(75, 3, 3);
-  font-family: "Bellefair", serif;
-  line-height: 1;
-  position: relative;
-  width: fit-content;
-}
-
-.dead:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 1%;
-  height: 2px;
-  background: rgb(75, 3, 3);
-  border-radius: 20px;
-  animation: stretch 3s linear infinite;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
-@keyframes stretch {
-  to {
-    width: 100%;
-  }
+  text-decoration: line-through;
 }
 
 #remaining {
-  grid-area: remaining;
-  display: flex;
-  flex-direction: column;
-  width: 500px;
-  align-items: flex-start;
-  align-content: space-around;
-  width: 200px;
-}
-
-#voting {
-  display: grid;
-  overflow-y: scroll;
-  grid-area: voting;
-  height: 250px;
-  width: 50%;
-  border: 3px solid black;
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 0.1em;
+  color: red;
+  text-shadow: 0 0 20px rgb(230 10 10), 0 0 20px rgb(10 175 230 / 0%);
+  font-family: "Bellefair", serif;
+  width: 100%;
+  position: absolute;
+  margin-bottom: 5px;
+  bottom: 0;
 }
 
 #wolfVotingButton {
@@ -345,16 +386,16 @@ input[type="submit"]:hover {
   background-color: white;
   padding: 10px 20px;
   text-align: center;
-  border: 2px solid rgb(0, 153, 255);
+  border: 2px solid black;
   transition: all 0.2s ease-in-out;
 }
 
 #wolfVotingButton:hover {
   color: white;
-  background-color: rgb(0, 153, 255);
+  background-color: black;
   padding: 10px 20px;
   text-align: center;
-  border: 2px solid rgb(0, 153, 255);
+  border: 2px solid black;
 }
 
 #villagerVotingButton {
@@ -373,13 +414,42 @@ input[type="submit"]:hover {
   border: 2px solid rgb(75, 3, 3);
 }
 
+#doctorVoteButton {
+  color: black;
+  background-color: white;
+  padding: 10px 20px;
+  text-align: center;
+  border: 2px solid rgb(75, 3, 3);
+}
+
+#doctorVoteButton:hover {
+  color: white;
+  background-color: rgb(75, 3, 3);
+  padding: 10px 20px;
+  text-align: center;
+  border: 2px solid rgb(75, 3, 3);
+}
+
+#seerVoteButton {
+  color: black;
+  background-color: white;
+  padding: 10px 20px;
+  text-align: center;
+  border: 2px solid rgb(75, 3, 3);
+}
+
+#seerVoteButton:hover {
+  color: white;
+  background-color: rgb(75, 3, 3);
+  padding: 10px 20px;
+  text-align: center;
+  border: 2px solid rgb(75, 3, 3);
+}
+
 #votingButton #bacground {
 }
 
 #turn-info {
-}
-
-#role-container {
 }
 
 #remaining-wolves {
@@ -423,9 +493,10 @@ input[type="submit"]:hover {
 }
 
 #endGameModal {
+  position: absolute;
   display: grid;
   background-color: #fefefe;
-  margin: 15% auto;
+  /* margin: 15% auto; */
   padding: 20px;
   border: 1px solid #888;
   width: 30vw;
@@ -433,6 +504,9 @@ input[type="submit"]:hover {
   height: 30vw;
   border-radius: 5px;
   background-color: rgb(205, 201, 201);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
 }
 
 #endGameMessage {

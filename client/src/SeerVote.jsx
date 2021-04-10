@@ -28,12 +28,15 @@ class SeerVote extends React.Component {
     if (!revealed) {
       return (
         <div id="seerContainer">
-          <h4>Who do you want to SEEEE</h4>
-          <div>
+          <h3 className="votingHeader">Who do you want to SEEEE</h3>
+          <div id="voting">
             {gameState.players.map((player) => {
               if (player.alive && player.id !== myId) {
                 return (
-                  <button onClick={() => this.reveal(player.id)}>
+                  <button
+                    id="seerVoteButton"
+                    onClick={() => this.reveal(player.id)}
+                  >
                     {player.name}
                   </button>
                 );
