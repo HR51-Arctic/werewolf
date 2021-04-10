@@ -25,15 +25,13 @@ const GameView = ({
 
   let role;
   let alive;
+  let myClass;
   gameState.players.forEach((player) => {
     if (player.id === myId) {
       role = player.role;
       alive = player.alive;
     }
   });
-
-  let myClass;
-
 
   return (
     <div id="gameView">
@@ -77,17 +75,18 @@ const GameView = ({
       <div id="villageImage">
         <img src={day? villageDay : villageNight}/>
       </div>
-      <div id="aliveDeadList">
-        <h2>Current players</h2>
-        {gameState.players.map((player) => {
-          if (player.alive) {
-             myClass = "aliveDeadEntry alive";
-          } else {
-            myClass = "aliveDeadEntry dead";
-            } return (
-            <div key={player.id} className={myClass}>{player.name} is {player.alive ? 'Alive' : 'Dead'}</div>
-            )} )}
-      </div>
+        <div id="aliveDeadList">
+          <h3>Current players</h3>
+          {gameState.players.map((player) => {
+            if (player.alive) {
+              myClass = "aliveDeadEntry alive";
+            } else {
+              myClass = "aliveDeadEntry dead";
+            }
+            return (
+              <div key={player.id} className={myClass}>{player.name} is {player.alive ? 'Alive' : 'Dead'}</div>
+            )})}
+        </div>
       <Voting
         gameState={gameState}
         day={day}
