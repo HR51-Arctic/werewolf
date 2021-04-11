@@ -26,15 +26,13 @@ const GameView = ({
 
   let role;
   let alive;
+  let myClass;
   gameState.players.forEach((player) => {
     if (player.id === myId) {
       role = player.role;
       alive = player.alive;
     }
   });
-
-  let myClass;
-
 
   return (
     <div id="gameView">
@@ -80,29 +78,25 @@ const GameView = ({
         </div>
         <div id="remaining">
            {/* <h2 id="playersRemaining">Players Remaining</h2> */}
-          <div style={{float: 'left', marginLeft: '5px'}}>Remaining Werewolves: {werewolves}</div>
-          <div style={{float: 'right', marginRight: '5px'}}>Remaining Villagers: {villagers}</div>
+          <div style={{float: 'left', marginLeft: '0px'}}>Remaining Werewolves: {werewolves}</div>
+          <div style={{float: 'right', marginRight: '20px'}}>Remaining Villagers: {villagers}</div>
         </div>
       </div>
-
-      {/* <div
-        id="villageImage"
-        style={{
-          backgroundImage: day
-            ? `url(${require("./images/villageDay.jpg")})`
-            : `url(${require("./images/villageNight.jpg")})`,
-        }}
-      /> */}
-      <div id="aliveDeadList">
-        <div id="aliveDeadTitle">Current players</div>
-        {gameState.players.map((player) => {
-          return (
-            <div key={player.id} className="aliveDeadEntry">
-              {player.name} is {player.alive ? "Alive" : "Dead"}
-            </div>
-          );
-        })}
+      <div id="villageImage">
+        <img src={day? villageDay : villageNight}/>
       </div>
+        <div id="aliveDeadList">
+          <h3>Current players</h3>
+          {gameState.players.map((player) => {
+            if (player.alive) {
+              myClass = "aliveDeadEntry alive";
+            } else {
+              myClass = "aliveDeadEntry dead";
+            }
+            return (
+              <div key={player.id} className={myClass}>{player.name} is {player.alive ? 'Alive' : 'Dead'}</div>
+            )})}
+        </div>
       <Voting
         gameState={gameState}
         day={day}
