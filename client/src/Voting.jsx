@@ -39,8 +39,8 @@ const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
   if (voting) {
     return (
       <div id="voting">
-        {role === "werewolf" && !day ? <h3>Choose your victim!</h3> : null}
-        {day ? <h3>Kill the werewolves!</h3> : null}
+        {role === "werewolf" && !day ? <h3 id="voteMsg" >Choose your victim!</h3> : null}
+        {day ? <h3 id="voteMsg" >Kill the werewolves!</h3> : null}
         {gameState.players.map((player) => {
           if (day) {
             if (player.id !== myId && player.alive) {

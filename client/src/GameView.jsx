@@ -37,7 +37,15 @@ const GameView = ({
 
 
   return (
-    <div id="gameView">
+
+    <div id="gameView"  style={{
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      backgroundImage: day
+        ? `url(${require("./images/villageDay.jpg")})`
+        : `url(${require("./images/villageNight.jpg")})`
+    }}>
+
       <div id="role-container">
         <h1 id="role">You are a {role}</h1>
         <div id="timer">Time left: {timer} </div>
@@ -52,6 +60,7 @@ const GameView = ({
         </div>
       </div>
 
+    <div id="info-container">
       <div id="messages-container">
         <div id = "gameMessage">
           {endGame ? (
@@ -80,19 +89,11 @@ const GameView = ({
         </div>
         <div id="remaining">
            {/* <h2 id="playersRemaining">Players Remaining</h2> */}
-          <div style={{float: 'left', marginLeft: '5px'}}>Remaining Werewolves: {werewolves}</div>
-          <div style={{float: 'right', marginRight: '5px'}}>Remaining Villagers: {villagers}</div>
+          <div id="remWolves" >Remaining Werewolves: {werewolves}</div>
+          <div id="remVillagers" >Remaining Villagers: {villagers}</div>
         </div>
       </div>
 
-      {/* <div
-        id="villageImage"
-        style={{
-          backgroundImage: day
-            ? `url(${require("./images/villageDay.jpg")})`
-            : `url(${require("./images/villageNight.jpg")})`,
-        }}
-      /> */}
       <div id="aliveDeadList">
         <div id="aliveDeadTitle">Current players</div>
         {gameState.players.map((player) => {
@@ -103,6 +104,7 @@ const GameView = ({
           );
         })}
       </div>
+
       <Voting
         gameState={gameState}
         day={day}
@@ -118,6 +120,8 @@ const GameView = ({
           handleWerewolfChat={handleWerewolfChat}
         />
       ) : null}
+     </div>
+
     </div>
   );
 };

@@ -7,7 +7,7 @@ import mouseClick from '../../assets/sounds/mouseClick.mp3';
 
 
 const Lobby = ({ participants, handleGameStart, handleLogin, handleSignup, loggedIn, gameSettings, onGameSettingsChange }) => {
-
+console.log(participants);
   const [message, setMessage] = useState("");
   let settingsForm = (
     <form id="settingsView">

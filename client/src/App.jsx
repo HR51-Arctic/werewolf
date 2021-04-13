@@ -4,13 +4,16 @@ import Login from "./Login.jsx";
 import Lobby from "./Lobby.jsx";
 import GameView from "./GameView.jsx";
 import GameInProgress from './GameInProgress.jsx';
+
+import TestData from './TestData.js';
+
 const ENDPOINT = "/";
 
 function App() {
   const [connection, setConnection] = useState({});
   const [message, setMessage] = useState("");
   const [gameState, setGameState] = useState("");
-  const [lobbyParticipants, setLobbyParticipants] = useState([]);
+  const [lobbyParticipants, setLobbyParticipants] = useState(TestData);
   const [play, setPlay] = useState(false);
   const [myId, setMyId] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
