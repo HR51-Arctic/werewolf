@@ -39,7 +39,7 @@ const GameView = ({
       <div id="role-container">
         <h1 id="role">You are a {role}</h1>
         <div id="timer">Time left: {timer} </div>
-        <div id="voiceSetting">
+        {voiceUrl === '' ? null : (<div id="voiceSetting">
           <a
             id="voiceUrl"
             href={voiceUrl.slice(0, 4) === 'http' ? voiceUrl : '//' + voiceUrl}
@@ -47,7 +47,7 @@ const GameView = ({
           >
             Join the Call!
           </a>
-        </div>
+        </div>)}
       </div>
 
       <div id="messages-container">
