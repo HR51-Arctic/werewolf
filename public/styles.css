@@ -189,7 +189,7 @@ input[type="submit"] {
   border-radius: 4px;
   font-weight: normal;
   transition: all 0.2s ease-in-out;
-  width: 23%;
+
   /* margin: 2vw; */
 }
 
@@ -299,6 +299,7 @@ input[type="submit"]:hover {
   border-radius: 2%;
   opacity: 0.9;
   box-shadow: -5px -5px 5px 5px black;
+  overflow: scroll;
 }
 
 #timer {
@@ -322,6 +323,7 @@ input[type="submit"]:hover {
   border-radius: 2%;
   opacity: 0.9;
   box-shadow: -5px -5px 5px 5px black;
+  overflow: scroll;
 }
 
 #doctorContainer {
@@ -334,6 +336,7 @@ input[type="submit"]:hover {
   border-radius: 2%;
   opacity: 0.9;
   box-shadow: -5px -5px 5px 5px black;
+  overflow: scroll;
 }
 
 #warningMsg {
@@ -361,6 +364,12 @@ input[type="submit"]:hover {
 #werewolfChat {
   grid-area: wolfChat;
   justify-self: center;
+  display: grid;
+  grid-template-rows: 20% 80%;
+  grid-template-columns: 60% 40%;
+  grid-template-areas:
+  "wolfHeader wolfHeader"
+  "wolfMsgContainer wolfForm ";
   width: 90%;
   height: 90%;
   border: 3px solid black;
@@ -371,9 +380,24 @@ input[type="submit"]:hover {
 }
 
 #werewolfChatHeading {
+  grid-area: wolfHeader;
+  margin-left: 3%;
   font-size: 25px;
   font-weight: bold;
   color: white;
+}
+
+#wolfForm {
+  grid-area: wolfForm;
+}
+#wolfMsgContainer {
+  grid-area: wolfMsgContainer;
+  background-color: white;
+  border: 2px solid black;
+  width: 90%;
+  height: 90%;
+  margin-left: 5%;
+  overflow: scroll;
 }
 
 #remaining {
@@ -408,6 +432,74 @@ input[type="submit"]:hover {
   height: 100%;
   width: 100%;
   overflow: scroll;
+}
+
+#seerAction {
+  height: auto;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  text-align: center;
+  border: 1px solid black;
+  background: rgb(75, 3, 3);
+  color: white;
+  font-family: "Bellefair", serif;
+}
+#seerAction:hover {
+  text-decoration: underline;
+}
+
+#docAction {
+  height: auto;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  text-align: center;
+  border: 1px solid black;
+  background: rgb(75, 3, 3);
+  color: white;
+  font-family: "Bellefair", serif;
+}
+#docAction:hover {
+  text-decoration: underline;
+}
+
+#villagerVoting {
+  height: auto;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  text-align: center;
+  border: 1px solid black;
+  background: rgb(75, 3, 3);
+  color: white;
+  font-family: "Bellefair", serif;
+}
+#villagerVoting:hover {
+  text-decoration: underline;
+}
+
+#wolfVoting {
+  height: auto;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  text-align: center;
+  border: 1px solid black;
+  background: rgb(75, 3, 3);
+  color: white;
+  font-family: "Bellefair", serif;
+}
+#wolfVoting:hover {
+  text-decoration: underline;
 }
 
 #status {

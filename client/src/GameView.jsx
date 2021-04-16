@@ -4,6 +4,9 @@ import WerewolfChat from "./WerewolfChat.jsx";
 import villageDay from "./images/villageDay.jpg";
 import villageNight from "./images/villageNight.jpg";
 import EndGameModal from "./EndGame.jsx";
+import useSound from 'use-sound';
+import mouseClick from '../../assets/sounds/mouseClick.mp3';
+
 
 const GameView = ({
   myId,
@@ -24,6 +27,7 @@ const GameView = ({
   const [message, setMessage] = useState("");
   const [voting, setVoting] = useState(false);
   const [status, setStatus] = useState(false);
+  const [clickSound] = useSound(mouseClick, {volume: 0.5});
 
   let role;
   let alive;
@@ -67,7 +71,7 @@ const GameView = ({
               <div id="modal">
               {gameState.players.map((player) => {
                 return (
-                  <div id="status">{player.name} is {player.alive ? "Alive" : "Dead"}</div>
+                  <div key={player.id} id="status">{player.name} is {player.alive ? "Alive" : "Dead"}</div>
                 )
               })}
             </div>
@@ -107,12 +111,12 @@ const GameView = ({
           <button id="currentPlayers"
           type='submit'
           value='Submit'
-          onClick={() => setStatus(!status)}
+          onClick={() => clickSound() + setStatus(!status)}
           >Current Players</button> :
           <button id="close"
           type='submit'
           value='Submit'
-          onClick={() => setStatus(!status)}
+          onClick={() => clickSound() + setStatus(!status)}
           >close</button>
           }
 

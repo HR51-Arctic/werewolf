@@ -9,6 +9,8 @@ import mouseClick from '../../assets/sounds/mouseClick.mp3';
 const Lobby = ({ participants, handleGameStart, handleLogin, handleSignup, loggedIn, gameSettings, onGameSettingsChange }) => {
 
   const [message, setMessage] = useState("");
+  const [clickSound] = useSound(mouseClick, {volume: 0.5});
+
   let settingsForm = (
     <form id="settingsView">
       <label>Timers:</label>
