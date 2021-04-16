@@ -1,4 +1,27 @@
-let TestData = [
+
+// How to use:
+
+// For Seer:
+// 1) import seervote and testdata into index.jsx
+// 2) pass in the testdata as gamestate prop and choose the id of the char your working on
+// IE:  import SeerVote import TestData
+// IE: <SeerVote gameState={TestData} myId='ONooukVD9f7wxvdPAAAJ'/>
+
+// For Doctor:
+// 1) import docvote and testdata in app.jsx
+// 2) replace line 190 with below
+// return <DocVote docChoice={docChoice.bind(this)} gameState={TestData} myId="tqhdWXa3e5ceLNZgAAAH" />
+// NOTE: since there are no players it well break when sending save to socket
+
+let TestData = {
+active : true,
+day : true,
+dayTimer : 10,
+nightTimer : 10,
+preGameTimer : 1,
+voiceUrl : "noUrl",
+votes : {},
+  players: [
     {
       name: 'player 1',
       id: "pKd5RIReqFC1MSITAAAB",
@@ -62,6 +85,7 @@ let TestData = [
       targeted: 0,
       admin: false
     },
-  ];
+  ],
+};
 
   module.exports = TestData;

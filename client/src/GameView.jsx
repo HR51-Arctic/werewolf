@@ -23,6 +23,7 @@ const GameView = ({
 }) => {
   const [message, setMessage] = useState("");
   const [voting, setVoting] = useState(false);
+  const [status, setStatus] = useState(false);
 
   let role;
   let alive;
@@ -62,6 +63,15 @@ const GameView = ({
 
     <div id="info-container">
       <div id="messages-container">
+      {status ?
+              <div id="modal">
+              {gameState.players.map((player) => {
+                return (
+                  <div id="status">{player.name} is {player.alive ? "Alive" : "Dead"}</div>
+                )
+              })}
+            </div>
+      : null}
         <div id = "gameMessage">
           {endGame ? (
             <EndGameModal endGame={endGame} clickHandler={handleResetGame} />
@@ -88,21 +98,40 @@ const GameView = ({
           ) : null}
         </div>
         <div id="remaining">
-           {/* <h2 id="playersRemaining">Players Remaining</h2> */}
           <div id="remWolves" >Remaining Werewolves: {werewolves}</div>
           <div id="remVillagers" >Remaining Villagers: {villagers}</div>
         </div>
-      </div>
+        <div id="aliveDeadList">
 
-      <div id="aliveDeadList">
-        <div id="aliveDeadTitle">Current players</div>
+          {!status ?
+          <button id="currentPlayers"
+          type='submit'
+          value='Submit'
+          onClick={() => setStatus(!status)}
+          >Current Players</button> :
+          <button id="close"
+          type='submit'
+          value='Submit'
+          onClick={() => setStatus(!status)}
+          >close</button>
+          }
+
+        {/* This is a dropdown instead, cant style options easily... */}
+        {/* <div id="aliveDeadTitle">Current players</div> */}
+        {/* <label style={{color: 'white'}}>
+          Current Players:
+        <select id="dropdown">
         {gameState.players.map((player) => {
           return (
-            <div key={player.id} className="aliveDeadEntry">
+            <option key={player.id} id="option">
               {player.name} is {player.alive ? "Alive" : "Dead"}
-            </div>
+            </option>
           );
         })}
+        </select>
+        </label> */}
+
+      </div>
       </div>
 
       <Voting

@@ -33,8 +33,7 @@ body {
 }
 
 /*---Lobby--*/
-#frontPage {
-}
+
 #frontPage div {
   margin: 0 auto;
 }
@@ -224,7 +223,7 @@ input[type="submit"]:hover {
   grid-template-rows: 60% 40%;
   grid-template-areas:
   "messages messages voting"
-  "wolfChat wolfChat status";
+  "wolfChat wolfChat .";
 }
 
 #gameMessage {
@@ -246,8 +245,8 @@ input[type="submit"]:hover {
   display: grid;
   grid-template-rows: 80% 20%;
   grid-template-areas:
-  "gameMsg gameMsg"
-  "remaining remaining";
+  "gameMsg gameMsg gameMsg"
+  "remaining remaining status";
   justify-self: center;
   width: 90%;
   height: 90%;
@@ -255,7 +254,7 @@ input[type="submit"]:hover {
   background-color: grey;
   border-radius: 2%;
   opacity: 0.9;
-  box-shadow: 0px -5px 10px 10px black;
+  box-shadow: -5px -5px 5px 5px black;
 }
 
 #role-container {
@@ -264,7 +263,7 @@ input[type="submit"]:hover {
   justify-self: center;
   width: 90%;
   height: 90%;
-  grid-template-rows: 33% 33% 33%;
+  grid-template-columns: 33% 33% 33%;
   grid-template-areas:
   "role timer call";
   background: linear-gradient(
@@ -276,7 +275,7 @@ input[type="submit"]:hover {
   color: #fff;
   border-radius: 2%;
   opacity: 0.9;
-  box-shadow: 0px -5px 10px 10px black;
+  box-shadow: -5px -5px 5px 5px black;
 }
 
 #role {
@@ -287,9 +286,9 @@ input[type="submit"]:hover {
   color: white;
   font-family: "Bellefair", serif;
   text-shadow: 0 0 20px rgb(230 10 10), 0 0 20px rgb(10 175 230 / 0%);
-  padding: 0.3em 1em 0.25em;
   line-height: 1.3;
 }
+
 #voting {
   grid-area: voting;
   justify-self: center;
@@ -299,7 +298,7 @@ input[type="submit"]:hover {
   background-color: grey;
   border-radius: 2%;
   opacity: 0.9;
-  box-shadow: 0px -5px 10px 10px black;
+  box-shadow: -5px -5px 5px 5px black;
 }
 
 #timer {
@@ -308,10 +307,45 @@ input[type="submit"]:hover {
   font-weight: 400;
   font-size: 25px;
   letter-spacing: 0.1em;
-  padding: 10px;
   color: red;
   text-shadow: 0 0 20px rgb(230 10 10), 0 0 20px rgb(10 175 230 / 0%);
   font-family: "Bellefair", serif;
+}
+
+#seerContainer {
+  grid-area: voting;
+  justify-self: center;
+  width: 90%;
+  height: 90%;
+  border: 3px solid black;
+  background-color: grey;
+  border-radius: 2%;
+  opacity: 0.9;
+  box-shadow: -5px -5px 5px 5px black;
+}
+
+#doctorContainer {
+  grid-area: voting;
+  justify-self: center;
+  width: 90%;
+  height: 90%;
+  border: 3px solid black;
+  background-color: grey;
+  border-radius: 2%;
+  opacity: 0.9;
+  box-shadow: -5px -5px 5px 5px black;
+}
+
+#warningMsg {
+  grid-area: voting;
+  justify-self: center;
+  width: 90%;
+  height: 90%;
+  border: 3px solid black;
+  background-color: grey;
+  border-radius: 2%;
+  opacity: 0.9;
+  box-shadow: -5px -5px 5px 5px black;
 }
 
 #voiceSetting {
@@ -320,7 +354,6 @@ input[type="submit"]:hover {
   font-weight: 400;
   font-size: 25px;
   letter-spacing: 0.1em;
-  padding: 10px;
   text-shadow: 0 0 20px rgb(230 10 10), 0 0 20px rgb(10 175 230 / 0%);
   font-family: "Bellefair", serif;
 }
@@ -334,7 +367,7 @@ input[type="submit"]:hover {
   background-color: grey;
   border-radius: 2%;
   opacity: 0.9;
-  box-shadow: 0px -5px 10px 10px black;
+  box-shadow: -5px -5px 5px 5px black;
 }
 
 #werewolfChatHeading {
@@ -345,6 +378,7 @@ input[type="submit"]:hover {
 
 #remaining {
  grid-area: remaining;
+ display: grid;
  grid-template-rows: 50% 50%;
  grid-template-areas:
  "remWolves remVillagers";
@@ -365,17 +399,50 @@ input[type="submit"]:hover {
 #aliveDeadList {
   grid-area: status;
   justify-self: center;
-  width: 90%;
-  height: 90%;
-  border: 3px solid black;
-  background-color: grey;
-  color: white;
-  border-radius: 2%;
-  opacity: 0.9;
-  box-shadow: 0px -5px 10px 10px black;
 }
 
-#aliveDeadTitle {
+#modal {
+  grid-area: gameMsg;
+  background: grey;
+  z-index: 99;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+}
+
+#status {
+  height: auto;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  text-align: center;
+  border: 1px solid black;
+  background: rgb(75, 3, 3);
+  color: white;
+  font-family: "Bellefair", serif;
+}
+#status:hover {
+  text-decoration: underline;
+}
+
+#currentPlayers {
+  font-family: "Bellefair", serif;
+  color: white;
+  background: rgb(75, 3, 3);
+}
+#currentPlayers:hover {
+  text-decoration: underline;
+}
+
+#close {
+  font-family: "Bellefair", serif;
+  color: white;
+  background: rgb(75, 3, 3);
+}
+#close:hover {
+  text-decoration: underline;
 }
 
 .dead {
@@ -402,7 +469,6 @@ input[type="submit"]:hover {
 #voteMsg {
   color: white;
 }
-
 
 #wolfVotingButton {
   color: black;
@@ -434,22 +500,6 @@ input[type="submit"]:hover {
   padding: 10px 20px;
   text-align: center;
   border: 2px solid rgb(75, 3, 3);
-}
-
-#votingButton #bacground {
-}
-
-#turn-info {
-}
-
-
-#remaining-wolves {
-}
-
-#game-chat {
-}
-
-#Selection {
 }
 
 #lobby ul {
