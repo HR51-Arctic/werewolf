@@ -210,7 +210,7 @@ input[type="submit"]:hover {
   display: grid;
   grid-template-rows: 50% 10% 40%;
   grid-template-areas:
-  ". . . ."
+  "moon sun . ."
   "roleContainer roleContainer roleContainer roleContainer"
   "info info info info";
   background-color: grey;
@@ -311,6 +311,30 @@ input[type="submit"]:hover {
   color: red;
   text-shadow: 0 0 20px rgb(230 10 10), 0 0 20px rgb(10 175 230 / 0%);
   font-family: "Bellefair", serif;
+}
+
+#sun {
+  grid-area: sun;
+  background: yellow;
+  border-radius: 50%;
+  position: absolute;
+  opacity: 0;
+  top: 20%;
+  left: 650px;
+  height: 2%;
+  width: 2%;
+  z-index: 99;
+  box-shadow: 0 0 30px 30px yellow, 0 0 100px 60px orange;
+}
+
+#moon {
+  grid-area: moon;
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: 0 0 40px 30px lightcyan;
+  top: 5%;
+  left: 650px;
+  z-index: 99;
 }
 
 #seerContainer {

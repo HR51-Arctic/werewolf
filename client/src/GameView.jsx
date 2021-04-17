@@ -6,7 +6,8 @@ import villageNight from "./images/villageNight.jpg";
 import EndGameModal from "./EndGame.jsx";
 import useSound from 'use-sound';
 import mouseClick from '../../assets/sounds/mouseClick.mp3';
-
+import Sunrise from './Sunrise.jsx';
+import Moonrise from './Moonrise.jsx';
 
 const GameView = ({
   myId,
@@ -23,6 +24,7 @@ const GameView = ({
   handleWerewolfChat,
   handleResetGame,
   voiceUrl,
+  gameSettings
 }) => {
   const [message, setMessage] = useState("");
   const [voting, setVoting] = useState(false);
@@ -50,6 +52,17 @@ const GameView = ({
         ? `url(${require("./images/villageDay.jpg")})`
         : `url(${require("./images/villageNight.jpg")})`
     }}>
+
+      {day ?
+      <Sunrise />
+      :
+      <Moonrise timer={gameSettings.nightTimer}/>
+      }
+
+      {/* <div id="sun"></div>
+      <div id="moon" style={{height: '7%', width: '7%', background: 'lightblue'}}>
+      <img  src={moon} style={{height: '100%', width: '90%', boxShadow: '0 0 10px 10px lightblue', borderRadius: '50%'}}/>
+      </div> */}
 
       <div id="role-container">
         <h1 id="role">You are a {role}</h1>

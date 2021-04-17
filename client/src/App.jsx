@@ -203,6 +203,7 @@ function App() {
           handleWerewolfChat={handleWerewolfChat.bind(this)}
           handleResetGame={handleResetGame.bind(this)}
           voiceUrl={gameSettings.voiceUrl}
+          gameSettings={gameSettings}
         />
       );
     }
