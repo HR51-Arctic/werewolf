@@ -321,10 +321,23 @@ input[type="submit"]:hover {
   opacity: 0;
   top: 20%;
   left: 650px;
-  height: 2%;
-  width: 2%;
+  height: 1%;
+  width: 1%;
   z-index: 99;
-  box-shadow: 0 0 30px 30px yellow, 0 0 100px 60px orange;
+  box-shadow: 0 0 20px 20px yellow, 0 0 50px 40px orange;
+}
+#sunset {
+  grid-area: sun;
+  background: orange;
+  border-radius: 50%;
+  position: absolute;
+  opacity: 1;
+  top: 20%;
+  left: 650px;
+  height: 1%;
+  width: 1%;
+  z-index: 99;
+  box-shadow: 0 0 20px 20px orange, 0 0 50px 40px red;
 }
 
 #moon {
@@ -333,7 +346,7 @@ input[type="submit"]:hover {
   border-radius: 50%;
   box-shadow: 0 0 40px 30px lightcyan;
   top: 5%;
-  left: 650px;
+  left: 550px;
   z-index: 99;
 }
 

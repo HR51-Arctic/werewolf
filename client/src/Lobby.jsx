@@ -4,7 +4,10 @@ import AppHeader from "./AppHeader.jsx";
 import Login from "./Login.jsx";
 import useSound from 'use-sound';
 import mouseClick from '../../assets/sounds/mouseClick.mp3';
-
+import ParallaxEyes from './ParallaxEyes.jsx'
+import { motion, useMotionValue, useTransform } from 'framer-motion';
+import wolfEyes from './images/wolfEyes.jpeg';
+// import Eyes from './images/eyes.png';
 
 const Lobby = ({ participants, handleGameStart, handleLogin, handleSignup, loggedIn, gameSettings, onGameSettingsChange }) => {
 
@@ -56,9 +59,34 @@ const Lobby = ({ participants, handleGameStart, handleLogin, handleSignup, logge
       </label>
     </form>
   );
+
+  // Parallax Eyes
+  const x = useMotionValue(200);
+  const y = useMotionValue(200);
+  const rotateX = useTransform(y, [0, 400], [45, -45]);
+  const rotateY = useTransform(x, [0, 400], [-45, 45]);
+
+  const handleMouse = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+
+    x.set(event.clientX - rect.left);
+    y.set(event.clientY - rect.top);
+  }
+
   return (
     <>
-      <div id="frontPage">
+      <div id="frontPage" onMouseMove={handleMouse}>
+        {/* <ParallaxEyes /> */}
+        <motion.div
+        style={{
+            width: 150,
+            height: 150,
+            rotateX: rotateX,
+            rotateY: rotateY,
+        }}
+    >
+      <img src={wolfEyes}  style={{width: 150, height: 150}}/>
+    </motion.div>
         <AppHeader id="header" />
         <div id="lobby">
           <Login

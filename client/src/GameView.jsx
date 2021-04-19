@@ -6,8 +6,11 @@ import villageNight from "./images/villageNight.jpg";
 import EndGameModal from "./EndGame.jsx";
 import useSound from 'use-sound';
 import mouseClick from '../../assets/sounds/mouseClick.mp3';
+import howl from '../../assets/sounds/howl.mp3';
+import rooster from '../../assets/sounds/rooster.mp3';
 import Sunrise from './Sunrise.jsx';
 import Moonrise from './Moonrise.jsx';
+import { IoIosVolumeHigh,  IoIosVolumeOff} from "react-icons/io";
 
 const GameView = ({
   myId,
@@ -29,7 +32,11 @@ const GameView = ({
   const [message, setMessage] = useState("");
   const [voting, setVoting] = useState(false);
   const [status, setStatus] = useState(false);
+  const [sounds, setSounds] = useState(false);
   const [clickSound] = useSound(mouseClick, {volume: 0.5});
+  const [playHowl] = useSound(howl, {volume: 0.25, interrupt: true});
+  const [playRooster] = useSound(rooster, {volume: 0.25, interrupt: true});
+
 
   let role;
   let alive;
@@ -42,6 +49,15 @@ const GameView = ({
 
   let myClass;
 
+  // const [play, setPlay] = useState(false);
+  // let howler = new Audio(howl);
+
+  // useEffect(() => {
+  //   if (day && sounds) {
+  //     howler.play();
+  //     setPlay(false)
+  //   }
+  // })
 
   return (
 
@@ -53,16 +69,23 @@ const GameView = ({
         : `url(${require("./images/villageNight.jpg")})`
     }}>
 
+    {sounds ?
+      <IoIosVolumeHigh
+      style={{height: '25px', width: '25px', borderRadius: '50%', backgroundColor: 'white'}}
+      onClick={() => setSounds(!sounds)}
+      />
+    :
+      <IoIosVolumeOff
+      style={{height: '25px', width: '25px', borderRadius: '50%', backgroundColor: 'white'}}
+      onClick={() => setSounds(!sounds)}
+      />
+    }
+
       {day ?
       <Sunrise />
       :
       <Moonrise timer={gameSettings.nightTimer}/>
       }
-
-      {/* <div id="sun"></div>
-      <div id="moon" style={{height: '7%', width: '7%', background: 'lightblue'}}>
-      <img  src={moon} style={{height: '100%', width: '90%', boxShadow: '0 0 10px 10px lightblue', borderRadius: '50%'}}/>
-      </div> */}
 
       <div id="role-container">
         <h1 id="role">You are a {role}</h1>
