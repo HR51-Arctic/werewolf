@@ -36,4 +36,9 @@ bower_components/
 
 # our keys
 config.js
+<<<<<<< HEAD
+=======
+
+#pem
+>>>>>>> 189ba1dd323a9e94089ff9a97cfdff398391a14d
 *.pem

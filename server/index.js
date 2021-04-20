@@ -5,17 +5,22 @@ const app = express();
 const Game = require("./gameClass.js");
 const Player = require("./playerClass.js");
 const assignRoles = require("./assignRoles.js");
-const db = require("../database/index.js");
+// const db = require("../database/index.js");
 const path = require("path");
 const favicon = require("serve-favicon");
-
-const port = process.env.PORT || 3000;
 const index = require("./routes/index");
 
-app.use(express.static("public"));
+const port = process.env.PORT || 3000;
+
+app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.json());
+<<<<<<< HEAD
 // app.use(index);
 app.use(favicon(path.join("client", "src", "images", "favicon.ico")));
+=======
+app.use(index);
+app.use(favicon(path.join(__dirname, "..", "client", "src", "images", "favicon.ico")));
+>>>>>>> 189ba1dd323a9e94089ff9a97cfdff398391a14d
 
 const server = http.createServer(app);
 
@@ -30,6 +35,7 @@ let gameSettings = {
   preGameTimer: 30, //dev mode changes
   dayTimer: 60,
   nightTimer: 30,
+  voiceUrl: '',
 };
 
 io.on("connection", (socket) => {
@@ -217,37 +223,37 @@ const dayPhase = (currentGame) => {
 };
 
 ////////////////////////////////////////////////////////////////////////
-app.post("/registerUser", function (req, res) {
-  const { username, password, email } = req.body;
-  db.registerUser(username, password, email, (err, data) => {
-    if (err) {
-      console.log("register user erroring out");
-      res.status(500).send(data);
-    } else {
-      console.log("successfully registered", username);
-      res.status(200).send(data);
-    }
-  });
-});
+// app.post("/registerUser", function (req, res) {
+//   const { username, password, email } = req.body;
+//   db.registerUser(username, password, email, (err, data) => {
+//     if (err) {
+//       console.log("register user erroring out");
+//       res.status(500).send(data);
+//     } else {
+//       console.log("successfully registered", username);
+//       res.status(200).send(data);
+//     }
+//   });
+// });
 
-app.post("/login", function (req, res) {
-  const { username, password } = req.body;
-  db.verifyUser(username, (err, data) => {
-    if (err) {
-      console.log("login not successful");
-      res.status(500).send(data);
-    } else {
-      var x = data.rows[0].userpassword;
-      if (password === x) {
-        console.log(username, "logged in");
-        res.status(200).send("done");
-      } else {
-        res.status(500).send("Wrong password, foo");
-      }
-    }
-  });
-});
+// app.post("/login", function (req, res) {
+//   const { username, password } = req.body;
+//   db.verifyUser(username, (err, data) => {
+//     if (err) {
+//       console.log("login not successful");
+//       res.status(500).send(data);
+//     } else {
+//       var x = data.rows[0].userpassword;
+//       if (password === x) {
+//         console.log(username, "logged in");
+//         res.status(200).send("done");
+//       } else {
+//         res.status(500).send("Wrong password, foo");
+//       }
+//     }
+//   });
+// });
 ///////////////////////////////////////////////////////////////////////
-server.listen(port, () => {
+server.listen(process.env.PORT || 3000, () => {
   console.log(`Server listening on ${port}`);
 });

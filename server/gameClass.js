@@ -9,6 +9,7 @@ class Game {
     this.preGameTimer = gameSettings.preGameTimer || 30;
     this.dayTimer = gameSettings.dayTimer || 60;
     this.nightTimer = gameSettings.nightTimer || 30;
+    this.voiceUrl = gameSettings.voiceUrl || 'noUrl';
   }
 
   addPlayer(id, name = id, admin = false) {

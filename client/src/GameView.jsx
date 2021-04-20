@@ -4,6 +4,17 @@ import WerewolfChat from "./WerewolfChat.jsx";
 import villageDay from "./images/villageDay.jpg";
 import villageNight from "./images/villageNight.jpg";
 import EndGameModal from "./EndGame.jsx";
+import useSound from 'use-sound';
+import mouseClick from '../../assets/sounds/mouseClick.mp3';
+import howl from '../../assets/sounds/howl.mp3';
+import rooster from '../../assets/sounds/rooster.mp3';
+import Sunrise from './Sunrise.jsx';
+import Moonrise from './Moonrise.jsx';
+import { IoIosVolumeHigh,  IoIosVolumeOff} from "react-icons/io";
+import villager from './images/villager.png';
+import werewolf from './images/werewolf.png';
+import doctor from './images/doctor.jpg';
+import seer from './images/seer.jpeg';
 
 const GameView = ({
   myId,
@@ -19,9 +30,22 @@ const GameView = ({
   werewolfMessages,
   handleWerewolfChat,
   handleResetGame,
+  voiceUrl,
+  gameSettings
 }) => {
   const [message, setMessage] = useState("");
   const [voting, setVoting] = useState(false);
+  const [status, setStatus] = useState(false);
+  const [sounds, setSounds] = useState(false);
+  const [clickSound] = useSound(mouseClick, {volume: 0.5});
+  // const [playHowl] = useSound(howl, {volume: 0.25, interrupt: true});
+  // const [playRooster] = useSound(rooster, {volume: 0.25, interrupt: true});
+  const image = {
+    villager: villager,
+    doctor: doctor,
+    seer: seer,
+    werewolf: werewolf,
+  }
 
   let role;
   let alive;
@@ -33,14 +57,77 @@ const GameView = ({
     }
   });
 
+
+  let myClass;
+
+  // const [play, setPlay] = useState(false);
+  // let howler = new Audio(howl);
+
+  // useEffect(() => {
+  //   if (day && sounds) {
+  //     howler.play();
+  //     setPlay(false)
+  //   }
+  // })
+
+
   return (
-    <div id="gameView">
+
+    <div id="gameView"  style={{
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      backgroundImage: day
+        ? `url(${require("./images/villageDay.jpg")})`
+        : `url(${require("./images/villageNight.jpg")})`
+    }}>
+
+    {sounds ?
+      <IoIosVolumeHigh
+      style={{height: '25px', width: '25px', borderRadius: '50%', backgroundColor: 'white'}}
+      onClick={() => setSounds(!sounds)}
+      />
+    :
+      <IoIosVolumeOff
+      style={{height: '25px', width: '25px', borderRadius: '50%', backgroundColor: 'white'}}
+      onClick={() => setSounds(!sounds)}
+      />
+    }
+
+      {day ?
+      <Sunrise />
+      :
+      <Moonrise timer={gameSettings.nightTimer}/>
+      }
+
       <div id="role-container">
-        <h1 id="role">You are a {role}</h1>
+        <div id="role">
+          <img id="roleImg" src={image[role]} />
+          <h1 id="roleName" >You are a {role}</h1>
+        </div>
+        {/* <h1 id="role">You are a {role}</h1> */}
         <div id="timer">Time left: {timer} </div>
+        {voiceUrl === '' ? null : (<div id="voiceSetting">
+          <a
+            id="voiceUrl"
+            href={voiceUrl.slice(0, 4) === 'http' ? voiceUrl : '//' + voiceUrl}
+            target="_blank"
+          >
+            Join the Call!
+          </a>
+        </div>)}
       </div>
 
+    <div id="info-container">
       <div id="messages-container">
+      {status ?
+              <div id="modal">
+              {gameState.players.map((player) => {
+                return (
+                  <div key={player.id} id="status">{player.name} is {player.alive ? "Alive" : "Dead"}</div>
+                )
+              })}
+            </div>
+      : null}
         <div id = "gameMessage">
           {endGame ? (
             <EndGameModal endGame={endGame} clickHandler={handleResetGame} />
@@ -67,26 +154,43 @@ const GameView = ({
           ) : null}
         </div>
         <div id="remaining">
-           {/* <h2 id="playersRemaining">Players Remaining</h2> */}
-          <div style={{float: 'left', marginLeft: '0px'}}>Remaining Werewolves: {werewolves}</div>
-          <div style={{float: 'right', marginRight: '20px'}}>Remaining Villagers: {villagers}</div>
+
+          <div id="remWolves" >Remaining Werewolves: {werewolves}</div>
+          <div id="remVillagers" >Remaining Villagers: {villagers}</div>
         </div>
-      </div>
-      <div id="villageImage">
-        <img src={day? villageDay : villageNight}/>
-      </div>
         <div id="aliveDeadList">
-          <h3>Current players</h3>
-          {gameState.players.map((player) => {
-            if (player.alive) {
-              myClass = "aliveDeadEntry alive";
-            } else {
-              myClass = "aliveDeadEntry dead";
-            }
-            return (
-              <div key={player.id} className={myClass}>{player.name} is {player.alive ? 'Alive' : 'Dead'}</div>
-            )})}
-        </div>
+
+          {!status ?
+          <button id="currentPlayers"
+          type='submit'
+          value='Submit'
+          onClick={() => clickSound() + setStatus(!status)}
+          >Current Players</button> :
+          <button id="close"
+          type='submit'
+          value='Submit'
+          onClick={() => clickSound() + setStatus(!status)}
+          >close</button>
+          }
+
+        {/* This is a dropdown instead, cant style options easily... */}
+        {/* <div id="aliveDeadTitle">Current players</div> */}
+        {/* <label style={{color: 'white'}}>
+          Current Players:
+        <select id="dropdown">
+        {gameState.players.map((player) => {
+          return (
+            <option key={player.id} id="option">
+              {player.name} is {player.alive ? "Alive" : "Dead"}
+            </option>
+          );
+        })}
+        </select>
+        </label> */}
+
+      </div>
+      </div>
+
       <Voting
         gameState={gameState}
         day={day}
@@ -102,6 +206,8 @@ const GameView = ({
           handleWerewolfChat={handleWerewolfChat}
         />
       ) : null}
+     </div>
+
     </div>
   );
 };

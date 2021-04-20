@@ -4,9 +4,17 @@
   "description": "Blue Ocean - Werewolf",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "start": "node server/index.js",
     "build": "webpack",
     "aws": "ssh -i 'TestServerKeyPair.pem' ubuntu@ec2-3-143-68-111.us-east-2.compute.amazonaws.com"
+=======
+    "start": "nodemon server/index.js",
+
+    "start-dev": "nodemon server/index.js",
+    "build": "webpack",
+    "watch": "webpack -w"
+>>>>>>> 189ba1dd323a9e94089ff9a97cfdff398391a14d
   },
   "repository": {
     "type": "git",
@@ -42,6 +50,8 @@
     "@babel/plugin-transform-runtime": "^7.13.15",
     "@reduxjs/toolkit": "^1.5.0",
     "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
+    "framer-motion": "^4.1.4",
     "pg": "^8.5.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
