@@ -11,6 +11,10 @@ import rooster from '../../assets/sounds/rooster.mp3';
 import Sunrise from './Sunrise.jsx';
 import Moonrise from './Moonrise.jsx';
 import { IoIosVolumeHigh,  IoIosVolumeOff} from "react-icons/io";
+import villager from './images/villager.png';
+import werewolf from './images/werewolf.png';
+import doctor from './images/doctor.jpg';
+import seer from './images/seer.jpeg';
 
 const GameView = ({
   myId,
@@ -34,9 +38,14 @@ const GameView = ({
   const [status, setStatus] = useState(false);
   const [sounds, setSounds] = useState(false);
   const [clickSound] = useSound(mouseClick, {volume: 0.5});
-  const [playHowl] = useSound(howl, {volume: 0.25, interrupt: true});
-  const [playRooster] = useSound(rooster, {volume: 0.25, interrupt: true});
-
+  // const [playHowl] = useSound(howl, {volume: 0.25, interrupt: true});
+  // const [playRooster] = useSound(rooster, {volume: 0.25, interrupt: true});
+  const image = {
+    villager: villager,
+    doctor: doctor,
+    seer: seer,
+    werewolf: werewolf,
+  }
 
   let role;
   let alive;
@@ -88,7 +97,11 @@ const GameView = ({
       }
 
       <div id="role-container">
-        <h1 id="role">You are a {role}</h1>
+        <div id="role">
+          <img id="roleImg" src={image[role]} />
+          <h1 id="roleName" >You are a {role}</h1>
+        </div>
+        {/* <h1 id="role">You are a {role}</h1> */}
         <div id="timer">Time left: {timer} </div>
         <div id="voiceSetting">
           <a

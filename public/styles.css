@@ -1,28 +1,33 @@
 #app {
   height: 100%;
   width: 100%;
+  overflow: scroll;
 }
 
 html {
   height: 100%;
   width: 100%;
+  background-color: grey;
 }
 
 body {
+  background: linear-gradient(
+     black, grey 97%, red
+  );
   height: 100%;
   width: 100%;
 }
 
 /*---Logo/Header---*/
 .werewolfApp {
-  background-color: grey;
+
 }
 .werewolfLogo {
   width: 100%;
   margin-top: -7.5vw;
 }
 .appHeaderContainer {
-  background-color: grey;
+
   display: inline-block;
   height: 46.75vh;
   overflow: hidden;
@@ -45,7 +50,7 @@ body {
     ". login ."
     ". players ."
     ". playButton .";
-  background-color: grey;
+
 }
 
 #lobby .login {
@@ -280,6 +285,14 @@ input[type="submit"]:hover {
 
 #role {
   grid-area: role;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-template-areas:
+  "img name";
+  overflow: hidden;
+}
+#roleName {
+  grid-area: name;
   justify-self: center;
   font-weight: 400;
   font-size: 25px;
@@ -287,6 +300,15 @@ input[type="submit"]:hover {
   font-family: "Bellefair", serif;
   text-shadow: 0 0 20px rgb(230 10 10), 0 0 20px rgb(10 175 230 / 0%);
   line-height: 1.3;
+}
+#roleImg {
+  grid-area: img;
+  justify-self: center;
+  height: 75%;
+  width: 75%;
+  margin-top: 10%;
+  border-radius: 10%;
+  background-color: white;
 }
 
 #voting {

@@ -34,8 +34,6 @@ function App() {
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
 
-    document.body.style = "background: grey";
-
     setConnection(socket);
     socket.on("gameInProgress", (bool) => {
       setGameInProgress(bool);
