@@ -49,12 +49,14 @@ const GameView = ({
 
   let role;
   let alive;
+  let myClass;
   gameState.players.forEach((player) => {
     if (player.id === myId) {
       role = player.role;
       alive = player.alive;
     }
   });
+
 
   let myClass;
 
@@ -67,6 +69,7 @@ const GameView = ({
   //     setPlay(false)
   //   }
   // })
+
 
   return (
 
@@ -103,7 +106,7 @@ const GameView = ({
         </div>
         {/* <h1 id="role">You are a {role}</h1> */}
         <div id="timer">Time left: {timer} </div>
-        <div id="voiceSetting">
+        {voiceUrl === '' ? null : (<div id="voiceSetting">
           <a
             id="voiceUrl"
             href={voiceUrl.slice(0, 4) === 'http' ? voiceUrl : '//' + voiceUrl}
@@ -111,7 +114,7 @@ const GameView = ({
           >
             Join the Call!
           </a>
-        </div>
+        </div>)}
       </div>
 
     <div id="info-container">
@@ -151,6 +154,7 @@ const GameView = ({
           ) : null}
         </div>
         <div id="remaining">
+
           <div id="remWolves" >Remaining Werewolves: {werewolves}</div>
           <div id="remVillagers" >Remaining Villagers: {villagers}</div>
         </div>

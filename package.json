@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server/index.js",
+
     "start-dev": "nodemon server/index.js",
-    "build": "webpack -w"
+    "build": "webpack",
+    "watch": "webpack -w"
   },
   "repository": {
     "type": "git",

@@ -12,7 +12,8 @@ const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
 
   let voting = false;
   let myPlayer = null;
-  if (gameState.players.length > 1) { //remove if check
+  if (gameState.players.length > 1) {
+    //remove if check
     for (let x = 0; x < gameState.players.length; x++) {
       let player = gameState.players[x];
       if (myId === player.id) {
@@ -42,6 +43,13 @@ const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
         {role === "werewolf" && !day ? <h3 style={{textAlign: 'center', color: 'white'}}>Choose your victim!</h3> : null}
         {day ? <h3 style={{textAlign: 'center', color: 'white'}}>Kill the Werewolves!</h3> : null}
          {gameState.players.map((player) => {
+
+        {role === "werewolf" && !day ? (
+          <h3 className="votingHeader">Choose your victim!</h3>
+        ) : null}
+        {day ? <h3 className="votingHeader">Kill the werewolves!</h3> : null}
+        {gameState.players.map((player) => {
+
           if (day) {
             if (player.id !== myId && player.alive) {
               return (
@@ -90,6 +98,7 @@ const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
     return <SeerVote gameState={gameState} myId={myId} />;
   }
   return <div id="warningMsg" ><h1 style={{color: 'white'}} >Beware! Werewolves are on the hunt!</h1></div>;
+
 };
 
 export default Voting;

@@ -625,16 +625,16 @@ input[type="submit"]:hover {
   color: black;
   background-color: white;
   text-align: center;
-  border: 2px solid rgb(0, 153, 255);
+  border: 2px solid black;
   transition: all 0.2s ease-in-out;
 }
 
 #wolfVotingButton:hover {
   color: white;
-  background-color: rgb(0, 153, 255);
+  background-color: black;
   padding: 10px 20px;
   text-align: center;
-  border: 2px solid rgb(0, 153, 255);
+  border: 2px solid black;
 }
 
 #villagerVotingButton {
@@ -653,6 +653,7 @@ input[type="submit"]:hover {
   border: 2px solid rgb(75, 3, 3);
 }
 
+ 
 #lobby ul {
   list-style-type: square;
   font-size: 20px;
@@ -685,9 +686,10 @@ input[type="submit"]:hover {
 }
 
 #endGameModal {
+  position: absolute;
   display: grid;
   background-color: #fefefe;
-  margin: 15% auto;
+  /* margin: 15% auto; */
   padding: 20px;
   border: 1px solid #888;
   width: 30vw;
@@ -695,6 +697,9 @@ input[type="submit"]:hover {
   height: 30vw;
   border-radius: 5px;
   background-color: rgb(205, 201, 201);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
 }
 
 #endGameMessage {
