@@ -4,6 +4,8 @@ import Login from "./Login.jsx";
 import Lobby from "./Lobby.jsx";
 import GameView from "./GameView.jsx";
 import GameInProgress from './GameInProgress.jsx';
+
+
 const ENDPOINT = "/";
 
 function App() {
@@ -31,8 +33,6 @@ function App() {
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
-
-    document.body.style = "background: grey";
 
     setConnection(socket);
     socket.on("gameInProgress", (bool) => {
@@ -183,6 +183,7 @@ function App() {
   if (gameInProgress) {
     return <GameInProgress />;
   } else {
+
     if (play) {
       return (
         <GameView
@@ -200,6 +201,7 @@ function App() {
           handleWerewolfChat={handleWerewolfChat.bind(this)}
           handleResetGame={handleResetGame.bind(this)}
           voiceUrl={gameSettings.voiceUrl}
+          gameSettings={gameSettings}
         />
       );
     }

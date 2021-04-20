@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import SeerVote from "./SeerVote.jsx";
 import DocVote from "./DocVote.jsx";
+import useSound from 'use-sound';
+import mouseClick from '../../assets/sounds/mouseClick.mp3';
+
 
 const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
+
+  const [choice, setChoice] = useState('');
+  const [clickSound] = useSound(mouseClick, {volume: 0.5});
+
   let voting = false;
   let myPlayer = null;
   if (gameState.players.length > 1) {
@@ -19,46 +26,42 @@ const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
     } else if (!day && myPlayer.role === "werewolf" && myPlayer.alive) {
       voting = true;
     }
-    // else if (myPlayer.role === 'werewolf' && !day && myPlayer.alive) {
-    //   setVoting(true)
-    // }
+    else if (myPlayer.role === 'werewolf' && !day && myPlayer.alive) {
+      voting = true;
+    }
     if (preGame) {
       return null;
     }
   } else {
-    voting = true;
-    myPlayer = {
-      name: "alex",
-      id: myId,
-      role: "werewolf",
-      admin: false,
-      alive: true,
-      protected: false,
-      targeted: 0,
-    };
+    voting = true
   }
+
   if (voting) {
     return (
       <div id="voting">
+
+        {role === "werewolf" && !day ? <h3 style={{textAlign: 'center', color: 'white'}}>Choose your victim!</h3> : null}
+        {day ? <h3 style={{textAlign: 'center', color: 'white'}}>Kill the Werewolves!</h3> : null}
+         {gameState.players.map((player) => {
+
         {role === "werewolf" && !day ? (
           <h3 className="votingHeader">Choose your victim!</h3>
         ) : null}
         {day ? <h3 className="votingHeader">Kill the werewolves!</h3> : null}
         {gameState.players.map((player) => {
+
           if (day) {
             if (player.id !== myId && player.alive) {
               return (
-                <button
-                  id="wolfVotingButton"
+                <div
+                  id="wolfVoting"
                   key={player.id}
-                  onClick={() => {
-                    vote(player.id);
-                  }}
+                  onClick={() => vote(player.id) + clickSound()}
                 >
                   {player.name}
                   <br />
                   Votes: {player.targeted}
-                </button>
+                </div>
               );
             }
           } else {
@@ -68,26 +71,25 @@ const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
               player.alive
             ) {
               return (
-                <button
-                  id="villagerVotingButton"
+                <div
+                  id="villagerVoting"
                   key={player.id}
-                  onClick={() => {
-                    vote(player.id);
-                  }}
+                  onClick={() => vote(player.id) + clickSound()}
                 >
                   {player.name}
                   <br />
                   Votes: {player.targeted}
-                </button>
+                </div>
               );
             }
           }
         })}
+
       </div>
     );
   }
   if (!myPlayer.alive) {
-    return <h1>YOU ARE DEAD</h1>;
+    return <h1 style={{color: 'white'}}>YOU ARE DEAD</h1>;
   }
   if (myPlayer.role === "doctor") {
     return <DocVote docChoice={docChoice} gameState={gameState} myId={myId} />;
@@ -95,7 +97,8 @@ const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
   if (myPlayer.role === "seer") {
     return <SeerVote gameState={gameState} myId={myId} />;
   }
-  return <h3 className="votingHeader">Beware! Werewolves are on the hunt!</h3>;
+  return <div id="warningMsg" ><h1 style={{color: 'white'}} >Beware! Werewolves are on the hunt!</h1></div>;
+
 };
 
 export default Voting;
