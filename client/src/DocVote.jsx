@@ -3,7 +3,6 @@ import useSound from 'use-sound';
 import mouseClick from '../../assets/sounds/mouseClick.mp3';
 
 
-
 const DocVote = ({ gameState, myId, docChoice }) => {
 
   const [save, setSave] = useState(false);
@@ -16,33 +15,6 @@ const DocVote = ({ gameState, myId, docChoice }) => {
         // setViewRole(gameState.players[i]); for dropdown
         docChoice(id);
       }
-      
-  render() {
-    const { gameState, docChoice, myId } = this.props;
-    if (!this.state.protect) {
-      return (
-        <div>
-          <h3 className="votingHeader">Choose who to protect</h3>
-          <div id="voting">
-            {gameState.players.map((player) => {
-              if (player.alive && player.id !== myId) {
-                return (
-                  <button
-                    id="doctorVoteButton"
-                    onClick={() => {
-                      this.protect(player);
-                    }}
-                  >
-                    {player.name}
-                  </button>
-                );
-              }
-            })}
-          </div>
-        </div>
-      );
-    } else {
-      return <h3>You have protected: {this.state.protect}</h3>;
     }
   };
 

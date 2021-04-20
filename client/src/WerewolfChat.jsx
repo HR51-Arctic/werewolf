@@ -14,7 +14,7 @@ const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
 
   return (
     <div id="werewolfChat">
-      <h3>
+      <span id="werewolfChatHeading">
         Strategize with other werewolves here:
       </h3>
       <form id="wolfForm"

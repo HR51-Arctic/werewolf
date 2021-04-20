@@ -49,7 +49,6 @@ const GameView = ({
 
   let role;
   let alive;
-  let myClass;
   gameState.players.forEach((player) => {
     if (player.id === myId) {
       role = player.role;
@@ -58,6 +57,7 @@ const GameView = ({
   });
 
 
+  let myClass;
 
   // const [play, setPlay] = useState(false);
   // let howler = new Audio(howl);
@@ -68,7 +68,6 @@ const GameView = ({
   //     setPlay(false)
   //   }
   // })
-
 
   return (
 
@@ -105,7 +104,7 @@ const GameView = ({
         </div>
         {/* <h1 id="role">You are a {role}</h1> */}
         <div id="timer">Time left: {timer} </div>
-        {voiceUrl === '' ? null : (<div id="voiceSetting">
+        <div id="voiceSetting">
           <a
             id="voiceUrl"
             href={voiceUrl.slice(0, 4) === 'http' ? voiceUrl : '//' + voiceUrl}
@@ -113,7 +112,7 @@ const GameView = ({
           >
             Join the Call!
           </a>
-        </div>)}
+        </div>
       </div>
 
       <div id="info-container">
@@ -173,6 +172,54 @@ const GameView = ({
             }
 
             {/* This is a dropdown instead, cant style options easily... */}
+            {/* <div id="aliveDeadTitle">Current players</div> */}
+            {/* <label style={{color: 'white'}}>
+      : null}
+        <div id = "gameMessage">
+          {endGame ? (
+            <EndGameModal endGame={endGame} clickHandler={handleResetGame} />
+          ) : null}
+          {preGame ? (
+            <div>
+              Welcome to werewolf! This is a small and tight-knit town, so
+              introduce yourselves and get to know each other! But be careful,
+              some may not be what they seem...
+            </div>
+          ) : null}
+          {day && !preGame ? (
+            <div>
+              Talk amongst yourselves and try to figure out who is really a
+              werewolf! Vote below and at the end of the day the one with the
+              most votes will be killed.
+            </div>
+          ) : null}
+          {!day ? (
+            <div>
+              It is dangerous to walk these streets alone at night. Pray the
+              werewolves don't find you!
+            </div>
+          ) : null}
+        </div>
+        <div id="remaining">
+          <div id="remWolves" >Remaining Werewolves: {werewolves}</div>
+          <div id="remVillagers" >Remaining Villagers: {villagers}</div>
+        </div>
+        <div id="aliveDeadList">
+
+          {!status ?
+          <button id="currentPlayers"
+          type='submit'
+          value='Submit'
+          onClick={() => clickSound() + setStatus(!status)}
+          >Current Players</button> :
+          <button id="close"
+          type='submit'
+          value='Submit'
+          onClick={() => clickSound() + setStatus(!status)}
+          >close</button>
+          }
+
+        {/* This is a dropdown instead, cant style options easily... */}
             {/* <div id="aliveDeadTitle">Current players</div> */}
             {/* <label style={{color: 'white'}}>
           Current Players:
