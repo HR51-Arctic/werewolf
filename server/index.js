@@ -14,13 +14,8 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.json());
-<<<<<<< HEAD
-// app.use(index);
-app.use(favicon(path.join("client", "src", "images", "favicon.ico")));
-=======
 app.use(index);
 app.use(favicon(path.join(__dirname, "..", "client", "src", "images", "favicon.ico")));
->>>>>>> 189ba1dd323a9e94089ff9a97cfdff398391a14d
 
 const server = http.createServer(app);
 

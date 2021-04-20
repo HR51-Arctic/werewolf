@@ -6,7 +6,7 @@ import mouseClick from '../../assets/sounds/mouseClick.mp3';
 const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
 
   const [message, setMessage] = useState("");
-  const [clickSound] = useSound(mouseClick, {volume: 0.5});
+  const [clickSound] = useSound(mouseClick, { volume: 0.5 });
 
   const handleMessage = (event) => {
     setMessage(event.target.value);
@@ -16,7 +16,7 @@ const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
     <div id="werewolfChat">
       <h3>
         Strategize with other werewolves here:
-      </span>
+      </h3>
       <form id="wolfForm"
         onSubmit={(event) => {
           event.preventDefault();
@@ -25,7 +25,7 @@ const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
         }}
       >
         <input onChange={handleMessage.bind(this)} value={message} />
-        <input type="submit" value="Message" onClick={() => clickSound()}/>
+        <input type="submit" value="Message" onClick={() => clickSound()} />
       </form>
       <div id="wolfMsgContainer">
         {werewolfMessages.map((message, index, array) => {
@@ -33,7 +33,7 @@ const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
             <p key={index}>
               {array[array.length - 1 - index][0]}:{" "}
 
-      </h3>
+      </div>
       <div className="message-list">
         {werewolfMessages.map((message, index, array) => {
           return (
@@ -54,20 +54,20 @@ const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
           setMessage("");
         }}
       > */}
-        <div className="message">
-          <input className='message-input' onChange={handleMessage.bind(this)} value={message} />
-          <input
-            className='message-button'
-            type="submit"
-            value="Message"
-            onClick={(event) => {
-              event.preventDefault();
-              handleWerewolfChat(message);
-              setMessage("");
-            }}
-          />
-        </div>
-      {/* </form> */}
+          <div className="message">
+            <input className='message-input' onChange={handleMessage.bind(this)} value={message} />
+            <input
+              className='message-button'
+              type="submit"
+              value="Message"
+              onClick={(event) => {
+                event.preventDefault();
+                handleWerewolfChat(message);
+                setMessage("");
+              }}
+            />
+          </div>
+          {/* </form> */ }
     </div>
   );
 };
