@@ -6,7 +6,7 @@ import mouseClick from '../../assets/sounds/mouseClick.mp3';
 
 
 const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
-
+// comment
   const [choice, setChoice] = useState('');
   const [clickSound] = useSound(mouseClick, {volume: 0.5});
 

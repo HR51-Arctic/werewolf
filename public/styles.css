@@ -229,6 +229,7 @@ input[type="submit"]:hover {
   grid-template-areas:
   "messages messages voting"
   "wolfChat wolfChat .";
+  z-index: 1;
 }
 
 #gameMessage {
@@ -322,6 +323,7 @@ input[type="submit"]:hover {
   opacity: 0.9;
   box-shadow: -5px -5px 5px 5px black;
   overflow: scroll;
+  z-index: -1;
 }
 
 #timer {
@@ -487,7 +489,7 @@ input[type="submit"]:hover {
 #modal {
   grid-area: gameMsg;
   background: grey;
-  z-index: 99;
+  z-index: 5;
   height: 100%;
   width: 100%;
   overflow: scroll;
@@ -539,6 +541,7 @@ input[type="submit"]:hover {
   background: rgb(75, 3, 3);
   color: white;
   font-family: "Bellefair", serif;
+  z-index: 1;
 }
 #villagerVoting:hover {
   text-decoration: underline;
@@ -556,6 +559,7 @@ input[type="submit"]:hover {
   background: rgb(75, 3, 3);
   color: white;
   font-family: "Bellefair", serif;
+  z-index: 1;
 }
 #wolfVoting:hover {
   text-decoration: underline;
@@ -675,7 +679,7 @@ input[type="submit"]:hover {
 
 #endGameBackground {
   position: fixed;
-  z-index: 1;
+  z-index: 5;
   left: 0;
   top: 0;
   width: 100%;
@@ -686,8 +690,11 @@ input[type="submit"]:hover {
 
 #endGameModal {
   display: grid;
+  position: absolute;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 15%;
   background-color: #fefefe;
-  margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 30vw;
@@ -695,6 +702,7 @@ input[type="submit"]:hover {
   height: 30vw;
   border-radius: 5px;
   background-color: rgb(205, 201, 201);
+  z-index: 99;
 }
 
 #endGameMessage {
