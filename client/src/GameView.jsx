@@ -102,7 +102,6 @@ const GameView = ({
           <img id="roleImg" src={image[role]} />
           <h1 id="roleName" >You are a {role}</h1>
         </div>
-        {/* <h1 id="role">You are a {role}</h1> */}
         <div id="timer">Time left: {timer} </div>
         <div id="voiceSetting">
           <a

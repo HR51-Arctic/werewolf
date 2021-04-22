@@ -223,6 +223,7 @@ input[type="submit"]:hover {
 
 #info-container {
   grid-area: info;
+  position: relative;
   display: grid;
   grid-template-columns: 33% 33% 33%;
   grid-template-rows: 60% 40%;
@@ -295,6 +296,7 @@ input[type="submit"]:hover {
 #roleName {
   grid-area: name;
   justify-self: center;
+  margin-top: 7%;
   font-weight: 400;
   font-size: 25px;
   color: white;
@@ -307,6 +309,8 @@ input[type="submit"]:hover {
   justify-self: center;
   height: 75%;
   width: 75%;
+  max-height: 100px;
+  max-width: 100px;
   margin-top: 10%;
   border-radius: 10%;
   background-color: white;
@@ -329,6 +333,7 @@ input[type="submit"]:hover {
 #timer {
   grid-area: timer;
   justify-self: center;
+  margin-top: 5%;
   font-weight: 400;
   font-size: 25px;
   letter-spacing: 0.1em;
@@ -377,6 +382,7 @@ input[type="submit"]:hover {
 #seerContainer {
   grid-area: voting;
   justify-self: center;
+  position: relative;
   width: 90%;
   height: 90%;
   border: 3px solid black;
@@ -385,11 +391,13 @@ input[type="submit"]:hover {
   opacity: 0.9;
   box-shadow: -5px -5px 5px 5px black;
   overflow: scroll;
+  z-index: -1;
 }
 
 #doctorContainer {
   grid-area: voting;
   justify-self: center;
+  position: relative;
   width: 90%;
   height: 90%;
   border: 3px solid black;
@@ -398,10 +406,12 @@ input[type="submit"]:hover {
   opacity: 0.9;
   box-shadow: -5px -5px 5px 5px black;
   overflow: scroll;
+  z-index: -1;
 }
 
 #warningMsg {
   grid-area: voting;
+  position: relative;
   justify-self: center;
   width: 90%;
   height: 90%;
@@ -410,11 +420,13 @@ input[type="submit"]:hover {
   border-radius: 2%;
   opacity: 0.9;
   box-shadow: -5px -5px 5px 5px black;
+  z-index: -1;
 }
 
 #voiceSetting {
   grid-area: call;
   justify-self: center;
+  margin-top: 5%;
   font-weight: 400;
   font-size: 25px;
   letter-spacing: 0.1em;
@@ -425,12 +437,13 @@ input[type="submit"]:hover {
 #werewolfChat {
   grid-area: wolfChat;
   justify-self: center;
+  position: relative;
   display: grid;
   grid-template-rows: 20% 80%;
   grid-template-columns: 60% 40%;
   grid-template-areas:
   "wolfHeader wolfHeader"
-  "wolfMsgContainer wolfForm ";
+  "wolfMsgContainer wolfMsgContainer";
   width: 90%;
   height: 90%;
   border: 3px solid black;
@@ -438,11 +451,12 @@ input[type="submit"]:hover {
   border-radius: 2%;
   opacity: 0.9;
   box-shadow: -5px -5px 5px 5px black;
+  z-index: -1;
 }
 
 #werewolfChatHeading {
   grid-area: wolfHeader;
-  margin-left: 3%;
+  justify-self: center;
   font-size: 25px;
   font-weight: bold;
   color: white;
@@ -450,6 +464,7 @@ input[type="submit"]:hover {
 
 #wolfForm {
   grid-area: wolfForm;
+  width: 90%;
 }
 #wolfMsgContainer {
   grid-area: wolfMsgContainer;
@@ -459,6 +474,17 @@ input[type="submit"]:hover {
   height: 90%;
   margin-left: 5%;
   overflow: scroll;
+}
+#wolfMsgInput {
+  width: 75%;
+  margin-left: 5%;
+  margin-right: 3%;
+}
+#wolfText {
+  color: white;
+  font-weight: bold;
+  font-family: "Bellefair", serif;
+  margin-left: 10%;
 }
 
 #remaining {
@@ -514,6 +540,7 @@ input[type="submit"]:hover {
 
 #docAction {
   height: auto;
+  position: static;
   width: 50%;
   margin-left: 25%;
   margin-right: 25%;
@@ -531,6 +558,7 @@ input[type="submit"]:hover {
 
 #villagerVoting {
   height: auto;
+  position: static;
   width: 80%;
   margin-left: 10%;
   margin-right: 10%;
@@ -691,9 +719,10 @@ input[type="submit"]:hover {
 #endGameModal {
   display: grid;
   position: absolute;
-  margin-left: 25%;
+  margin-left: 30%;
   margin-right: 25%;
   margin-top: 15%;
+  margin-bottom: 15%;
   background-color: #fefefe;
   padding: 20px;
   border: 1px solid #888;
@@ -795,4 +824,41 @@ input[type="submit"]:hover {
 .four {
   animation-delay: 0.45s;
   right: 23px;
+}
+
+/*----------------- Game in Progress ------------------------*/
+#GIPContainer {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-rows: 60% 40%;
+  grid-template-areas:
+  "GIPLogo"
+  "GIPText";
+}
+#GIPTextContainer {
+  grid-area: GIPText;
+  justify-self: center;
+}
+#GIPLogo {
+  grid-area: GIPLogo;
+  height: 100%;
+  width: 100%;
+}
+#GIPImage {
+  grid-area: GIPLogo;
+  justify-self: center;
+  height: 100%;
+  width: 100%;
+}
+#GIPWolf {
+  grid-area: GIPLogo;
+  justify-self: center;
+}
+#GIPText {
+  justify-self: center;
+}
+#JText {
+  justify-self: center;
+  margin-left: 25%;
 }
