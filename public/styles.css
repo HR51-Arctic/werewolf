@@ -223,6 +223,7 @@ input[type="submit"]:hover {
 
 #info-container {
   grid-area: info;
+  position: relative;
   display: grid;
   grid-template-columns: 33% 33% 33%;
   grid-template-rows: 60% 40%;
@@ -381,6 +382,7 @@ input[type="submit"]:hover {
 #seerContainer {
   grid-area: voting;
   justify-self: center;
+  position: relative;
   width: 90%;
   height: 90%;
   border: 3px solid black;
@@ -389,11 +391,13 @@ input[type="submit"]:hover {
   opacity: 0.9;
   box-shadow: -5px -5px 5px 5px black;
   overflow: scroll;
+  z-index: -1;
 }
 
 #doctorContainer {
   grid-area: voting;
   justify-self: center;
+  position: relative;
   width: 90%;
   height: 90%;
   border: 3px solid black;
@@ -402,10 +406,12 @@ input[type="submit"]:hover {
   opacity: 0.9;
   box-shadow: -5px -5px 5px 5px black;
   overflow: scroll;
+  z-index: -1;
 }
 
 #warningMsg {
   grid-area: voting;
+  position: relative;
   justify-self: center;
   width: 90%;
   height: 90%;
@@ -414,6 +420,7 @@ input[type="submit"]:hover {
   border-radius: 2%;
   opacity: 0.9;
   box-shadow: -5px -5px 5px 5px black;
+  z-index: -1;
 }
 
 #voiceSetting {
@@ -430,6 +437,7 @@ input[type="submit"]:hover {
 #werewolfChat {
   grid-area: wolfChat;
   justify-self: center;
+  position: relative;
   display: grid;
   grid-template-rows: 20% 80%;
   grid-template-columns: 60% 40%;
@@ -443,6 +451,7 @@ input[type="submit"]:hover {
   border-radius: 2%;
   opacity: 0.9;
   box-shadow: -5px -5px 5px 5px black;
+  z-index: -1;
 }
 
 #werewolfChatHeading {
@@ -531,6 +540,7 @@ input[type="submit"]:hover {
 
 #docAction {
   height: auto;
+  position: static;
   width: 50%;
   margin-left: 25%;
   margin-right: 25%;
@@ -548,6 +558,7 @@ input[type="submit"]:hover {
 
 #villagerVoting {
   height: auto;
+  position: static;
   width: 80%;
   margin-left: 10%;
   margin-right: 10%;
