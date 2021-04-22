@@ -295,6 +295,7 @@ input[type="submit"]:hover {
 #roleName {
   grid-area: name;
   justify-self: center;
+  margin-top: 7%;
   font-weight: 400;
   font-size: 25px;
   color: white;
@@ -307,6 +308,8 @@ input[type="submit"]:hover {
   justify-self: center;
   height: 75%;
   width: 75%;
+  max-height: 100px;
+  max-width: 100px;
   margin-top: 10%;
   border-radius: 10%;
   background-color: white;
@@ -329,6 +332,7 @@ input[type="submit"]:hover {
 #timer {
   grid-area: timer;
   justify-self: center;
+  margin-top: 5%;
   font-weight: 400;
   font-size: 25px;
   letter-spacing: 0.1em;
@@ -415,6 +419,7 @@ input[type="submit"]:hover {
 #voiceSetting {
   grid-area: call;
   justify-self: center;
+  margin-top: 5%;
   font-weight: 400;
   font-size: 25px;
   letter-spacing: 0.1em;
@@ -430,7 +435,7 @@ input[type="submit"]:hover {
   grid-template-columns: 60% 40%;
   grid-template-areas:
   "wolfHeader wolfHeader"
-  "wolfMsgContainer wolfForm ";
+  "wolfMsgContainer wolfMsgContainer";
   width: 90%;
   height: 90%;
   border: 3px solid black;
@@ -442,7 +447,7 @@ input[type="submit"]:hover {
 
 #werewolfChatHeading {
   grid-area: wolfHeader;
-  margin-left: 3%;
+  justify-self: center;
   font-size: 25px;
   font-weight: bold;
   color: white;
@@ -450,6 +455,7 @@ input[type="submit"]:hover {
 
 #wolfForm {
   grid-area: wolfForm;
+  width: 90%;
 }
 #wolfMsgContainer {
   grid-area: wolfMsgContainer;
@@ -459,6 +465,17 @@ input[type="submit"]:hover {
   height: 90%;
   margin-left: 5%;
   overflow: scroll;
+}
+#wolfMsgInput {
+  width: 75%;
+  margin-left: 5%;
+  margin-right: 3%;
+}
+#wolfText {
+  color: white;
+  font-weight: bold;
+  font-family: "Bellefair", serif;
+  margin-left: 10%;
 }
 
 #remaining {
@@ -691,9 +708,10 @@ input[type="submit"]:hover {
 #endGameModal {
   display: grid;
   position: absolute;
-  margin-left: 25%;
+  margin-left: 30%;
   margin-right: 25%;
   margin-top: 15%;
+  margin-bottom: 15%;
   background-color: #fefefe;
   padding: 20px;
   border: 1px solid #888;

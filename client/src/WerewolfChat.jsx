@@ -14,29 +14,39 @@ const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
 
   return (
     <div id="werewolfChat">
+
       <span id="werewolfChatHeading">
         Strategize with other werewolves here:
       </span>
-      <form id="wolfForm"
+
+      <div id="wolfMsgContainer">
+        <form id="wolfForm"
         onSubmit={(event) => {
-          event.preventDefault();
-          handleWerewolfChat(message);
-          setMessage("");
+        event.preventDefault();
+        handleWerewolfChat(message);
+        setMessage("");
         }}
-      >
-        <input onChange={handleMessage.bind(this)} value={message} />
+        >
+        <input id="wolfMsgInput"
+        placeholder="Enter a message"
+        onChange={handleMessage.bind(this)}
+        value={message}
+        />
         <input type="submit" value="Message" onClick={() => clickSound()}/>
       </form>
-      <div id="wolfMsgContainer">
+
         {werewolfMessages.map((message, index, array) => {
           return (
-            <p key={index}>
+            <div key={index} style={{width: '80%', border: '2px solid black', marginLeft: '5%', marginRight: '5%', marginTop: '1%', marginBottom: '1%', backgroundColor: 'rgb(75, 3, 3)', overflow: 'auto'}}>
+            <p key={index} id="wolfText">
               {array[array.length - 1 - index][0]}:{" "}
               {array[array.length - 1 - index][1]}
             </p>
+            </div>
           );
         })}
       </div>
+
     </div>
   );
 };

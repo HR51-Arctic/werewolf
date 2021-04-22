@@ -5,10 +5,9 @@ import Login from "./Login.jsx";
 import useSound from 'use-sound';
 import mouseClick from '../../assets/sounds/mouseClick.mp3';
 import growl from '../../assets/sounds/growl.mp3';
-// import ParallaxEyes from './ParallaxEyes.jsx'
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import wolfEyes from './images/wolfEyes.jpeg';
-// import Eyes from './images/eyes.png';
+
 
 const Lobby = ({ participants, handleGameStart, handleLogin, handleSignup, loggedIn, gameSettings, onGameSettingsChange }) => {
 

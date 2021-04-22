@@ -51,6 +51,7 @@ const GameInProgress = () => {
 
   return (
   <div id='GIPContainer' onMouseMove={handleMouse}>
+
     <motion.div id='GIPWolf'
         style={{
             width: 150,
@@ -66,9 +67,11 @@ const GameInProgress = () => {
        >
        <img src={wolfEyes}  style={{width: 150, height: 150}}/>
     </motion.div>
+
     <div id="GIPLogo">
       <img id="GIPImage" src={WerewolfLogo} alt="Werewolf Logo" />
     </div>
+
     <div id='GIPTextContainer'>
       <h1 id='GIPText'>game in progress, please come back later</h1>
       <h1 id='JText' > 申し訳ございません <br/> ありがとうございます</h1>
