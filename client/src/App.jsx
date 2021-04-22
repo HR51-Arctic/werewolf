@@ -32,7 +32,7 @@ function App() {
   });
 
   useEffect(() => {
-    const socket = socketIOClient(ENDPOINT);
+    const socket = socketIOClient();
 
     setConnection(socket);
     socket.on("gameInProgress", (bool) => {
@@ -208,7 +208,7 @@ function App() {
     return (
       <div className="werewolfApp">
         <Lobby
-          loggedIn = {loggedIn}
+          loggedIn={loggedIn}
           handleLogin={handleLogin.bind(this)}
           handleSignup={handleSignup.bind(this)}
           participants={lobbyParticipants}

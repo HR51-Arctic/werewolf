@@ -6,7 +6,7 @@ import mouseClick from '../../assets/sounds/mouseClick.mp3';
 const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
 
   const [message, setMessage] = useState("");
-  const [clickSound] = useSound(mouseClick, {volume: 0.5});
+  const [clickSound] = useSound(mouseClick, { volume: 0.5 });
 
   const handleMessage = (event) => {
     setMessage(event.target.value);
@@ -25,7 +25,7 @@ const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
         }}
       >
         <input onChange={handleMessage.bind(this)} value={message} />
-        <input type="submit" value="Message" onClick={() => clickSound()}/>
+        <input type="submit" value="Message" onClick={() => clickSound()} />
       </form>
       <div id="wolfMsgContainer">
         {werewolfMessages.map((message, index, array) => {

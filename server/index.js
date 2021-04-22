@@ -68,7 +68,6 @@ io.on("connection", (socket) => {
     socket.username = username;
     console.log(username, "logged in");
     unregisteredClients.splice(unregisteredClients.indexOf(socket.id), 1);
-    console.log(unregisteredClients);
     players.push(new Player(socket.id, socket.username));
     io.sockets.emit("GetParticipants", players);
   });
@@ -78,7 +77,6 @@ io.on("connection", (socket) => {
   //   socket.username = username;
   //   players.push(new Player(socket.id, socket.username));
   //   io.sockets.emit('GetParticipants', players);
-
   // });
 
   /////////RESET LOGIC //////////
@@ -96,6 +94,7 @@ io.on("connection", (socket) => {
     io.sockets.emit("resetGame", currentGame);
     io.sockets.emit("GetParticipants", players);
     io.sockets.emit("gameInProgress", false);
+    io.sockets.emit("GetWerewolfChat", []);
   });
   //////////Settings Logic //////////
   socket.on("NewSettings", (newSettings) => {
@@ -127,7 +126,6 @@ io.on("connection", (socket) => {
     const preGameTimerLoop = setInterval(() => {
       preGameTimer -= 1;
       io.sockets.emit("timer", preGameTimer);
-      console.log(preGameTimer);
       if (preGameTimer == 0) {
         currentGame.day = false;
         nightPhase(currentGame);
@@ -176,7 +174,6 @@ const nightPhase = (currentGame) => {
   const nightTimerLoop = setInterval(() => {
     nightTimer -= 1;
     io.sockets.emit("timer", nightTimer);
-    console.log(nightTimer);
     if (nightTimer == 0) {
       clearInterval(nightTimerLoop);
       currentGame.determineKill();
@@ -206,7 +203,6 @@ const dayPhase = (currentGame) => {
   const dayTimerLoop = setInterval(() => {
     dayTimer -= 1;
     io.sockets.emit("timer", dayTimer);
-    console.log(dayTimer);
     if (dayTimer == 0) {
       clearInterval(dayTimerLoop);
       currentGame.determineKill();
