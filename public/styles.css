@@ -796,3 +796,40 @@ input[type="submit"]:hover {
   animation-delay: 0.45s;
   right: 23px;
 }
+
+/*----------------- Game in Progress ------------------------*/
+#GIPContainer {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-rows: 60% 40%;
+  grid-template-areas:
+  "GIPLogo"
+  "GIPText";
+}
+#GIPTextContainer {
+  grid-area: GIPText;
+  justify-self: center;
+}
+#GIPLogo {
+  grid-area: GIPLogo;
+  height: 100%;
+  width: 100%;
+}
+#GIPImage {
+  grid-area: GIPLogo;
+  justify-self: center;
+  height: 100%;
+  width: 100%;
+}
+#GIPWolf {
+  grid-area: GIPLogo;
+  justify-self: center;
+}
+#GIPText {
+  justify-self: center;
+}
+#JText {
+  justify-self: center;
+  margin-left: 25%;
+}
