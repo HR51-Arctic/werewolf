@@ -6,7 +6,7 @@ import mouseClick from '../../assets/sounds/mouseClick.mp3';
 const WerewolfChat = ({ werewolfMessages, handleWerewolfChat }) => {
 
   const [message, setMessage] = useState("");
-  const [clickSound] = useSound(mouseClick, {volume: 0.5});
+  const [clickSound] = useSound(mouseClick, { volume: 0.5 });
 
   const handleMessage = (event) => {
     setMessage(event.target.value);
