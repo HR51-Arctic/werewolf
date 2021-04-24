@@ -225,7 +225,7 @@ const dayPhase = (currentGame) => {
 
 /////////////////AUTOMATIC GAME RESET/////////////////////////
 const endGameTimer = () => {
-  let timeToReset = 20;
+  let timeToReset = 10;
   const endGameTimerLoop = setInterval(() => {
     timeToReset -= 1;
     if (timeToReset == 0) {
