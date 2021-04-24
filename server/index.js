@@ -33,6 +33,25 @@ let gameSettings = {
   voiceUrl: '',
 };
 
+////////////////RESET LOGIC/////////////////////////////
+
+const resetLogic = () => {
+  players = [];
+  messages = [];
+  currentGame.players.forEach((player) => {
+    player.role = "villager";
+    player.alive = true;
+    if (clients.indexOf(player.id) !== -1) {
+      players.push(player);
+    }
+  });
+  currentGame = null;
+  io.sockets.emit("resetGame", currentGame);
+  io.sockets.emit("GetParticipants", players);
+  io.sockets.emit("gameInProgress", false);
+  io.sockets.emit("GetWerewolfChat", []);
+}
+
 io.on("connection", (socket) => {
   if (currentGame) {
     socket.emit("gameInProgress", true);
@@ -79,22 +98,9 @@ io.on("connection", (socket) => {
   //   io.sockets.emit('GetParticipants', players);
   // });
 
-  /////////RESET LOGIC //////////
+  /////////GAME LOGIC //////////
   socket.on("initializeReset", () => {
-    players = [];
-    messages = [];
-    currentGame.players.forEach((player) => {
-      player.role = "villager";
-      player.alive = true;
-      if (clients.indexOf(player.id) !== -1) {
-        players.push(player);
-      }
-    });
-    currentGame = null;
-    io.sockets.emit("resetGame", currentGame);
-    io.sockets.emit("GetParticipants", players);
-    io.sockets.emit("gameInProgress", false);
-    io.sockets.emit("GetWerewolfChat", []);
+    resetLogic();
   });
   //////////Settings Logic //////////
   socket.on("NewSettings", (newSettings) => {
@@ -162,10 +168,12 @@ const nightPhase = (currentGame) => {
     currentGame.numberOfAliveVillagers()
   ) {
     io.sockets.emit("endGame", "Werewolves win");
+    endGameTimer();
     return;
   }
   if (currentGame.numberOfAliveWerewolves() === 0) {
     io.sockets.emit("endGame", "Villagers win");
+    endGameTimer();
     return;
   }
 
@@ -192,11 +200,13 @@ const dayPhase = (currentGame) => {
     currentGame.numberOfAliveWerewolves() >=
     currentGame.numberOfAliveVillagers()
   ) {
-    io.sockets.emit("endGame", "werewolves win");
+    io.sockets.emit("endGame", "Werewolves win");
+    endGameTimer();
     return;
   }
   if (currentGame.numberOfAliveWerewolves() === 0) {
-    io.sockets.emit("endGame", "villagers win");
+    io.sockets.emit("endGame", "Villagers win");
+    endGameTimer();
     return;
   }
   let dayTimer = currentGame.dayTimer;
@@ -212,6 +222,21 @@ const dayPhase = (currentGame) => {
     }
   }, 1000);
 };
+
+/////////////////AUTOMATIC GAME RESET/////////////////////////
+const endGameTimer = () => {
+  let timeToReset = 20;
+  const endGameTimerLoop = setInterval(() => {
+    timeToReset -= 1;
+    if (timeToReset == 0) {
+      clearInterval(endGameTimerLoop);
+      if (currentGame) {
+        resetLogic();
+      }
+
+    }
+  }, 1000);
+}
 
 ////////////////////////////////////////////////////////////////////////
 // app.post("/registerUser", function (req, res) {
