@@ -107,6 +107,11 @@ class Game {
         voteCount[this.votes[key]] += 1;
       }
     }
+    if (Object.keys(voteCount).length === 0) {
+      let randomNum = Math.floor(Math.random() * this.players.length);
+      this.players[randomNum].alive = false;
+      return;
+    }
     this.votes = {};
     let maxVotes = 0;
     let targeted = "";
