@@ -12,7 +12,7 @@ const Voting = ({ gameState, day, myId, vote, docChoice, role, preGame }) => {
 
   let voting = false;
   let myPlayer = null;
-  if (gameState.players.length > 1) { //remove if check
+  if (gameState.players.length > 1) {
     for (let x = 0; x < gameState.players.length; x++) {
       let player = gameState.players[x];
       if (myId === player.id) {

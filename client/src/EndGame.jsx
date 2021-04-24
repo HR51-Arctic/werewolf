@@ -1,6 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
 const EndGameModal = ({ endGame, clickHandler }) => {
+
+  // let endGameTimer = 5;
+  // useEffect(() => {
+  //   const endGameTimerLoop = setInterval(() => {
+  //     endGameTimer -= 1;
+  //     console.log(endGameTimer)
+  //     if (endGameTimer == 0) {
+  //       clearInterval(endGameTimerLoop);
+  //       clickHandler();
+  //     }
+  //   }, 1000);
+  // });
+
+
+
   return (
     <div id="endGameBackground">
       <div id="endGameModal">
