@@ -128,7 +128,7 @@ const Login = (props) => {
           marginBottom: '2px',
         }}
       >
-        Welcome <span style={{textDecoration: 'underline'}}>{username}</span>, please wait for the game to begin
+        Welcome <span style={{textDecoration: 'underline'}}>{username}</span>, once at least four players have joined the game may begin.
       </div>
     )
   }

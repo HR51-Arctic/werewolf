@@ -121,7 +121,7 @@ io.on("connection", (socket) => {
       io.to(unregisteredClients[i]).emit("gameInProgress", true);
     }
 
-    if (playerPool.length >= 7) { // for debug
+    if (playerPool.length >= 4) { // for debug
       assignRoles(currentGame, playerPool);
       currentGame.active = true;
       io.sockets.emit("PreGame", currentGame);
@@ -225,7 +225,7 @@ const dayPhase = (currentGame) => {
 
 /////////////////AUTOMATIC GAME RESET/////////////////////////
 const endGameTimer = () => {
-  let timeToReset = 20;
+  let timeToReset = 10;
   const endGameTimerLoop = setInterval(() => {
     timeToReset -= 1;
     if (timeToReset == 0) {

@@ -25,7 +25,7 @@ const EndGameModal = ({ endGame, clickHandler }) => {
         </div>
 
         {/* <div className="wave"></div> */}
-        <button id="endGameButton" onClick={() => clickHandler()}>Play Again</button>
+        {/* <button id="endGameButton" onClick={() => clickHandler()}>Play Again</button> */}
       </div>
     </div>
 
