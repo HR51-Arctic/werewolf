@@ -116,7 +116,7 @@ const Lobby = ({ participants, handleGameStart, handleLogin, handleSignup, logge
               })}
             </ul>
           </div>
-          {participants.length >= 7 && loggedIn && ( //change back to 1 post testing
+          {participants.length >= 4 && loggedIn && (
             <button
               className="playButton"
               type="submit"

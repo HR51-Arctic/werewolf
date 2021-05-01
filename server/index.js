@@ -121,7 +121,7 @@ io.on("connection", (socket) => {
       io.to(unregisteredClients[i]).emit("gameInProgress", true);
     }
 
-    if (playerPool.length >= 7) { // for debug
+    if (playerPool.length >= 4) { // for debug
       assignRoles(currentGame, playerPool);
       currentGame.active = true;
       io.sockets.emit("PreGame", currentGame);
